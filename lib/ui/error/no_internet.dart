@@ -9,17 +9,17 @@ class NoInternet extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 48),
+          padding: const EdgeInsets.symmetric(horizontal: 48),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.wifi_off, size: 100, color: lightGray),
+              const Icon(Icons.wifi_off, color: gray, size: 100),
               const SizedBox(height: 8),
               const Text('Tidak Ada Internet', style: titleTextStyle),
               const Text(
-                'Saat ini perangkatmu tidak terhubung ke internet. Harap periksa lalu coba lagi.',
+                'Saat ini perangkatmu tidak terhubung ke internet. Harap periksa lalu coba lagi',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: font, color: gray),
+                style: subtitleTextStyle,
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -31,7 +31,6 @@ class NoInternet extends StatelessWidget {
                       style: TextStyle(fontFamily: font, fontSize: 14)),
                 ),
               ),
-              const SizedBox(height: 48),
             ],
           ),
         ),

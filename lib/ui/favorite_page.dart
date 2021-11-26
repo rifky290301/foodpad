@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/ui/error/no_favorite.dart';
 
 class FavoritePage extends StatelessWidget {
   const FavoritePage({Key? key}) : super(key: key);
@@ -11,9 +12,7 @@ class FavoritePage extends StatelessWidget {
         title: Text('Favorite', style: titleTextStyle),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text('Favorite Page', style: subtitleTextStyle),
-      ),
+      body: NoFavorite(),
     );
   }
 }

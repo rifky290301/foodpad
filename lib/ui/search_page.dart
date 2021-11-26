@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/ui/error/no_internet.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
-  static const routeName = '/home_page';
+  static const routeName = '/search_page';
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -18,9 +19,7 @@ class _SearchPageState extends State<SearchPage> {
         title: Text('Search', style: titleTextStyle),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text('Search Page', style: subtitleTextStyle),
-      ),
+      body: NoInternet(),
     );
   }
 }
