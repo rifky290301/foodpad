@@ -3,6 +3,7 @@ import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/home/trending_list_page.dart';
 import 'package:foodpad/ui/receipt_detail/detail_page.dart';
 import 'package:foodpad/ui/search_page.dart';
+import 'package:foodpad/widgets/receipt_bottom_sheet.dart';
 
 class HomeCardTrending extends StatelessWidget {
   const HomeCardTrending({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class HomeCardTrending extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              children: [
+              children: const [
                 Text('Lagi Trending Nih', style: headingTextStyle),
               ],
             ),
@@ -36,7 +37,7 @@ class HomeCardTrending extends StatelessWidget {
           height: 278,
           child: ListView.builder(
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: 6,
               itemBuilder: (context, index) {
@@ -74,20 +75,15 @@ class HomeCardTrending extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Icon(Icons.star_rounded,
-                                        size: 16,
-                                        color: Colors.orange.shade300),
+                                        size: 16, color: orangeSecondary),
                                     Icon(Icons.star_rounded,
-                                        size: 16,
-                                        color: Colors.orange.shade300),
+                                        size: 16, color: orangeSecondary),
                                     Icon(Icons.star_rounded,
-                                        size: 16,
-                                        color: Colors.orange.shade300),
+                                        size: 16, color: orangeSecondary),
                                     Icon(Icons.star_rounded,
-                                        size: 16,
-                                        color: Colors.orange.shade300),
+                                        size: 16, color: orangeSecondary),
                                     Icon(Icons.star_half_rounded,
-                                        size: 16,
-                                        color: Colors.orange.shade300),
+                                        size: 16, color: orangeSecondary),
                                     SizedBox(width: 4),
                                     Text('4.5/5',
                                         style: smallSubtitleTextStyle),
@@ -117,8 +113,8 @@ class HomeCardTrending extends StatelessWidget {
                                     Row(
                                       children: [
                                         InkWell(
-                                            onTap: () => Navigator.pushNamed(
-                                                context, SearchPage.routeName),
+                                            onTap: () =>
+                                                receiptBottomSheet(context),
                                             child: Icon(Icons.more_horiz,
                                                 size: 20, color: gray))
                                       ],

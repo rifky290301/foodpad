@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/receipt_detail/detail_page.dart';
 import 'package:foodpad/ui/search_page.dart';
+import 'package:foodpad/widgets/receipt_bottom_sheet.dart';
 
 class RecommendedList extends StatelessWidget {
   const RecommendedList({Key? key}) : super(key: key);
@@ -61,7 +62,7 @@ class CardRecommended extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(children: [
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text('Spageti Seafood Pedas',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -71,15 +72,15 @@ class CardRecommended extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Icon(Icons.star_rounded,
-                          size: 18, color: Colors.orange.shade300),
+                          size: 18, color: orangeSecondary),
                       Icon(Icons.star_rounded,
-                          size: 18, color: Colors.orange.shade300),
+                          size: 18, color: orangeSecondary),
                       Icon(Icons.star_rounded,
-                          size: 18, color: Colors.orange.shade300),
+                          size: 18, color: orangeSecondary),
                       Icon(Icons.star_rounded,
-                          size: 18, color: Colors.orange.shade300),
+                          size: 18, color: orangeSecondary),
                       Icon(Icons.star_half_rounded,
-                          size: 18, color: Colors.orange.shade300),
+                          size: 18, color: orangeSecondary),
                       SizedBox(width: 4),
                       Text('4.5/5', style: smallSubtitleTextStyle),
                     ],
@@ -108,8 +109,7 @@ class CardRecommended extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                              onTap: () => Navigator.pushNamed(
-                                  context, SearchPage.routeName),
+                              onTap: () => receiptBottomSheet(context),
                               child:
                                   Icon(Icons.more_horiz, size: 20, color: gray))
                         ],

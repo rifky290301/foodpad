@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/ingredients_homepage.dart';
 import 'package:foodpad/ui/home/ingredients_list_page.dart';
@@ -49,9 +50,23 @@ class HomeIngredientsList extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
                         children: [
-                          CircleAvatar(
-                            backgroundColor: gray,
-                            radius: 28,
+                          InkWell(
+                            onTap: () {
+                              Fluttertoast.showToast(
+                                  msg: "Item clicked.",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 3,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                            },
+                            child: CircleAvatar(
+                                backgroundColor: lightGray,
+                                radius: 28,
+                                child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Image.asset(
+                                        'images/${ingredientsIcon[index]}'))),
                           ),
                           const SizedBox(height: 4),
                           Text(
@@ -65,7 +80,7 @@ class HomeIngredientsList extends StatelessWidget {
                 );
               }),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Container(
           alignment: Alignment.center,
           height: 80,
@@ -82,9 +97,14 @@ class HomeIngredientsList extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
                         children: [
-                          CircleAvatar(
-                            backgroundColor: gray,
-                            radius: 28,
+                          InkWell(
+                            child: CircleAvatar(
+                                backgroundColor: lightGray,
+                                radius: 28,
+                                child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Image.asset(
+                                        'images/${ingredientsIcon[index + 5]}'))),
                           ),
                           SizedBox(height: 4),
                           Text(

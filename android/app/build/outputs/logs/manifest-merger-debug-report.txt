@@ -8,6 +8,7 @@ MERGED from C:\Users\Aswin\Documents\GitHub\foodpad\android\app\src\main\Android
 MERGED from [:shared_preferences_android] C:\Users\Aswin\Documents\GitHub\foodpad\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:sqflite] C:\Users\Aswin\Documents\GitHub\foodpad\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-23:12
+MERGED from [:fluttertoast] C:\Users\Aswin\Documents\GitHub\foodpad\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:android_alarm_manager] C:\Users\Aswin\Documents\GitHub\foodpad\build\android_alarm_manager\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.media:media:1.1.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat:1.0.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\ddfeebee320e213e4569474cdfe875cf\appcompat-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -130,6 +131,8 @@ MERGED from [:sqflite] C:\Users\Aswin\Documents\GitHub\foodpad\build\sqflite\int
 MERGED from [:sqflite] C:\Users\Aswin\Documents\GitHub\foodpad\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] C:\Users\Aswin\Documents\GitHub\foodpad\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] C:\Users\Aswin\Documents\GitHub\foodpad\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:android_alarm_manager] C:\Users\Aswin\Documents\GitHub\foodpad\build\android_alarm_manager\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:android_alarm_manager] C:\Users\Aswin\Documents\GitHub\foodpad\build\android_alarm_manager\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [androidx.media:media:1.1.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:20:5-22:41
