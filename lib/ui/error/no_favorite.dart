@@ -13,7 +13,7 @@ class NoFavorite extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.subtitles_off_outlined, color: gray, size: 100),
+              const Icon(Icons.subtitles_off_outlined, color: grey, size: 100),
               const SizedBox(height: 8),
               const Text('Belum Ada Favorit', style: titleTextStyle),
               const Text(

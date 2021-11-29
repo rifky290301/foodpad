@@ -73,7 +73,7 @@ class CarouselItem extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: gray,
+        color: grey,
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 2),
         ],

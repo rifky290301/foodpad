@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/receipt_detail/detail_page.dart';
-import 'package:foodpad/ui/search_page.dart';
 import 'package:foodpad/widgets/receipt_bottom_sheet.dart';
 
 class RecommendedList extends StatelessWidget {
@@ -97,13 +96,13 @@ class CardRecommended extends StatelessWidget {
                           SizedBox(width: 2),
                           Text('60 mnt',
                               style: TextStyle(
-                                  fontFamily: font, fontSize: 11, color: gray)),
+                                  fontFamily: font, fontSize: 11, color: grey)),
                           SizedBox(width: 6),
                           Icon(Icons.insert_chart, size: 18, color: orange),
                           SizedBox(width: 2),
                           Text('Mudah',
                               style: TextStyle(
-                                  fontFamily: font, fontSize: 11, color: gray)),
+                                  fontFamily: font, fontSize: 11, color: grey)),
                         ],
                       ),
                       Row(
@@ -111,7 +110,7 @@ class CardRecommended extends StatelessWidget {
                           InkWell(
                               onTap: () => receiptBottomSheet(context),
                               child:
-                                  Icon(Icons.more_horiz, size: 20, color: gray))
+                                  Icon(Icons.more_horiz, size: 20, color: grey))
                         ],
                       ),
                     ],

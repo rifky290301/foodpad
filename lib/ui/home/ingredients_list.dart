@@ -61,7 +61,7 @@ class HomeIngredientsList extends StatelessWidget {
                                   fontSize: 16.0);
                             },
                             child: CircleAvatar(
-                                backgroundColor: lightGray,
+                                backgroundColor: lightGrey,
                                 radius: 28,
                                 child: Padding(
                                     padding: EdgeInsets.all(10),
@@ -99,7 +99,7 @@ class HomeIngredientsList extends StatelessWidget {
                         children: [
                           InkWell(
                             child: CircleAvatar(
-                                backgroundColor: lightGray,
+                                backgroundColor: lightGrey,
                                 radius: 28,
                                 child: Padding(
                                     padding: EdgeInsets.all(10),

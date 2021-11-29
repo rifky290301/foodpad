@@ -18,7 +18,7 @@ void receiptBottomSheet(BuildContext context) {
               SizedBox(height: 6),
               Container(
                 decoration: BoxDecoration(
-                  color: gray,
+                  color: grey,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 height: 5,

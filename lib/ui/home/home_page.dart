@@ -4,6 +4,7 @@ import 'package:foodpad/ui/home/home_greeting.dart';
 import 'package:foodpad/ui/home/recommended_list.dart';
 import 'package:foodpad/ui/home/ingredients_list.dart';
 import 'package:foodpad/ui/home/card_trending.dart';
+import 'package:foodpad/ui/home/trending_list_page.dart';
 import 'package:foodpad/ui/search_page.dart';
 import 'package:foodpad/widgets/carousels_slider.dart';
 
@@ -34,14 +35,14 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: lightGray,
+                      color: lightGrey,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     height: 48,
                     child: Row(
                       children: const [
                         SizedBox(width: 16),
-                        Icon(Icons.search, color: gray),
+                        Icon(Icons.search, color: grey),
                         SizedBox(width: 8),
                         Text('Cari resep makanan...', style: subtitleTextStyle),
                       ],
@@ -50,7 +51,40 @@ class _HomePageState extends State<HomePage> {
                 ),
                 CarouselsSlider(),
                 HomeIngredientsList(),
-                HomeCardTrending(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: const [
+                        Text('Lagi Trending Nih', style: headingTextStyle),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () => Navigator.pushNamed(
+                              context, TrendingListPage.routeName),
+                          child:
+                              Text('Lihat Semua', style: orangeSmallTextStyle),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 278,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 6,
+                      itemBuilder: (context, index) {
+                        return HomeCardTrending();
+                      }),
+                ),
+                const SizedBox(height: 28),
                 RecommendedList(),
               ],
             ),

@@ -7,6 +7,8 @@ INJECTED from C:\Users\Aswin\Documents\GitHub\foodpad\android\app\src\main\Andro
 MERGED from [:shared_preferences_android] C:\Users\Aswin\Documents\GitHub\foodpad\build\shared_preferences_android\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
 MERGED from [:sqflite] C:\Users\Aswin\Documents\GitHub\foodpad\build\sqflite\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:2:1-23:12
+MERGED from [:fluttertoast] C:\Users\Aswin\Documents\GitHub\foodpad\build\fluttertoast\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:2:1-19:12
 MERGED from [:android_alarm_manager] C:\Users\Aswin\Documents\GitHub\foodpad\build\android_alarm_manager\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.media:media:1.1.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat:1.0.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\ddfeebee320e213e4569474cdfe875cf\appcompat-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -24,7 +26,7 @@ MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Aswin\
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\bc28a09d8d2212ffd5788fe6c1853326\customview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\bb361c9951ec30a475ef40f80e89b874\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\57910a85af155c3103487e39ce23f678\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.core:core:1.3.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\a69d6fcd21e670073cd9cab171299398\core-1.3.0\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.core:core:1.3.1] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\9d2ac2ae8a44d697ec01e22fb5b300b2\core-1.3.1\AndroidManifest.xml:17:1-26:12
 MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\f2e73ae2c927c5e2323136b4ee464011\jetified-threetenabp-1.2.3\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\ca6b214160bd0909b103aa12202ef51c\lifecycle-runtime-2.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\2271d874344878e62b9a8e309af0c39d\jetified-savedstate-1.0.0\AndroidManifest.xml:17:1-24:12
@@ -63,14 +65,16 @@ application
 ADDED from C:\Users\Aswin\Documents\GitHub\foodpad\android\app\src\main\AndroidManifest.xml:5:4-42:19
 MERGED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:11:5-21:19
 MERGED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:11:5-21:19
-MERGED from [androidx.core:core:1.3.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\a69d6fcd21e670073cd9cab171299398\core-1.3.0\AndroidManifest.xml:24:5-89
-MERGED from [androidx.core:core:1.3.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\a69d6fcd21e670073cd9cab171299398\core-1.3.0\AndroidManifest.xml:24:5-89
+MERGED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:7:5-17:19
+MERGED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:7:5-17:19
+MERGED from [androidx.core:core:1.3.1] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\9d2ac2ae8a44d697ec01e22fb5b300b2\core-1.3.1\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.3.1] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\9d2ac2ae8a44d697ec01e22fb5b300b2\core-1.3.1\AndroidManifest.xml:24:5-89
 MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\f2e73ae2c927c5e2323136b4ee464011\jetified-threetenabp-1.2.3\AndroidManifest.xml:7:5-20
 MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\f2e73ae2c927c5e2323136b4ee464011\jetified-threetenabp-1.2.3\AndroidManifest.xml:7:5-20
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\96aee308bccd03bc62c306516c23a410\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\96aee308bccd03bc62c306516c23a410\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
 	android:appComponentFactory
-		ADDED from [androidx.core:core:1.3.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\a69d6fcd21e670073cd9cab171299398\core-1.3.0\AndroidManifest.xml:24:18-86
+		ADDED from [androidx.core:core:1.3.1] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\9d2ac2ae8a44d697ec01e22fb5b300b2\core-1.3.1\AndroidManifest.xml:24:18-86
 	android:label
 		ADDED from C:\Users\Aswin\Documents\GitHub\foodpad\android\app\src\main\AndroidManifest.xml:6:9-32
 	android:icon
@@ -127,6 +131,10 @@ MERGED from [:sqflite] C:\Users\Aswin\Documents\GitHub\foodpad\build\sqflite\int
 MERGED from [:sqflite] C:\Users\Aswin\Documents\GitHub\foodpad\build\sqflite\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] C:\Users\Aswin\Documents\GitHub\foodpad\build\fluttertoast\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] C:\Users\Aswin\Documents\GitHub\foodpad\build\fluttertoast\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:android_alarm_manager] C:\Users\Aswin\Documents\GitHub\foodpad\build\android_alarm_manager\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:android_alarm_manager] C:\Users\Aswin\Documents\GitHub\foodpad\build\android_alarm_manager\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.media:media:1.1.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:20:5-22:41
@@ -161,8 +169,8 @@ MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Aswi
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\bb361c9951ec30a475ef40f80e89b874\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\57910a85af155c3103487e39ce23f678\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\57910a85af155c3103487e39ce23f678\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.3.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\a69d6fcd21e670073cd9cab171299398\core-1.3.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core:1.3.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\a69d6fcd21e670073cd9cab171299398\core-1.3.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.3.1] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\9d2ac2ae8a44d697ec01e22fb5b300b2\core-1.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.3.1] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\9d2ac2ae8a44d697ec01e22fb5b300b2\core-1.3.1\AndroidManifest.xml:20:5-22:41
 MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\f2e73ae2c927c5e2323136b4ee464011\jetified-threetenabp-1.2.3\AndroidManifest.xml:5:5-44
 MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\f2e73ae2c927c5e2323136b4ee464011\jetified-threetenabp-1.2.3\AndroidManifest.xml:5:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\Aswin\.gradle\caches\transforms-2\files-2.1\ca6b214160bd0909b103aa12202ef51c\lifecycle-runtime-2.2.0\AndroidManifest.xml:20:5-22:41
@@ -237,3 +245,19 @@ action#com.htc.intent.action.QUICKBOOT_POWERON
 ADDED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:18:17-82
 	android:name
 		ADDED from [:flutter_local_notifications] C:\Users\Aswin\Documents\GitHub\foodpad\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:18:25-79
+provider#io.flutter.plugins.share.ShareFileProvider
+ADDED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:8:9-16:20
+	android:grantUriPermissions
+		ADDED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:12:13-47
+	android:authorities
+		ADDED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:10:13-74
+	android:exported
+		ADDED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:11:13-37
+	android:name
+		ADDED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:9:13-70
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:13:13-15:68
+	android:resource
+		ADDED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:15:17-65
+	android:name
+		ADDED from [:share] C:\Users\Aswin\Documents\GitHub\foodpad\build\share\intermediates\library_manifest\release\AndroidManifest.xml:14:17-67

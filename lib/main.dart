@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodpad/ui/settings/about_us.dart';
 import 'package:foodpad/ui/home/ingredients_list_page.dart';
 import 'package:foodpad/ui/home/trending_list_page.dart';
 import 'package:foodpad/ui/receipt_detail/detail_page.dart';

@@ -7,9 +7,9 @@ const font = 'Poppins';
 const white = Colors.white;
 const orange = Color(0xFFFF4A32);
 var orangeSecondary = Colors.orange.shade300;
-const lightGray = Color(0xFFF0F0F0);
-const gray = Color(0xFF9D9D9D);
-const darkGray = Colors.black54;
+const lightGrey = Color(0xFFF0F0F0);
+const grey = Color(0xFF9D9D9D);
+const darkGrey = Colors.black54;
 const black = Color(0xFF323232);
 
 //Text Style
@@ -35,15 +35,16 @@ const orangeSmallTextStyle = TextStyle(
     fontFamily: font, fontWeight: FontWeight.w700, color: orange, fontSize: 14);
 
 const subtitleTextStyle = TextStyle(
-    fontFamily: font, fontWeight: FontWeight.w600, color: gray, fontSize: 14);
+    fontFamily: font, fontWeight: FontWeight.w600, color: grey, fontSize: 14);
 
 const smallSubtitleTextStyle = TextStyle(
-    fontFamily: font, fontWeight: FontWeight.w600, color: gray, fontSize: 11);
+    fontFamily: font, fontWeight: FontWeight.w600, color: grey, fontSize: 11);
 
 const itemTitleTextStyle = TextStyle(
     fontFamily: font, fontWeight: FontWeight.w700, color: black, fontSize: 14);
 
 const itemTextStyle = TextStyle(fontFamily: font, fontSize: 14);
+
 //Button Style
 var buttonStyle = ButtonStyle(
   foregroundColor: MaterialStateProperty.all<Color>(white),

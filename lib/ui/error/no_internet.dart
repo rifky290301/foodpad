@@ -13,7 +13,7 @@ class NoInternet extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.wifi_off, color: gray, size: 100),
+              const Icon(Icons.wifi_off, color: grey, size: 100),
               const SizedBox(height: 8),
               const Text('Tidak Ada Internet', style: titleTextStyle),
               const Text(

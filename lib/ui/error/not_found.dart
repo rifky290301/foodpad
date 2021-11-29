@@ -13,13 +13,13 @@ class NotFound extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Icon(Icons.search_off, color: gray, size: 125),
+              Icon(Icons.search_off, color: grey, size: 125),
               SizedBox(height: 8),
               Text('Tidak Ditemukan', style: titleTextStyle),
               Text(
                 'Kami tidak dapat menemukan hasil pencarian dari "babi halal"',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: font, color: gray),
+                style: TextStyle(fontFamily: font, color: grey),
               ),
             ],
           ),
