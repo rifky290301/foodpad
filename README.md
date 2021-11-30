@@ -1,16 +1,7 @@
-# foodpad
+# FoodPad
 
-A new Flutter project.
+Capstone Project for Final Submission at Kampus Merdeka x Dicoding Indonesia
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+In the food recipes app , users are often faced with so many recipes, but rarely that really suits their needs based on the availability of ingredients they have. In response to this, we found that it would be better if an application could provide recipes that match the ingredients owned by the user right away for cooking according to the ingredients, cooking time, and difficulty level. Users can also save recipes so that they don't have to find it difficult to re-find the recipe every time they open the application. 
