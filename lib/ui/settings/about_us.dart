@@ -25,7 +25,7 @@ class AboutUsPage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Text('Account Settings Page'),
+        child: Text('About Us Page'),
       ),
     );
   }

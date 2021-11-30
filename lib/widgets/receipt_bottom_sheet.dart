@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 
+enum ReportReceipt { notApplicable, dangerous, notLike, notHalal }
+ReportReceipt? _report = ReportReceipt.notApplicable;
+
 void receiptBottomSheet(BuildContext context) {
   showModalBottomSheet<void>(
-    shape: RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
     ),
     backgroundColor: Colors.white,
@@ -12,10 +15,10 @@ void receiptBottomSheet(BuildContext context) {
       return Container(
         height: 190,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: Column(
             children: [
-              SizedBox(height: 6),
+              const SizedBox(height: 6),
               Container(
                 decoration: BoxDecoration(
                   color: grey,
@@ -24,9 +27,10 @@ void receiptBottomSheet(BuildContext context) {
                 height: 5,
                 width: 50,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Expanded(
                 child: ListView(
+                  shrinkWrap: true,
                   itemExtent: 50,
                   children: ListTile.divideTiles(
                     color: Colors.transparent,
@@ -38,10 +42,15 @@ void receiptBottomSheet(BuildContext context) {
                         onTap: () {},
                       ),
                       ListTile(
-                        title: const Text('Laporkan resep ini',
-                            style: itemTextStyle),
-                        onTap: () {},
-                      ),
+                          title: const Text('Laporkan resep ini',
+                              style: itemTextStyle),
+                          onTap: () {
+                            showDialog<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return ReportAlertDialog();
+                                });
+                          }),
                       ListTile(
                           title: const Text('Batal',
                               style: TextStyle(
@@ -63,4 +72,71 @@ void receiptBottomSheet(BuildContext context) {
       );
     },
   );
+}
+
+class ReportAlertDialog extends StatelessWidget {
+  const ReportAlertDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text("Laporkan Resep", style: titleTextStyle),
+      content: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: const Text('Resep ini tidak sesuai dengan aslinya'),
+              trailing: Radio<ReportReceipt>(
+                value: ReportReceipt.notApplicable,
+                groupValue: _report,
+                onChanged: (ReportReceipt? value) {
+                  setState(() {
+                    _report = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text('Resep ini tidak aman dikonsumsi'),
+              trailing: Radio<ReportReceipt>(
+                value: ReportReceipt.dangerous,
+                groupValue: _report,
+                onChanged: (ReportReceipt? value) {
+                  setState(() {
+                    _report = value;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text('Resep ini tidak halal'),
+              trailing: Radio<ReportReceipt>(
+                value: ReportReceipt.notHalal,
+                groupValue: _report,
+                onChanged: (ReportReceipt? value) {
+                  setState(() {
+                    _report = value;
+                  });
+                },
+              ),
+            ),
+          ],
+        );
+      }),
+      actions: <Widget>[
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context, 'CANCEL'),
+          child: const Text('Batal',
+              style: TextStyle(fontFamily: font, color: white)),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'SEND'),
+          child: const Text('Kirim',
+              style: TextStyle(fontFamily: font, color: orange)),
+        ),
+      ],
+    );
+  }
 }
