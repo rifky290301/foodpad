@@ -41,6 +41,9 @@ dependencies:
   flutter_local_notifications: ^5.0.0
   rxdart: ^0.26.0
   shared_preferences: ^2.0.8
+  carousel_slider: ^4.0.0
+  fluttertoast: ^8.0.8
+  share: ^2.0.4
 
 dev_dependencies:
   flutter_test:
@@ -65,8 +68,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -84,11 +87,10 @@ flutter:
     - family: Poppins
       fonts:
         - asset: fonts/poppins-medium.ttf
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+    - family: Poppins Bold
+      fonts:
+        - asset: fonts/poppins-bold.ttf
+          weight: 900
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

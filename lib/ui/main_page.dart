@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/ui/error/no_internet.dart';
 import 'package:foodpad/ui/favorite_page.dart';
-import 'package:foodpad/ui/home_page.dart';
+import 'package:foodpad/ui/home/home_page.dart';
 import 'package:foodpad/ui/search_page.dart';
-import 'package:foodpad/ui/settings_page.dart';
+import 'package:foodpad/ui/settings/settings_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
+  static const routeName = '/main_page';
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -42,7 +42,7 @@ class _MainPageState extends State<MainPage> {
     const HomePage(),
     const SearchPage(),
     const FavoritePage(),
-    const SettingsPage(),
+    const SettingsPage()
   ];
 
   @override

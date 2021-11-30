@@ -9,18 +9,17 @@ class NoFavorite extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 48),
+          padding: const EdgeInsets.symmetric(horizontal: 48),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.subtitles_off_outlined,
-                  color: lightGray, size: 110),
+              const Icon(Icons.subtitles_off_outlined, color: grey, size: 100),
               const SizedBox(height: 8),
               const Text('Belum Ada Favorit', style: titleTextStyle),
               const Text(
                 'Ayo mulai cari resep makanan kesukaanmu dari sekarang.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: font, color: gray),
+                style: subtitleTextStyle,
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -32,7 +31,6 @@ class NoFavorite extends StatelessWidget {
                       style: TextStyle(fontFamily: font, fontSize: 14)),
                 ),
               ),
-              const SizedBox(height: 48),
             ],
           ),
         ),

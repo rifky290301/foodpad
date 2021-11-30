@@ -9,19 +9,18 @@ class NotFound extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 48),
+          padding: const EdgeInsets.symmetric(horizontal: 48),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Icon(Icons.search_off, color: lightGray, size: 125),
+              Icon(Icons.search_off, color: grey, size: 125),
               SizedBox(height: 8),
               Text('Tidak Ditemukan', style: titleTextStyle),
               Text(
                 'Kami tidak dapat menemukan hasil pencarian dari "babi halal"',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: font, color: gray),
+                style: TextStyle(fontFamily: font, color: grey),
               ),
-              SizedBox(height: 48),
             ],
           ),
         ),
