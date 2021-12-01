@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/widgets/action_bar.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({Key? key}) : super(key: key);

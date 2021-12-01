@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/ui/home/trending_list_page.dart';
-import 'package:foodpad/ui/receipt_detail/detail_page.dart';
-import 'package:foodpad/ui/search_page.dart';
-import 'package:foodpad/widgets/receipt_bottom_sheet.dart';
+import 'package:foodpad/ui/recipe_detail/detail_page.dart';
+import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 
 class HomeCardRecommended extends StatelessWidget {
   const HomeCardRecommended({Key? key}) : super(key: key);
@@ -18,7 +16,7 @@ class HomeCardRecommended extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () => Navigator.pushNamed(context, DetailPage.routeName),
-        child: Container(
+        child: SizedBox(
           width: 160,
           child: Column(
             children: [
@@ -76,7 +74,7 @@ class HomeCardRecommended extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                              onTap: () => receiptBottomSheet(context),
+                              onTap: () => recipeBottomSheet(context),
                               child:
                                   Icon(Icons.more_horiz, size: 20, color: grey))
                         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/ui/authentication/login_page.dart';
 import 'package:foodpad/ui/settings/about_us.dart';
 import 'package:foodpad/ui/settings/account_settings.dart';
 import 'package:foodpad/ui/settings/receipt_done_page.dart';
@@ -20,7 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: ListView(
             physics: const ClampingScrollPhysics(),
             children: [
@@ -30,7 +31,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 16),
               ListTile(
-                leading: Icon(Icons.account_circle, color: black, size: 28),
+                leading:
+                    const Icon(Icons.account_circle, color: black, size: 28),
                 title: const Text('Pengaturan Akun', style: blackTextStyle),
                 onTap: () {
                   Navigator.push(
@@ -57,8 +59,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               ListTile(
-                  leading:
-                      Icon(Icons.notifications_active, color: black, size: 28),
+                  leading: const Icon(Icons.notifications_active,
+                      color: black, size: 28),
                   title:
                       const Text('Nyalakan Notifikasi', style: blackTextStyle),
                   trailing: Switch.adaptive(
@@ -79,7 +81,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.info, color: black, size: 28),
+                leading: const Icon(Icons.info, color: black, size: 28),
                 title: const Text('Tentang Kami', style: blackTextStyle),
                 onTap: () {
                   Navigator.push(
@@ -113,7 +115,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               style: TextStyle(fontFamily: font, color: white)),
                         ),
                         TextButton(
-                          onPressed: () => Navigator.pop(context, 'LOGOUT'),
+                          onPressed: () =>
+                              Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => LoginPage()),
+                          ),
                           child: const Text('Keluar',
                               style:
                                   TextStyle(fontFamily: font, color: orange)),

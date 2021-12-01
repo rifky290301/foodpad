@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 
-enum ReportReceipt { notApplicable, dangerous, notLike, notHalal }
-ReportReceipt? _report = ReportReceipt.notApplicable;
+enum ReportRecipe { notApplicable, dangerous, notLike, notHalal }
+ReportRecipe? _report = ReportRecipe.notApplicable;
 
-void receiptBottomSheet(BuildContext context) {
+void recipeBottomSheet(BuildContext context) {
   showModalBottomSheet<void>(
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
@@ -88,10 +88,10 @@ class ReportAlertDialog extends StatelessWidget {
           children: [
             ListTile(
               title: const Text('Resep ini tidak sesuai dengan aslinya'),
-              trailing: Radio<ReportReceipt>(
-                value: ReportReceipt.notApplicable,
+              trailing: Radio<ReportRecipe>(
+                value: ReportRecipe.notApplicable,
                 groupValue: _report,
-                onChanged: (ReportReceipt? value) {
+                onChanged: (ReportRecipe? value) {
                   setState(() {
                     _report = value;
                   });
@@ -100,10 +100,10 @@ class ReportAlertDialog extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Resep ini tidak aman dikonsumsi'),
-              trailing: Radio<ReportReceipt>(
-                value: ReportReceipt.dangerous,
+              trailing: Radio<ReportRecipe>(
+                value: ReportRecipe.dangerous,
                 groupValue: _report,
-                onChanged: (ReportReceipt? value) {
+                onChanged: (ReportRecipe? value) {
                   setState(() {
                     _report = value;
                   });
@@ -112,10 +112,10 @@ class ReportAlertDialog extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Resep ini tidak halal'),
-              trailing: Radio<ReportReceipt>(
-                value: ReportReceipt.notHalal,
+              trailing: Radio<ReportRecipe>(
+                value: ReportRecipe.notHalal,
                 groupValue: _report,
-                onChanged: (ReportReceipt? value) {
+                onChanged: (ReportRecipe? value) {
                   setState(() {
                     _report = value;
                   });

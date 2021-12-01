@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/home/card_recommended.dart';
-import 'package:foodpad/ui/receipt_detail/detail_page.dart';
+import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 
 class FavoritePage extends StatelessWidget {
   const FavoritePage({Key? key}) : super(key: key);
