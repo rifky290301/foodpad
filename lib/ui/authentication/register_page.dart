@@ -54,36 +54,12 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 6),
-                const Icon(
-                  Icons.food_bank_outlined,
-                  color: Colors.white,
-                  size: 72,
-                ),
-                const Text(
-                  'FoodPad',
-                  style: TextStyle(
-                    fontFamily: font,
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const Text(
-                  'Jutaan resep dalam satu aplikasi',
-                  style: TextStyle(
-                    fontFamily: font,
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 12),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 Stack(
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.88,
-                      height: MediaQuery.of(context).size.height * 0.69,
+                      height: 510,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16),
@@ -130,6 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ],
                                       ),
                                       const SizedBox(height: 16),
+                                      //First Name
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -213,6 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ],
                                       ),
                                       const SizedBox(height: 8),
+                                      //Last Name
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -296,6 +274,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ],
                                       ),
                                       const SizedBox(height: 8),
+                                      //Email
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -385,6 +364,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ],
                                       ),
                                       const SizedBox(height: 8),
+                                      //Password
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -484,6 +464,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ],
                                       ),
                                       const SizedBox(height: 8),
+                                      //Confirm Password
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -604,7 +585,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                               context: context,
                                               builder: (BuildContext context) =>
                                                   AlertDialog(
-                                                title: const Text(
+                                                title: Text(
                                                   'Berhasil',
                                                   style: titleTextStyle,
                                                 ),
@@ -613,11 +594,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                                     style: blackTextStyle),
                                                 actions: <Widget>[
                                                   TextButton(
-                                                    onPressed: () => Navigator
-                                                        .popAndPushNamed(
-                                                            context,
-                                                            LoginPage
-                                                                .routeName),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      Navigator.popAndPushNamed(
+                                                          context,
+                                                          LoginPage.routeName);
+                                                    },
                                                     child: const Text('Masuk',
                                                         style:
                                                             orangeSmallTextStyle),
@@ -643,7 +625,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ],
                             ),
                           )),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 12),

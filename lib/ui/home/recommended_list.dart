@@ -19,7 +19,7 @@ class RecommendedList extends StatelessWidget {
         GridView.count(
           crossAxisCount: 2,
           crossAxisSpacing: 5,
-          childAspectRatio: (160 / 265),
+          childAspectRatio: (16 / 26.8),
           mainAxisSpacing: 5,
           physics: const ClampingScrollPhysics(),
           shrinkWrap: true,

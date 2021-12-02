@@ -132,7 +132,31 @@ class ReportAlertDialog extends StatelessWidget {
               style: TextStyle(fontFamily: font, color: white)),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'SEND'),
+          onPressed: () {
+            showDialog<String>(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text(
+                  'Laporan sudah dikirim',
+                  style: titleTextStyle,
+                ),
+                content: const Text(
+                    'Terima kasih! Kami akan mengevaluasi resep yang masuk ke dalam aplikasi ini supaya aplikasi ini menjadi lebih baik lagi',
+                    style: blackTextStyle),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Oke', style: orangeSmallTextStyle),
+                  ),
+                ],
+              ),
+            );
+          },
           child: const Text('Kirim',
               style: TextStyle(fontFamily: font, color: orange)),
         ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/ingredients_homepage.dart';
+import 'package:foodpad/models/recipe_model.dart';
+import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/error/no_internet.dart';
+import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -96,27 +99,45 @@ class _SearchPageState extends State<SearchPage> {
                   SizedBox(
                     height: 40,
                     width: MediaQuery.of(context).size.width,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: 10,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          var category = ingredients[index];
-                          return Card(
-                            color: orange,
-                            child: Padding(
-                                padding: const EdgeInsets.all(6),
-                                child: Text(category,
-                                    style: TextStyle(
-                                        fontFamily: font, color: white))),
-                          );
-                        }),
+                    child: _buildCategory(context),
                   ),
                 ],
               ),
             )),
       ),
+    );
+  }
+
+  Widget _buildCategory(BuildContext context) {
+    return Consumer<CategoryProvider>(
+      builder: (context, state, _) {
+        if (state.state == ResultState.loading) {
+          return const Center(child: CircularProgressIndicator(color: orange));
+        } else if (state.state == ResultState.hasData) {
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemCount: state.categoryResult.category.category.length,
+            itemBuilder: (context, index) {
+              var categories = state.categoryResult.category.category[index];
+              return Card(
+                color: orange,
+                child: Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: Text(
+                    categories,
+                    style: TextStyle(fontFamily: font, color: white),
+                  ),
+                ),
+              );
+            },
+          );
+        } else if (state.state == ResultState.error) {
+          return const Center(child: Text('Error', style: subtitleTextStyle));
+        } else {
+          return const Text('');
+        }
+      },
     );
   }
 }

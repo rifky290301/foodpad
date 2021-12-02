@@ -115,10 +115,11 @@ class _SettingsPageState extends State<SettingsPage> {
                               style: TextStyle(fontFamily: font, color: white)),
                         ),
                         TextButton(
-                          onPressed: () =>
-                              Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => LoginPage()),
-                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.popAndPushNamed(
+                                context, LoginPage.routeName);
+                          },
                           child: const Text('Keluar',
                               style:
                                   TextStyle(fontFamily: font, color: orange)),

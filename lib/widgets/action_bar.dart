@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 
 class ActionBar extends StatelessWidget {
   final String pageName;
@@ -24,7 +25,12 @@ class ActionBar extends StatelessWidget {
           ],
         ),
         Row(
-          children: [Icon(Icons.more_vert_rounded), SizedBox(width: 8)],
+          children: [
+            InkWell(
+                onTap: () => recipeBottomSheet(context),
+                child: Icon(Icons.more_vert_rounded)),
+            SizedBox(width: 8),
+          ],
         ),
       ],
     );
