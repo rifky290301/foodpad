@@ -50,11 +50,11 @@ class HomeCardRecommended extends StatelessWidget {
                           size: 16, color: orangeSecondary),
                       Icon(Icons.star_half_rounded,
                           size: 16, color: orangeSecondary),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text('4.5/5', style: smallSubtitleTextStyle),
                     ],
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,8 +75,8 @@ class HomeCardRecommended extends StatelessWidget {
                         children: [
                           InkWell(
                               onTap: () => recipeBottomSheet(context),
-                              child:
-                                  Icon(Icons.more_horiz, size: 20, color: grey))
+                              child: const Icon(Icons.more_horiz,
+                                  size: 20, color: grey))
                         ],
                       ),
                     ],

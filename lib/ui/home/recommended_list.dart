@@ -24,7 +24,7 @@ class RecommendedList extends StatelessWidget {
           physics: const ClampingScrollPhysics(),
           shrinkWrap: true,
           children: List.generate(20, (index) {
-            return CardRecommended();
+            return const CardRecommended();
           }),
         ),
       ],
@@ -109,8 +109,8 @@ class CardRecommended extends StatelessWidget {
                         children: [
                           InkWell(
                               onTap: () => recipeBottomSheet(context),
-                              child:
-                                  Icon(Icons.more_horiz, size: 20, color: grey))
+                              child: const Icon(Icons.more_horiz,
+                                  size: 20, color: grey))
                         ],
                       ),
                     ],

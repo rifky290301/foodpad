@@ -14,8 +14,8 @@ class ApiService {
   static const String profilePic = _baseUrl + 'user/photo-profile/';
   static const String category = _baseUrl + 'category';
 
-  Future<RecipeResult> recipeList(http.Client client) async {
-    final response = await client.get(Uri.parse(recipe));
+  Future<RecipeResult> recipeList() async {
+    final response = await http.get(Uri.parse(recipe));
 
     if (response.statusCode == 200) {
       return RecipeResult.fromJson(jsonDecode(response.body));

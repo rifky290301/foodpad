@@ -13,8 +13,7 @@ class DataDetail extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.network(
-            'http://api-foodpad.herokuapp.com/upload/thumbnail/${recipeDetail.thumbnail}'),
+        Image.network(recipeDetail.thumbnail),
         Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -57,11 +56,11 @@ class DataDetail extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(Icons.access_time_rounded,
+                        const Icon(Icons.access_time_rounded,
                             size: 32, color: Colors.black45),
                         Text(recipeDetail.duration.toString() + ' menit',
                             style: orangeTextStyle),
-                        Text('Memasak', style: textStyle),
+                        const Text('Memasak', style: textStyle),
                       ],
                     )
                   ]),
@@ -79,18 +78,17 @@ class DataDetail extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 28),
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        'http://api-foodpad.herokuapp.com/api/user/photo-profile/${recipeDetail.author.photo}'),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                      '${recipeDetail.author.firstName} ${recipeDetail.author.lastName}',
-                      style: itemTitleTextStyle),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     CircleAvatar(
+              //       backgroundImage: NetworkImage(recipeDetail.author.photo),
+              //     ),
+              //     const SizedBox(width: 8),
+              //     Text(
+              //         '${recipeDetail.author.firstName} ${recipeDetail.author.lastName}',
+              //         style: itemTitleTextStyle),
+              //   ],
+              // ),
               const SizedBox(height: 28),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,7 +129,7 @@ class DataDetail extends StatelessWidget {
                   style: headingTextStyle),
               const SizedBox(height: 16),
               SizedBox(
-                height: 100,
+                height: 120,
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
@@ -158,7 +156,7 @@ class ChipCategories extends StatelessWidget {
     return Card(
       color: Colors.transparent,
       elevation: 0,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(4),
         ),
@@ -171,7 +169,7 @@ class ChipCategories extends StatelessWidget {
         padding: const EdgeInsets.all(6),
         child: Text(
           category.category.category,
-          style: TextStyle(fontFamily: font, color: orange, fontSize: 12),
+          style: const TextStyle(fontFamily: font, color: orange, fontSize: 12),
         ),
       ),
     );
@@ -224,11 +222,12 @@ class Ratings extends StatelessWidget {
                 Text(ratings.rating.toString() + '/5', style: blackTextStyle),
               ],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               ratings.review,
-              style: TextStyle(fontFamily: font, color: black, fontSize: 12),
-              maxLines: 2,
+              style:
+                  const TextStyle(fontFamily: font, color: black, fontSize: 12),
+              maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
           ],

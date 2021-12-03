@@ -42,7 +42,7 @@ class FavoritePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(6),
                                   child: Image.network(
@@ -53,7 +53,7 @@ class FavoritePage extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 8, bottom: 8, right: 8),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,10 +197,10 @@ class FavoritePage extends StatelessWidget {
                         ),
                       );
                     }),
-                Divider(
+                const Divider(
                   color: grey,
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   child: Text('Rekomendasi Buat Kamu', style: headingTextStyle),
@@ -210,11 +210,11 @@ class FavoritePage extends StatelessWidget {
                   height: 278,
                   child: ListView.builder(
                       shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemCount: 10,
                       itemBuilder: (context, index) {
-                        return HomeCardRecommended();
+                        return const HomeCardRecommended();
                       }),
                 ),
               ],

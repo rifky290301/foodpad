@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/models/ingredients_homepage.dart';
-import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
-import 'package:foodpad/ui/error/no_internet.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
@@ -25,7 +22,7 @@ class _SearchPageState extends State<SearchPage> {
         child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -44,7 +41,7 @@ class _SearchPageState extends State<SearchPage> {
                         ],
                       )),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -55,12 +52,12 @@ class _SearchPageState extends State<SearchPage> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: Color(0xFFE6E6E6),
+                                color: const Color(0xFFE6E6E6),
                               ),
                             ),
                             child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16, 0, 0, 0),
                                 child: TextFormField(
                                   // controller: controller.searchController,
                                   cursorColor: orange,
@@ -75,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
                                     labelText: "Cari resep",
                                     border: InputBorder.none,
                                     suffixIcon: IconButton(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.search,
                                         color: orange,
                                       ),
@@ -90,12 +87,12 @@ class _SearchPageState extends State<SearchPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 28),
-                  Padding(
+                  const SizedBox(height: 28),
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Text('Kategori', style: itemTitleTextStyle),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   SizedBox(
                     height: 40,
                     width: MediaQuery.of(context).size.width,
@@ -126,7 +123,7 @@ class _SearchPageState extends State<SearchPage> {
                   padding: const EdgeInsets.all(6),
                   child: Text(
                     categories,
-                    style: TextStyle(fontFamily: font, color: white),
+                    style: const TextStyle(fontFamily: font, color: white),
                   ),
                 ),
               );

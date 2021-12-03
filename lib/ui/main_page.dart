@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/favorite_page.dart';
 import 'package:foodpad/ui/home/home_page.dart';
+import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:foodpad/ui/search_page.dart';
 import 'package:foodpad/ui/settings/settings_page.dart';
+import 'package:foodpad/utils/notification_helper.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int bottomNavIndex = 0;
+  final NotificationHelper _notificationHelper = NotificationHelper();
 
   final List<BottomNavigationBarItem> _bottomNavBarItems = const [
     BottomNavigationBarItem(
@@ -44,6 +47,19 @@ class _MainPageState extends State<MainPage> {
     const FavoritePage(),
     const SettingsPage()
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _notificationHelper
+        .configureSelectNotificationSubject(DetailPage.routeName);
+  }
+
+  @override
+  void dispose() {
+    selectNotificationSubject.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -37,6 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     String _firstName, _lastName, _email, _pass;
 
     return Scaffold(
@@ -123,8 +124,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding:
-                                                    EdgeInsets.only(left: 16),
+                                                padding: const EdgeInsets.only(
+                                                    left: 16),
                                                 child: TextFormField(
                                                   controller:
                                                       firstNameController,
@@ -178,11 +179,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                       ),
                                                     ),
                                                   ),
-                                                  style: TextStyle(
-                                                    fontFamily: font,
-                                                    color: grey,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                  style: greyTextStyle,
                                                 ),
                                               ),
                                             ),
@@ -207,8 +204,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding:
-                                                    EdgeInsets.only(left: 16),
+                                                padding: const EdgeInsets.only(
+                                                    left: 16),
                                                 child: TextFormField(
                                                   controller:
                                                       lastNameController,
@@ -262,11 +259,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                       ),
                                                     ),
                                                   ),
-                                                  style: TextStyle(
-                                                    fontFamily: font,
-                                                    color: grey,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                  style: greyTextStyle,
                                                 ),
                                               ),
                                             ),
@@ -291,8 +284,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding:
-                                                    EdgeInsets.only(left: 16),
+                                                padding: const EdgeInsets.only(
+                                                    left: 16),
                                                 child: TextFormField(
                                                   controller: emailController,
                                                   obscureText: false,
@@ -352,11 +345,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                       ),
                                                     ),
                                                   ),
-                                                  style: TextStyle(
-                                                    fontFamily: font,
-                                                    color: grey,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                  style: greyTextStyle,
                                                 ),
                                               ),
                                             ),
@@ -452,11 +441,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                       ),
                                                     ),
                                                   ),
-                                                  style: TextStyle(
-                                                    fontFamily: font,
-                                                    color: grey,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                  style: greyTextStyle,
                                                 ),
                                               ),
                                             ),
@@ -551,11 +536,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                       ),
                                                     ),
                                                   ),
-                                                  style: TextStyle(
-                                                    fontFamily: font,
-                                                    color: grey,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                  style: greyTextStyle,
                                                 ),
                                               ),
                                             ),
@@ -585,7 +566,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                               context: context,
                                               builder: (BuildContext context) =>
                                                   AlertDialog(
-                                                title: Text(
+                                                title: const Text(
                                                   'Berhasil',
                                                   style: titleTextStyle,
                                                 ),

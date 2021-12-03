@@ -18,12 +18,12 @@ class AboutUsPage extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios),
             ),
           ],
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text('About Us Page'),
       ),
     );

@@ -1,6 +1,11 @@
+import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:foodpad/api/api_service.dart';
+import 'package:foodpad/common/navigation.dart';
+import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
+import 'package:foodpad/provider/scheduling_provider.dart';
 import 'package:foodpad/ui/authentication/register_page.dart';
 import 'package:foodpad/ui/home/ingredients_list_page.dart';
 import 'package:foodpad/ui/home/trending_list_page.dart';
@@ -11,9 +16,22 @@ import 'package:foodpad/ui/main_page.dart';
 import 'package:foodpad/ui/search_page.dart';
 import 'package:flutter/services.dart';
 import 'package:foodpad/ui/splash_screen.dart';
+import 'package:foodpad/utils/background_service.dart';
+import 'package:foodpad/utils/notification_helper.dart';
+import 'package:foodpad/utils/preferences_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final NotificationHelper _notificationHelper = NotificationHelper();
+  final BackgroundService _service = BackgroundService();
+  _service.initializeIsolate();
+  await AndroidAlarmManager.initialize();
+  await _notificationHelper.initNotifications(flutterLocalNotificationsPlugin);
+
   runApp(const MyApp());
 }
 
@@ -33,25 +51,37 @@ class MyApp extends StatelessWidget {
             create: (_) => CategoryProvider(apiService: ApiService())),
         ChangeNotifierProvider(
             create: (_) => RecipeProvider(apiService: ApiService())),
-      ],
-      child: MaterialApp(
-          title: 'FoodPad',
-          theme: ThemeData(
-            primarySwatch: Colors.deepOrange,
+        ChangeNotifierProvider(
+          create: (_) => PreferencesProvider(
+            preferencesHelper: PreferencesHelper(
+              sharedPreferences: SharedPreferences.getInstance(),
+            ),
           ),
-          home: MainPage(),
-          routes: {
-            MainPage.routeName: (context) => const MainPage(),
-            LoginPage.routeName: (context) => LoginPage(),
-            RegisterPage.routeName: (context) => RegisterPage(),
-            HomePage.routeName: (context) => const HomePage(),
-            DetailPage.routeName: (context) => DetailPage(
-                recipeId: ModalRoute.of(context)?.settings.arguments as String),
-            SearchPage.routeName: (context) => const SearchPage(),
-            IngredientsListPage.routeName: (context) =>
-                const IngredientsListPage(),
-            TrendingListPage.routeName: (context) => const TrendingListPage(),
-          }),
+        ),
+        ChangeNotifierProvider(create: (_) => SchedulingProvider()),
+      ],
+      child: Consumer<PreferencesProvider>(builder: (context, provider, child) {
+        return MaterialApp(
+            title: 'FoodPad',
+            theme: ThemeData(
+              primarySwatch: Colors.deepOrange,
+            ),
+            home: const SplashScreen(),
+            navigatorKey: navigatorKey,
+            routes: {
+              MainPage.routeName: (context) => const MainPage(),
+              LoginPage.routeName: (context) => const LoginPage(),
+              RegisterPage.routeName: (context) => const RegisterPage(),
+              HomePage.routeName: (context) => const HomePage(),
+              DetailPage.routeName: (context) => DetailPage(
+                  recipeId:
+                      ModalRoute.of(context)?.settings.arguments as String),
+              SearchPage.routeName: (context) => const SearchPage(),
+              IngredientsListPage.routeName: (context) =>
+                  const IngredientsListPage(),
+              TrendingListPage.routeName: (context) => const TrendingListPage(),
+            });
+      }),
     );
   }
 }

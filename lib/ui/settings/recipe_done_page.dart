@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 
-class ReceiptDonePage extends StatelessWidget {
-  const ReceiptDonePage({Key? key}) : super(key: key);
+class RecipeDonePage extends StatelessWidget {
+  const RecipeDonePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ReceiptDonePage extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios),
             ),
           ],
         ),

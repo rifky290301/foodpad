@@ -19,9 +19,7 @@ class HomeCardTrending extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return DetailPage(recipeId: recipe.id.toString());
-          }));
+          Navigation.intentWithData(DetailPage.routeName, recipe.id.toString());
         },
         child: SizedBox(
           width: 160,
@@ -31,7 +29,7 @@ class HomeCardTrending extends StatelessWidget {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(12)),
                 child: Image.network(
-                  'http://api-foodpad.herokuapp.com/upload/thumbnail/${recipe.thumbnail}',
+                  recipe.thumbnail,
                   height: 160,
                   fit: BoxFit.cover,
                 ),
@@ -57,11 +55,11 @@ class HomeCardTrending extends StatelessWidget {
                           size: 16, color: orangeSecondary),
                       Icon(Icons.star_half_rounded,
                           size: 16, color: orangeSecondary),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text('4.5/5', style: smallSubtitleTextStyle),
                     ],
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,8 +81,8 @@ class HomeCardTrending extends StatelessWidget {
                         children: [
                           InkWell(
                               onTap: () => recipeBottomSheet(context),
-                              child:
-                                  Icon(Icons.more_horiz, size: 20, color: grey))
+                              child: const Icon(Icons.more_horiz,
+                                  size: 20, color: grey))
                         ],
                       ),
                     ],

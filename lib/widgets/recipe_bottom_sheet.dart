@@ -12,7 +12,7 @@ void recipeBottomSheet(BuildContext context) {
     backgroundColor: Colors.white,
     context: context,
     builder: (BuildContext context) {
-      return Container(
+      return SizedBox(
         height: 190,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
@@ -48,7 +48,7 @@ void recipeBottomSheet(BuildContext context) {
                             showDialog<void>(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return ReportAlertDialog();
+                                  return const ReportAlertDialog();
                                 });
                           }),
                       ListTile(
@@ -80,14 +80,15 @@ class ReportAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Laporkan Resep", style: titleTextStyle),
+      title: const Text("Laporkan Resep", style: titleTextStyle),
       content: StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: const Text('Resep ini tidak sesuai dengan aslinya'),
+              title: const Text('Resep ini tidak sesuai dengan aslinya',
+                  style: blackTextStyle),
               trailing: Radio<ReportRecipe>(
                 value: ReportRecipe.notApplicable,
                 groupValue: _report,
@@ -99,7 +100,8 @@ class ReportAlertDialog extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: const Text('Resep ini tidak aman dikonsumsi'),
+              title: const Text('Resep ini tidak aman dikonsumsi',
+                  style: blackTextStyle),
               trailing: Radio<ReportRecipe>(
                 value: ReportRecipe.dangerous,
                 groupValue: _report,
@@ -111,7 +113,7 @@ class ReportAlertDialog extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: const Text('Resep ini tidak halal'),
+              title: const Text('Resep ini tidak halal', style: blackTextStyle),
               trailing: Radio<ReportRecipe>(
                 value: ReportRecipe.notHalal,
                 groupValue: _report,
@@ -137,17 +139,16 @@ class ReportAlertDialog extends StatelessWidget {
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: Text(
+                title: const Text(
                   'Laporan sudah dikirim',
                   style: titleTextStyle,
                 ),
                 content: const Text(
-                    'Terima kasih! Kami akan mengevaluasi resep yang masuk ke dalam aplikasi ini supaya aplikasi ini menjadi lebih baik lagi',
+                    'Terima kasih! Kami akan mengevaluasi resep yang masuk ke dalam aplikasi ini supaya aplikasi ini menjadi lebih baik lagi.',
                     style: blackTextStyle),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
                       Navigator.pop(context);
                       Navigator.pop(context);
                     },

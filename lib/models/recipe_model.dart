@@ -1,9 +1,8 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-RecipeResult RecipeResultFromJson(String str) =>
+RecipeResult recipeResultFromJson(String str) =>
     RecipeResult.fromJson(json.decode(str));
-String RecipeResultToJson(RecipeResult data) => json.encode(data.toJson());
+String recipeResultToJson(RecipeResult data) => json.encode(data.toJson());
 
 class RecipeResult {
   RecipeResult({

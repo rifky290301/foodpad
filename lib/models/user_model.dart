@@ -1,10 +1,9 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-UserResult UserResultFromJson(String str) =>
+UserResult userResultFromJson(String str) =>
     UserResult.fromJson(json.decode(str));
 
-String UserResultToJson(UserResult data) => json.encode(data.toJson());
+String userResultToJson(UserResult data) => json.encode(data.toJson());
 
 class UserResult {
   UserResult({
@@ -38,14 +37,14 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         name: json["name"],
-        photo: json["photo"] == null ? null : json["photo"],
+        photo: json["photo"],
         email: json["email"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "photo": photo == null ? null : photo,
+        "photo": photo,
         "email": email,
       };
 }

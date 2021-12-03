@@ -17,6 +17,12 @@ const textStyle = TextStyle(fontFamily: font, color: Color(0xFF9D9D9D));
 
 const smallTextStyle = TextStyle(fontFamily: font, fontSize: 12, color: black);
 
+const greyTextStyle = TextStyle(
+  fontFamily: font,
+  color: grey,
+  fontWeight: FontWeight.w500,
+);
+
 const blackTextStyle = TextStyle(fontFamily: font, fontSize: 14, color: black);
 
 const titleTextStyle =

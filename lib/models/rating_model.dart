@@ -1,9 +1,8 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-RatingResult RatingResultFromJson(String str) =>
+RatingResult ratingResultFromJson(String str) =>
     RatingResult.fromJson(json.decode(str));
-String RatingResultToJson(RatingResult data) => json.encode(data.toJson());
+String ratingResultToJson(RatingResult data) => json.encode(data.toJson());
 
 class RatingResult {
   RatingResult({

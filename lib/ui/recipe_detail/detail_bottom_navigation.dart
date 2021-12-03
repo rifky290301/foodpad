@@ -28,7 +28,7 @@ class DetailBottomNavigation extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         vertical: 10,
                         horizontal: MediaQuery.of(context).size.width * 0.18),
-                    child: Text('Mulai Memasak',
+                    child: const Text('Mulai Memasak',
                         style: TextStyle(fontFamily: font, fontSize: 16)),
                   ),
                 ),
@@ -45,6 +45,8 @@ class DetailBottomNavigation extends StatelessWidget {
 }
 
 class FavoriteButton extends StatefulWidget {
+  const FavoriteButton({Key? key}) : super(key: key);
+
   @override
   _FavoriteButtonState createState() => _FavoriteButtonState();
 }

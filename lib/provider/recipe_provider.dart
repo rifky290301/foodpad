@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/models/recipe_model.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 enum ResultState { loading, noData, hasData, error, noConnection }
 
@@ -26,9 +24,8 @@ class RecipeProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      http.Client client = http.Client();
 
-      final recipe = await apiService.recipeList(client);
+      final recipe = await apiService.recipeList();
       if (recipe.recipes.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
