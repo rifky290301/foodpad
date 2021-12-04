@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/provider/scheduling_provider.dart';
@@ -8,6 +9,7 @@ import 'package:foodpad/ui/settings/account_settings.dart';
 import 'package:foodpad/ui/settings/recipe_done_page.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -18,6 +20,19 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool isEnabled = false;
+
+  late String _token;
+
+  setLogoutToken(val) {
+    setState(() {
+      _token = val;
+    });
+  }
+
+  logoutProcess() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +140,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           TextButton(
                             onPressed: () {
+                              logoutProcess();
                               provider.allowLogin(false);
                               Navigator.pop(context);
                               Navigator.popAndPushNamed(

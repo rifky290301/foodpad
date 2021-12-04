@@ -7,6 +7,7 @@ import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/ui/authentication/register_page.dart';
 import 'package:foodpad/ui/main_page.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/login_page';
@@ -25,6 +26,23 @@ class _LoginPageState extends State<LoginPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   late Future<LoginModel> futureLogin;
+
+  void formLoginEmptyForm() {
+    emailController.text = '';
+    passController.text = '';
+  }
+
+  void storeUser(data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setInt('id', data.user.id);
+    await prefs.setString('firstName', data.user.firstName);
+    await prefs.setString('lastName', data.user.lastName);
+    await prefs.setString('email', data.user.email);
+    await prefs.setString(
+        'profilePicture', data.user.profilePicture ?? 'images/logo.png');
+    await prefs.setString('tokens', data.token.plainTextToken);
+  }
 
   @override
   void initState() {
@@ -317,28 +335,60 @@ class _LoginPageState extends State<LoginPage> {
                                         const SizedBox(height: 20),
                                         ElevatedButton(
                                           style: ButtonStyle(
-                                              foregroundColor:
-                                                  MaterialStateProperty.all<
-                                                      Color>(Colors.white),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all<
-                                                      Color>(orange),
-                                              shape: MaterialStateProperty.all<
-                                                      RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
+                                            foregroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.white),
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(orange),
+                                            shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(8),
-                                              ))),
+                                              ),
+                                            ),
+                                          ),
                                           onPressed: () {
                                             futureLogin = ApiService.reqLogin(
                                                 emailController.text.toString(),
                                                 passController.text.toString());
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                              provider.allowLogin(true);
-                                              Navigator.popAndPushNamed(
-                                                  context, MainPage.routeName);
-                                              return;
+                                              futureLogin.then((value) {
+                                                storeUser(value);
+                                                provider.allowLogin(true);
+                                                Navigator.popAndPushNamed(
+                                                    context,
+                                                    MainPage.routeName);
+                                                return;
+                                              }).catchError((error) {
+                                                showDialog<String>(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          AlertDialog(
+                                                    title: const Text(
+                                                      'Gagal Masuk',
+                                                      style: titleTextStyle,
+                                                    ),
+                                                    content: const Text(
+                                                        'Kombinasi email dan passwordmu salah. Silahkan coba lagi.',
+                                                        style: blackTextStyle),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                        child: const Text(
+                                                            'Tutup',
+                                                            style:
+                                                                orangeSmallTextStyle),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              });
                                             } else {
                                               showDialog<String>(
                                                 context: context,

@@ -1,8 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Greeting extends StatelessWidget {
-  const Greeting({Key? key}) : super(key: key);
+class Greeting extends StatefulWidget {
+  Greeting({Key? key}) : super(key: key);
+
+  @override
+  _GreetingState createState() => _GreetingState();
+}
+
+class _GreetingState extends State<Greeting> {
+  late String _firstName;
+  late String _photo;
+  Future<String> getPrefs(key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key) ?? '';
+  }
+
+  setFirstrName(val) {
+    setState(() {
+      _firstName = val;
+    });
+  }
+
+  setPhoto(val) {
+    setState(() {
+      _photo = val;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPrefs('firstName').then((value) => setFirstrName(value));
+    getPrefs('profilePicture').then((value) => setPhoto(value));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +48,7 @@ class Greeting extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Halo, Delvin', style: helloTextStyle),
+                Text("Halo, $_firstName,", style: helloTextStyle),
                 Text('Mau masak apa hari ini?',
                     style: TextStyle(fontFamily: font, color: black)),
               ],
@@ -24,11 +56,16 @@ class Greeting extends StatelessWidget {
           ),
           Flexible(
             flex: 1,
-            child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  'https://cdn.discordapp.com/attachments/695938257577443379/909992232701030490/pp.jpg',
-                ),
-                radius: 28),
+            child:
+                // if (_photo == null) {
+                //   Te
+                // } else {
+                CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      _photo,
+                      // return _photo
+                    ),
+                    radius: 28),
           ),
         ],
       ),

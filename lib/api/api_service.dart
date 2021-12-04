@@ -69,4 +69,46 @@ class ApiService {
       throw Exception('error : ' + e.toString());
     }
   }
+
+  static Future<String?> destroyLogout(String token) async {
+    try {
+      final response =
+          await http.post(Uri.parse(logout), body: {'token': token});
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
+
+  static Future<String> userRegister(
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse(register),
+        headers: {'Accept': 'application/json'},
+        body: {
+          "first_name": firstName,
+          "last_name": lastName,
+          "email": email,
+          "password": password,
+        },
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw new Exception("Failed regsiter user");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
 }

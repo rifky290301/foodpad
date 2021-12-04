@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/authentication/login_page.dart';
 
@@ -25,6 +26,39 @@ class _RegisterPageState extends State<RegisterPage> {
   bool confirmPasswordVisibility = true;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void register(firstName, lastName, email, password) {
+    ApiService.userRegister(firstName, lastName, email, password)
+        .then((response) {
+      if (response != null) {
+        showDialog<String>(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text(
+              'Berhasil',
+              style: titleTextStyle,
+            ),
+            content: const Text(
+                'Yes! Kamu sudah berhasil membuat akun FoodPad. Kamu sudah bisa masuk sekarang!',
+                style: blackTextStyle),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, LoginPage.routeName);
+                },
+                child: const Text('Masuk', style: orangeSmallTextStyle),
+              ),
+            ],
+          ),
+        );
+        return;
+      } else {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -561,34 +595,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                         onPressed: () {
                                           if (_formKey.currentState!
                                               .validate()) {
-                                            showDialog<String>(
-                                              barrierDismissible: false,
-                                              context: context,
-                                              builder: (BuildContext context) =>
-                                                  AlertDialog(
-                                                title: const Text(
-                                                  'Berhasil',
-                                                  style: titleTextStyle,
-                                                ),
-                                                content: const Text(
-                                                    'Yes! Kamu sudah berhasil membuat akun FoodPad. Kamu sudah bisa masuk sekarang!',
-                                                    style: blackTextStyle),
-                                                actions: <Widget>[
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                      Navigator.popAndPushNamed(
-                                                          context,
-                                                          LoginPage.routeName);
-                                                    },
-                                                    child: const Text('Masuk',
-                                                        style:
-                                                            orangeSmallTextStyle),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                            return;
+                                            register(
+                                                firstNameController.text,
+                                                lastNameController.text,
+                                                emailController.text,
+                                                passController.text);
                                           } else {}
                                         },
                                         child: const Padding(
