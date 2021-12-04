@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:foodpad/models/login_model.dart';
 import 'package:foodpad/models/rating_model.dart';
 import 'package:foodpad/models/recipe_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart' show Client;
 
 class ApiService {
   static const String _baseUrl = 'http://api-foodpad.herokuapp.com/api/';
@@ -51,6 +53,20 @@ class ApiService {
       return CategoryResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
+    }
+  }
+
+  static Future<LoginModel> reqLogin(email, password) async {
+    try {
+      var response = await http
+          .post(Uri.parse(login), body: {'email': email, 'password': password});
+      if (response.statusCode == 200) {
+        return LoginModel.fromJson(jsonDecode(response.body));
+      } else {
+        return LoginModel.fromJson(jsonDecode(response.body));
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
     }
   }
 }

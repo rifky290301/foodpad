@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/models/login_model.dart';
 import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/ui/authentication/register_page.dart';
 import 'package:foodpad/ui/main_page.dart';
@@ -21,6 +23,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passController = TextEditingController();
   bool passwordVisibility = true;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  late Future<LoginModel> futureLogin;
 
   @override
   void initState() {
@@ -326,6 +330,9 @@ class _LoginPageState extends State<LoginPage> {
                                                     BorderRadius.circular(8),
                                               ))),
                                           onPressed: () {
+                                            futureLogin = ApiService.reqLogin(
+                                                emailController.text.toString(),
+                                                passController.text.toString());
                                             if (_formKey.currentState!
                                                 .validate()) {
                                               provider.allowLogin(true);
