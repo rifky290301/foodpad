@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 
 class HomeCardRecommended extends StatelessWidget {
-  const HomeCardRecommended({Key? key}) : super(key: key);
+  final Recipe recipe;
+  const HomeCardRecommended({Key? key, required this.recipe}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,9 @@ class HomeCardRecommended extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, DetailPage.routeName),
+        onTap: () {
+          Navigation.intentWithData(DetailPage.routeName, recipe.id.toString());
+        },
         child: SizedBox(
           width: 160,
           child: Column(
@@ -24,7 +29,7 @@ class HomeCardRecommended extends StatelessWidget {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(12)),
                 child: Image.network(
-                  'https://kurio-img.kurioapps.com/21/07/09/fa3ee637-aefa-4946-a0f1-e6dd9f7ca281.jpe',
+                  recipe.thumbnail,
                   height: 160,
                   fit: BoxFit.cover,
                 ),
@@ -32,7 +37,7 @@ class HomeCardRecommended extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Column(children: [
-                  Text('Mie Goreng Ayam Geprek + Telur Goreng',
+                  Text(recipe.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: itemTitleTextStyle),
@@ -60,23 +65,25 @@ class HomeCardRecommended extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        children: const [
-                          Icon(Icons.av_timer_outlined,
+                        children: [
+                          const Icon(Icons.av_timer_outlined,
                               size: 18, color: orange),
-                          SizedBox(width: 1),
-                          Text('90 mnt', style: smallSubtitleTextStyle),
-                          SizedBox(width: 4),
-                          Icon(Icons.insert_chart, size: 18, color: orange),
-                          SizedBox(width: 1),
-                          Text('Rumit', style: smallSubtitleTextStyle),
+                          Text('${recipe.duration}mnt'.toString(),
+                              style: smallSubtitleTextStyle),
+                          const SizedBox(width: 3),
+                          const Icon(Icons.insert_chart,
+                              size: 18, color: orange),
+                          const SizedBox(width: 1),
+                          Text(recipe.level, style: smallSubtitleTextStyle),
                         ],
                       ),
                       Row(
                         children: [
                           InkWell(
-                              onTap: () => recipeBottomSheet(context),
-                              child: const Icon(Icons.more_horiz,
-                                  size: 20, color: grey))
+                            onTap: () => recipeBottomSheet(context),
+                            child: const Icon(Icons.more_horiz,
+                                size: 20, color: grey),
+                          )
                         ],
                       ),
                     ],

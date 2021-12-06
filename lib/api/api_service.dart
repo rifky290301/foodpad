@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/models/login_model.dart';
 import 'package:foodpad/models/rating_model.dart';
 import 'package:foodpad/models/recipe_model.dart';
+import 'package:foodpad/provider/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart' show Client;
 
@@ -75,22 +77,22 @@ class ApiService {
     }
   }
 
-  Future<RecipeResult> favoriteList(String idUser) async {
+  Future<FavoriteResult> favoriteList(idUser) async {
     final response = await http.get(Uri.parse(favorite + idUser));
 
     if (response.statusCode == 200) {
-      return RecipeResult.fromJson(jsonDecode(response.body));
+      return FavoriteResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
     }
   }
 
-  Future<RecipeResult> favoriteCheck(String idRecipe, String idUser) async {
+  Future<FavoriteResult> favoriteCheck(String idRecipe, String idUser) async {
     final response =
         await http.get(Uri.parse(favorite + idRecipe + '/' + idUser));
 
     if (response.statusCode == 200) {
-      return RecipeResult.fromJson(jsonDecode(response.body));
+      return FavoriteResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
     }

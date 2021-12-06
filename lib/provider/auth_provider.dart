@@ -18,16 +18,14 @@ class AuthProvider {
     prefs.clear();
   }
 
-  static getValuePrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? stringId = prefs.getString('id');
-    String? stringFirstName = prefs.getString('firstName');
-    String? stringPhoto = prefs.getString('profilePicture');
-    return [stringFirstName, stringId, stringPhoto];
+  static getUserIdPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('id');
+    return userId.toString();
   }
 
-  static Future<String> getPrefs(key) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? '';
-  }
+  // static Future<String> getPrefs(key) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString(key) ?? '';
+  // }
 }

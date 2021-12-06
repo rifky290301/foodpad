@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
+import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/models/recipe_model.dart';
+import 'package:foodpad/provider/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum ResultState { loading, noData, hasData, error, noConnection }
@@ -10,24 +12,27 @@ class FavoriteProvider extends ChangeNotifier {
   final ApiService apiService;
 
   FavoriteProvider({required this.apiService}) {
-    _fetchAllFavorite(1);
+    // AuthProvider.getUserIdPrefs().then((value) {
+    //   print(value);
+    // });
+    _fetchAllFavorite('1');
   }
 
-  late RecipeResult _recipeResult;
+  late FavoriteResult _recipeResult;
   late ResultState _state;
   String _message = '';
 
-  RecipeResult get recipeResult => _recipeResult;
+  FavoriteResult get recipeResult => _recipeResult;
   ResultState get state => _state;
   String get message => _message;
 
-  Future<dynamic> _fetchAllFavorite(idUser) async {
+  Future<dynamic> _fetchAllFavorite(String idUser) async {
     try {
       _state = ResultState.loading;
       notifyListeners();
 
       final recipe = await apiService.favoriteList(idUser);
-      if (recipe.recipes.isEmpty) {
+      if (recipe.favorite.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
         return _message = 'No Data';
@@ -57,12 +62,12 @@ class FavoriteCheckProvider extends ChangeNotifier {
     _checkFavorite(1);
   }
 
-  late RecipeResult _recipeResult;
+  late FavoriteResult _recipeResult;
   late ResultState _state;
   String _message = '';
   final String idRecipe;
 
-  RecipeResult get recipeResult => _recipeResult;
+  FavoriteResult get recipeResult => _recipeResult;
   ResultState get state => _state;
   String get message => _message;
   String get ids => idRecipe;
@@ -79,7 +84,7 @@ class FavoriteCheckProvider extends ChangeNotifier {
       notifyListeners();
 
       final recipe = await apiService.favoriteCheck(idRecipe, idUser);
-      if (recipe.recipes.isEmpty) {
+      if (recipe.favorite.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
         return _message = 'No Data';

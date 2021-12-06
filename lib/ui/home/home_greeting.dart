@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/auth_provider.dart';
+import 'package:foodpad/ui/settings/account_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Greeting extends StatefulWidget {
@@ -11,26 +12,21 @@ class Greeting extends StatefulWidget {
 }
 
 class _GreetingState extends State<Greeting> {
-  late String _firstName;
-  late String _photo;
+  String _firstName = '';
+  String _photo = '';
 
-  setFirstrName(val) {
+  void _loadData() async {
+    final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _firstName = val;
-    });
-  }
-
-  setPhoto(val) {
-    setState(() {
-      _photo = val;
+      _firstName = prefs.getString('firstName')!;
+      _photo = prefs.getString('profilePicture')!;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    AuthProvider.getPrefs('firstName').then((value) => setFirstrName(value));
-    AuthProvider.getPrefs('profilePicture').then((value) => setPhoto(value));
+    _loadData();
   }
 
   @override
@@ -42,35 +38,37 @@ class _GreetingState extends State<Greeting> {
         children: [
           Flexible(
             flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _firstName != null
-                    ? Text("Halo, $_firstName,", style: helloTextStyle)
-                    : Text("belum ada nama"),
-                const Text(
-                  'Mau masak apa hari ini?',
-                  style: TextStyle(fontFamily: font, color: black),
-                ),
-            ),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text("Halo, $_firstName", style: helloTextStyle),
+              Text(
+                'Mau masak apa hari ini?',
+                style: TextStyle(fontFamily: font, color: black),
+              ),
+            ]),
           ),
-          Flexible(
-            flex: 1,
-            child: _photo != null || _photo.isEmpty
-                ? CircleAvatar(
-                    child: ClipOval(
-                      child: Image.asset(
-                        'images/logo.png',
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, AccountSettingsPage.routeName);
+            },
+            child: Flexible(
+              flex: 1,
+              child: _photo == null || _photo.isEmpty
+                  ? CircleAvatar(
+                      child: ClipOval(
+                        child: Image.asset(
+                          'images/logo.png',
+                        ),
                       ),
+                      radius: 28,
+                    )
+                  : CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        _photo,
+                      ),
+                      radius: 28,
                     ),
-                    radius: 28,
-                  )
-                : CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      _photo,
-                    ),
-                    radius: 28,
-                  ),
+            ),
           ),
         ],
       ),
