@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/ui/receipt_detail/detail_page.dart';
-import 'package:foodpad/widgets/receipt_bottom_sheet.dart';
+import 'package:foodpad/ui/recipe_detail/detail_page.dart';
+import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 
 class RecommendedList extends StatelessWidget {
   const RecommendedList({Key? key}) : super(key: key);
@@ -19,12 +19,12 @@ class RecommendedList extends StatelessWidget {
         GridView.count(
           crossAxisCount: 2,
           crossAxisSpacing: 5,
-          childAspectRatio: (160 / 265),
+          childAspectRatio: (16 / 26.8),
           mainAxisSpacing: 5,
           physics: const ClampingScrollPhysics(),
           shrinkWrap: true,
           children: List.generate(20, (index) {
-            return CardRecommended();
+            return const CardRecommended();
           }),
         ),
       ],
@@ -45,7 +45,7 @@ class CardRecommended extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () => Navigator.pushNamed(context, DetailPage.routeName),
-        child: Container(
+        child: SizedBox(
           width: 160,
           child: Column(
             children: [
@@ -53,7 +53,7 @@ class CardRecommended extends StatelessWidget {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(12)),
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1595295333158-4742f28fbd85?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8& auto=format&fit=crop&w=880&q=80',
+                  'https://images.unsplash.com/photo-1595295333158-4742f28fbd85?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
                   height: 180,
                   fit: BoxFit.cover,
                 ),
@@ -80,7 +80,7 @@ class CardRecommended extends StatelessWidget {
                           size: 18, color: orangeSecondary),
                       Icon(Icons.star_half_rounded,
                           size: 18, color: orangeSecondary),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text('4.5/5', style: smallSubtitleTextStyle),
                     ],
                   ),
@@ -108,9 +108,9 @@ class CardRecommended extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                              onTap: () => receiptBottomSheet(context),
-                              child:
-                                  Icon(Icons.more_horiz, size: 20, color: grey))
+                              onTap: () => recipeBottomSheet(context),
+                              child: const Icon(Icons.more_horiz,
+                                  size: 20, color: grey))
                         ],
                       ),
                     ],

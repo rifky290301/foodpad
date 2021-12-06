@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 
 class ActionBar extends StatelessWidget {
   final String pageName;
-  ActionBar(this.pageName);
-
+  const ActionBar(this.pageName, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -14,7 +14,7 @@ class ActionBar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back_ios, color: black),
+              icon: const Icon(Icons.arrow_back_ios, color: black),
             ),
           ],
         ),
@@ -24,7 +24,12 @@ class ActionBar extends StatelessWidget {
           ],
         ),
         Row(
-          children: [Icon(Icons.more_vert_rounded), SizedBox(width: 8)],
+          children: [
+            InkWell(
+                onTap: () => recipeBottomSheet(context),
+                child: const Icon(Icons.more_vert_rounded)),
+            const SizedBox(width: 8),
+          ],
         ),
       ],
     );

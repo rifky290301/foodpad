@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/ui/home/trending_list_page.dart';
-import 'package:foodpad/ui/receipt_detail/detail_page.dart';
-import 'package:foodpad/ui/search_page.dart';
-import 'package:foodpad/widgets/receipt_bottom_sheet.dart';
+import 'package:foodpad/ui/recipe_detail/detail_page.dart';
+import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 
 class HomeCardRecommended extends StatelessWidget {
   const HomeCardRecommended({Key? key}) : super(key: key);
@@ -18,7 +16,7 @@ class HomeCardRecommended extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () => Navigator.pushNamed(context, DetailPage.routeName),
-        child: Container(
+        child: SizedBox(
           width: 160,
           child: Column(
             children: [
@@ -52,11 +50,11 @@ class HomeCardRecommended extends StatelessWidget {
                           size: 16, color: orangeSecondary),
                       Icon(Icons.star_half_rounded,
                           size: 16, color: orangeSecondary),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text('4.5/5', style: smallSubtitleTextStyle),
                     ],
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,9 +74,9 @@ class HomeCardRecommended extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                              onTap: () => receiptBottomSheet(context),
-                              child:
-                                  Icon(Icons.more_horiz, size: 20, color: grey))
+                              onTap: () => recipeBottomSheet(context),
+                              child: const Icon(Icons.more_horiz,
+                                  size: 20, color: grey))
                         ],
                       ),
                     ],

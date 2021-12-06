@@ -18,7 +18,7 @@ class HomeIngredientsList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              children: [
+              children: const [
                 Text('Punya Bahan Apa?', style: headingTextStyle),
               ],
             ),
@@ -27,7 +27,7 @@ class HomeIngredientsList extends StatelessWidget {
                 InkWell(
                   onTap: () => Navigator.pushNamed(
                       context, IngredientsListPage.routeName),
-                  child: Text('Lihat Semua', style: orangeSmallTextStyle),
+                  child: const Text('Lihat Semua', style: orangeSmallTextStyle),
                 )
               ],
             )
@@ -47,7 +47,7 @@ class HomeIngredientsList extends StatelessWidget {
                 return Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
                         children: [
                           InkWell(
@@ -64,7 +64,7 @@ class HomeIngredientsList extends StatelessWidget {
                                 backgroundColor: lightGrey,
                                 radius: 28,
                                 child: Padding(
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     child: Image.asset(
                                         'images/${ingredientsIcon[index]}'))),
                           ),
@@ -102,11 +102,11 @@ class HomeIngredientsList extends StatelessWidget {
                                 backgroundColor: lightGrey,
                                 radius: 28,
                                 child: Padding(
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     child: Image.asset(
                                         'images/${ingredientsIcon[index + 5]}'))),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             ingredients[index + 5],
                             style: smallTextStyle,
@@ -118,7 +118,7 @@ class HomeIngredientsList extends StatelessWidget {
                 );
               }),
         ),
-        SizedBox(height: 28),
+        const SizedBox(height: 28),
       ],
     );
   }

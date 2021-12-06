@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 
-class AboutUsPage extends StatelessWidget {
-  const AboutUsPage({Key? key}) : super(key: key);
-
-  static const routeName = '/about_us_page';
+class RecipeDonePage extends StatelessWidget {
+  const RecipeDonePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +22,7 @@ class AboutUsPage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Text('About Us Page'),
+        child: Text('Receipt Done Page', style: textStyle),
       ),
     );
   }

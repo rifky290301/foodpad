@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 
 class CarouselsSlider extends StatefulWidget {
-  CarouselsSlider({Key? key}) : super(key: key);
-
+  const CarouselsSlider({Key? key}) : super(key: key);
   @override
   State<CarouselsSlider> createState() => _CarouselsSliderState();
 }
@@ -26,12 +25,13 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 28),
+
+        const SizedBox(height: 28),
         CarouselSlider(
           options: CarouselOptions(
               autoPlay: true,
-              autoPlayInterval: Duration(seconds: 4),
-              autoPlayAnimationDuration: Duration(milliseconds: 1000),
+              autoPlayInterval: const Duration(seconds: 4),
+              autoPlayAnimationDuration: const Duration(milliseconds: 1000),
               autoPlayCurve: Curves.fastOutSlowIn,
               pauseAutoPlayOnTouch: true,
               enlargeCenterPage: true,
@@ -42,7 +42,7 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
                 });
               }),
           items: cardList.map((item) {
-            return CarouselItem();
+            return const CarouselItem();
           }).toList(),
         ),
         Row(
@@ -51,7 +51,8 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
             return Container(
               width: 8,
               height: 8,
-              margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 3.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 3.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color:
@@ -66,6 +67,8 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
 }
 
 class CarouselItem extends StatelessWidget {
+  const CarouselItem({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -78,7 +81,7 @@ class CarouselItem extends StatelessWidget {
           BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 2),
         ],
       ),
-      child: Center(
+      child: const Center(
         child: Text('Carousels',
             style: TextStyle(fontFamily: font, color: white, fontSize: 24)),
       ),
