@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 
-class AboutUsPage extends StatelessWidget {
-  const AboutUsPage({Key? key}) : super(key: key);
-
-  static const routeName = '/about_us_page';
+class ReceiptDonePage extends StatelessWidget {
+  const ReceiptDonePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +16,13 @@ class AboutUsPage extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back_ios),
+              icon: Icon(Icons.arrow_back_ios),
             ),
           ],
         ),
       ),
       body: Center(
-        child: Text('About Us Page'),
+        child: Text('Receipt Done Page', style: textStyle),
       ),
     );
   }

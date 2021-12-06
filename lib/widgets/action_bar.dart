@@ -5,7 +5,6 @@ import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 class ActionBar extends StatelessWidget {
   final String pageName;
   const ActionBar(this.pageName, {Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Row(

@@ -52,7 +52,6 @@ class _GreetingState extends State<Greeting> {
                   'Mau masak apa hari ini?',
                   style: TextStyle(fontFamily: font, color: black),
                 ),
-              ],
             ),
           ),
           Flexible(

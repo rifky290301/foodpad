@@ -4,7 +4,6 @@ import 'package:foodpad/common/styles.dart';
 
 class CarouselsSlider extends StatefulWidget {
   const CarouselsSlider({Key? key}) : super(key: key);
-
   @override
   State<CarouselsSlider> createState() => _CarouselsSliderState();
 }
@@ -26,6 +25,7 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+
         const SizedBox(height: 28),
         CarouselSlider(
           options: CarouselOptions(
@@ -68,7 +68,7 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
 
 class CarouselItem extends StatelessWidget {
   const CarouselItem({Key? key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(

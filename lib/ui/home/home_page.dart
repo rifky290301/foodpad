@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/provider/recipe_provider.dart';
-import 'package:foodpad/ui/error/error.dart';
 import 'package:foodpad/ui/home/home_greeting.dart';
 import 'package:foodpad/ui/home/recommended_list.dart';
 import 'package:foodpad/ui/home/ingredients_list.dart';
@@ -117,16 +115,6 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               const SizedBox(height: 12),
-                              // GridView.builder(
-                              //     gridDelegate:
-                              //         SliverGridDelegateWithFixedCrossAxisCount(
-                              //             crossAxisCount: 2),
-                              //             itemCount: state.recipeResult.recipes.length,
-                              //     itemBuilder: (context, index) {
-                              //       return HomeCardTrending(
-                              //         recipe: state.recipeResult.recipes[index],
-                              //       );
-                              //     }),
                               GridView.count(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 5,
