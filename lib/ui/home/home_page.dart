@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<RecipeProvider>(
+      body: Consumer<TrendingProvider>(
         builder: (context, state, _) {
           if (state.state == ResultState.loading) {
             return const Center(
@@ -108,7 +108,38 @@ class _HomePageState extends State<HomePage> {
                                 }),
                           ),
                           const SizedBox(height: 28),
-                          RecommendedList(),
+                          Column(
+                            children: [
+                              Row(
+                                children: const [
+                                  Text('Rekomendasi Buat Kamu',
+                                      style: headingTextStyle),
+                                ],
+                              ),
+                              const SizedBox(height: 12),
+                              // GridView.builder(
+                              //     gridDelegate:
+                              //         SliverGridDelegateWithFixedCrossAxisCount(
+                              //             crossAxisCount: 2),
+                              //             itemCount: state.recipeResult.recipes.length,
+                              //     itemBuilder: (context, index) {
+                              //       return HomeCardTrending(
+                              //         recipe: state.recipeResult.recipes[index],
+                              //       );
+                              //     }),
+                              GridView.count(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 5,
+                                childAspectRatio: (16 / 26.8),
+                                mainAxisSpacing: 5,
+                                physics: const ClampingScrollPhysics(),
+                                shrinkWrap: true,
+                                children: List.generate(20, (index) {
+                                  return const CardRecommended();
+                                }),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),

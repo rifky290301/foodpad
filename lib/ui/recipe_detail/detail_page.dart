@@ -57,7 +57,9 @@ class _DetailPageState extends State<DetailPage> {
                       itemCount: 1,
                       itemBuilder: (context, index) {
                         return DataDetail(
-                            recipeDetail: state.recipeResult.recipes[index]);
+                          recipeDetail: state.recipeResult.recipes[index],
+                          recipeId: widget.recipeId,
+                        );
                       });
                 } else if (state.state == ResultState.error) {
                   return const ErrorLoad();
@@ -69,7 +71,9 @@ class _DetailPageState extends State<DetailPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const DetailBottomNavigation(),
+      bottomNavigationBar: DetailBottomNavigation(
+        recipeId: widget.recipeId,
+      ),
     );
   }
 }

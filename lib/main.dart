@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/navigation.dart';
+import 'package:foodpad/provider/favorite_provider.dart';
 import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/provider/scheduling_provider.dart';
@@ -51,6 +52,10 @@ class MyApp extends StatelessWidget {
             create: (_) => CategoryProvider(apiService: ApiService())),
         ChangeNotifierProvider(
             create: (_) => RecipeProvider(apiService: ApiService())),
+        ChangeNotifierProvider(
+            create: (_) => FavoriteProvider(apiService: ApiService())),
+        ChangeNotifierProvider(
+            create: (_) => TrendingProvider(apiService: ApiService())),
         ChangeNotifierProvider(
           create: (_) => PreferencesProvider(
             preferencesHelper: PreferencesHelper(

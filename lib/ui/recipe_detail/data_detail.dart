@@ -5,7 +5,10 @@ import 'package:foodpad/models/recipe_model.dart';
 
 class DataDetail extends StatelessWidget {
   final Recipe recipeDetail;
-  const DataDetail({Key? key, required this.recipeDetail}) : super(key: key);
+  final String recipeId;
+  const DataDetail(
+      {Key? key, required this.recipeDetail, required this.recipeId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

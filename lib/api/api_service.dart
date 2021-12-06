@@ -15,14 +15,33 @@ class ApiService {
   static const String rating = _baseUrl + 'rating';
   static const String profilePic = _baseUrl + 'user/photo-profile/';
   static const String category = _baseUrl + 'category';
+  static const String favorite = _baseUrl + 'favorite/';
+  static const String search = _baseUrl + 'search/';
+  static const String trending = _baseUrl + 'trending';
 
-  Future<RecipeResult> recipeList() async {
-    final response = await http.get(Uri.parse(recipe));
+  Future<RecipeResult> recipeList(query) async {
+    String? request;
+    if (query == null || query == '') {
+      request = recipe;
+    } else {
+      request = search + query!;
+    }
+    final response = await http.get(Uri.parse(request));
 
     if (response.statusCode == 200) {
       return RecipeResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan resep');
+    }
+  }
+
+  Future<RecipeResult> trendingList() async {
+    final response = await http.get(Uri.parse(trending));
+
+    if (response.statusCode == 200) {
+      return RecipeResult.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan kategori');
     }
   }
 
@@ -51,6 +70,27 @@ class ApiService {
 
     if (response.statusCode == 200) {
       return CategoryResult.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan kategori');
+    }
+  }
+
+  Future<RecipeResult> favoriteList(String idUser) async {
+    final response = await http.get(Uri.parse(favorite + idUser));
+
+    if (response.statusCode == 200) {
+      return RecipeResult.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan kategori');
+    }
+  }
+
+  Future<RecipeResult> favoriteCheck(String idRecipe, String idUser) async {
+    final response =
+        await http.get(Uri.parse(favorite + idRecipe + '/' + idUser));
+
+    if (response.statusCode == 200) {
+      return RecipeResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
     }

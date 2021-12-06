@@ -15,17 +15,31 @@ class RecipeProvider extends ChangeNotifier {
   late RecipeResult _recipeResult;
   late ResultState _state;
   String _message = '';
+  String? _query;
 
   RecipeResult get recipeResult => _recipeResult;
   ResultState get state => _state;
   String get message => _message;
+  String? get query => _query;
+
+  void refresh() {
+    _query = query;
+    _fetchAllRecipe();
+    notifyListeners();
+  }
+
+  void setQuery(String? query) {
+    _query = query;
+    _fetchAllRecipe();
+    notifyListeners();
+  }
 
   Future<dynamic> _fetchAllRecipe() async {
     try {
       _state = ResultState.loading;
       notifyListeners();
 
-      final recipe = await apiService.recipeList();
+      final recipe = await apiService.recipeList(query);
       if (recipe.recipes.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
@@ -112,6 +126,44 @@ class CategoryProvider extends ChangeNotifier {
         _state = ResultState.hasData;
         notifyListeners();
         return _categoryResult = categories;
+      }
+    } catch (e) {
+      _state = ResultState.error;
+      notifyListeners();
+      return _message = 'Periksa koneksi internetmu.';
+    }
+  }
+}
+
+class TrendingProvider extends ChangeNotifier {
+  final ApiService apiService;
+
+  TrendingProvider({required this.apiService}) {
+    _fetchAllRecipe();
+  }
+
+  late RecipeResult _recipeResult;
+  late ResultState _state;
+  String _message = '';
+
+  RecipeResult get recipeResult => _recipeResult;
+  ResultState get state => _state;
+  String get message => _message;
+
+  Future<dynamic> _fetchAllRecipe() async {
+    try {
+      _state = ResultState.loading;
+      notifyListeners();
+
+      final recipe = await apiService.trendingList();
+      if (recipe.recipes.isEmpty) {
+        _state = ResultState.noData;
+        notifyListeners();
+        return _message = 'No Data';
+      } else {
+        _state = ResultState.hasData;
+        notifyListeners();
+        return _recipeResult = recipe;
       }
     } catch (e) {
       _state = ResultState.error;

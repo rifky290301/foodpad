@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/provider/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Greeting extends StatefulWidget {
@@ -12,10 +13,6 @@ class Greeting extends StatefulWidget {
 class _GreetingState extends State<Greeting> {
   late String _firstName;
   late String _photo;
-  Future<String> getPrefs(key) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? '';
-  }
 
   setFirstrName(val) {
     setState(() {
@@ -32,8 +29,8 @@ class _GreetingState extends State<Greeting> {
   @override
   void initState() {
     super.initState();
-    getPrefs('firstName').then((value) => setFirstrName(value));
-    getPrefs('profilePicture').then((value) => setPhoto(value));
+    AuthProvider.getPrefs('firstName').then((value) => setFirstrName(value));
+    AuthProvider.getPrefs('profilePicture').then((value) => setPhoto(value));
   }
 
   @override
@@ -48,24 +45,33 @@ class _GreetingState extends State<Greeting> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Halo, $_firstName,", style: helloTextStyle),
-                Text('Mau masak apa hari ini?',
-                    style: TextStyle(fontFamily: font, color: black)),
+                _firstName != null
+                    ? Text("Halo, $_firstName,", style: helloTextStyle)
+                    : Text("belum ada nama"),
+                const Text(
+                  'Mau masak apa hari ini?',
+                  style: TextStyle(fontFamily: font, color: black),
+                ),
               ],
             ),
           ),
           Flexible(
             flex: 1,
-            child:
-                // if (_photo == null) {
-                //   Te
-                // } else {
-                CircleAvatar(
+            child: _photo != null || _photo.isEmpty
+                ? CircleAvatar(
+                    child: ClipOval(
+                      child: Image.asset(
+                        'images/logo.png',
+                      ),
+                    ),
+                    radius: 28,
+                  )
+                : CircleAvatar(
                     backgroundImage: NetworkImage(
                       _photo,
-                      // return _photo
                     ),
-                    radius: 28),
+                    radius: 28,
+                  ),
           ),
         ],
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/login_model.dart';
+import 'package:foodpad/provider/auth_provider.dart';
 import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/ui/authentication/register_page.dart';
 import 'package:foodpad/ui/main_page.dart';
@@ -26,22 +27,9 @@ class _LoginPageState extends State<LoginPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   late Future<LoginModel> futureLogin;
-
   void formLoginEmptyForm() {
     emailController.text = '';
     passController.text = '';
-  }
-
-  void storeUser(data) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    await prefs.setInt('id', data.user.id);
-    await prefs.setString('firstName', data.user.firstName);
-    await prefs.setString('lastName', data.user.lastName);
-    await prefs.setString('email', data.user.email);
-    await prefs.setString(
-        'profilePicture', data.user.profilePicture ?? 'images/logo.png');
-    await prefs.setString('tokens', data.token.plainTextToken);
   }
 
   @override
@@ -356,7 +344,7 @@ class _LoginPageState extends State<LoginPage> {
                                             if (_formKey.currentState!
                                                 .validate()) {
                                               futureLogin.then((value) {
-                                                storeUser(value);
+                                                AuthProvider.storeUser(value);
                                                 provider.allowLogin(true);
                                                 Navigator.popAndPushNamed(
                                                     context,

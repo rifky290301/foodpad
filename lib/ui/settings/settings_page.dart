@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/provider/auth_provider.dart';
 import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/provider/scheduling_provider.dart';
 import 'package:foodpad/ui/authentication/login_page.dart';
@@ -20,19 +21,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool isEnabled = false;
-
-  late String _token;
-
-  setLogoutToken(val) {
-    setState(() {
-      _token = val;
-    });
-  }
-
-  logoutProcess() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +128,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              logoutProcess();
+                              AuthProvider.logoutProcess();
                               provider.allowLogin(false);
                               Navigator.pop(context);
                               Navigator.popAndPushNamed(
