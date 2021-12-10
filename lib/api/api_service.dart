@@ -20,11 +20,13 @@ class ApiService {
   static const String favorite = _baseUrl + 'favorite/';
   static const String search = _baseUrl + 'search/';
   static const String trending = _baseUrl + 'trending';
+  static const String sementara = _baseUrl + 'sementara';
+  static const String recipeCategory = _baseUrl + 'recipe-category';
 
   Future<RecipeResult> recipeList(query) async {
     String? request;
     if (query == null || query == '') {
-      request = recipe;
+      request = sementara;
     } else {
       request = search + query!;
     }
@@ -79,6 +81,17 @@ class ApiService {
 
   Future<FavoriteResult> favoriteList(idUser) async {
     final response = await http.get(Uri.parse(favorite + idUser));
+
+    if (response.statusCode == 200) {
+      return FavoriteResult.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan kategori');
+    }
+  }
+
+  Future<FavoriteResult> favoriteCoba(idUser) async {
+    final response = await http
+        .get(Uri.parse('favorite-http://api-foodpad.herokuapp.com/api/user'));
 
     if (response.statusCode == 200) {
       return FavoriteResult.fromJson(jsonDecode(response.body));
