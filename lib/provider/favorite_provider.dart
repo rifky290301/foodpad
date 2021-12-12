@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/models/favorite_model.dart';
+import 'package:foodpad/models/recipe2_model.dart';
 import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/provider/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,12 +11,13 @@ enum ResultState { loading, noData, hasData, error, noConnection }
 
 class FavoriteProvider extends ChangeNotifier {
   final ApiService apiService;
+  final String idUser;
 
-  FavoriteProvider({required this.apiService}) {
+  FavoriteProvider({required this.apiService, required this.idUser}) {
     // AuthProvider.getUserIdPrefs().then((value) {
     //   print(value);
     // });
-    _fetchAllFavorite('1');
+    _fetchAllFavorite();
   }
 
   late FavoriteResult _recipeResult;
@@ -26,13 +28,13 @@ class FavoriteProvider extends ChangeNotifier {
   ResultState get state => _state;
   String get message => _message;
 
-  Future<dynamic> _fetchAllFavorite(String idUser) async {
+  Future<dynamic> _fetchAllFavorite() async {
     try {
       _state = ResultState.loading;
       notifyListeners();
 
       final recipe = await apiService.favoriteList(idUser);
-      if (recipe.favorite.isEmpty) {
+      if (recipe.data!.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
         return _message = 'No Data';
@@ -50,8 +52,8 @@ class FavoriteProvider extends ChangeNotifier {
 
   getValuePrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? stringId = prefs.getString('id');
-    return stringId!;
+    final stringId = prefs.getInt('id');
+    return stringId.toString();
   }
 }
 
@@ -84,7 +86,7 @@ class FavoriteCheckProvider extends ChangeNotifier {
       notifyListeners();
 
       final recipe = await apiService.favoriteCheck(idRecipe, idUser);
-      if (recipe.favorite.isEmpty) {
+      if (recipe.data!.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
         return _message = 'No Data';

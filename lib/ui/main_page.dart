@@ -44,7 +44,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _listWidget = [
     const HomePage(),
     const SearchPage(),
-    const FavoritePage(),
+    FavoritePage(),
     const SettingsPage()
   ];
 

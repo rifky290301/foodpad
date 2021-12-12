@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final favoriteResult = favoriteResultFromJson(jsonString);
+//     final recipe2Result = recipe2ResultFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-FavoriteResult favoriteResultFromJson(String str) =>
-    FavoriteResult.fromJson(json.decode(str));
+Recipe2Result recipe2ResultFromJson(String str) =>
+    Recipe2Result.fromJson(json.decode(str));
 
-String favoriteResultToJson(FavoriteResult data) => json.encode(data.toJson());
+String recipe2ResultToJson(Recipe2Result data) => json.encode(data.toJson());
 
-class FavoriteResult {
-  FavoriteResult({
+class Recipe2Result {
+  Recipe2Result({
     this.data,
   });
 
   List<Datum>? data;
 
-  factory FavoriteResult.fromJson(Map<String, dynamic> json) => FavoriteResult(
+  factory Recipe2Result.fromJson(Map<String, dynamic> json) => Recipe2Result(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );
 
@@ -29,8 +29,6 @@ class FavoriteResult {
 class Datum {
   Datum({
     this.id,
-    this.recipeId,
-    this.userId,
     this.name,
     this.thumbnail,
     this.duration,
@@ -39,8 +37,6 @@ class Datum {
   });
 
   int? id;
-  int? recipeId;
-  int? userId;
   String? name;
   String? thumbnail;
   int? duration;
@@ -49,8 +45,6 @@ class Datum {
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
-        recipeId: json["recipe_id"],
-        userId: json["user_id"],
         name: json["name"],
         thumbnail: json["thumbnail"],
         duration: json["duration"],
@@ -60,8 +54,6 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "recipe_id": recipeId,
-        "user_id": userId,
         "name": name,
         "thumbnail": thumbnail,
         "duration": duration,

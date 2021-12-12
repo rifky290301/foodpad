@@ -5,11 +5,10 @@ class AuthProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setInt('id', data.user.id);
-    await prefs.setString('firstName', data.user.firstName ?? 'defalut name');
+    await prefs.setString('firstName', data.user.firstName);
     await prefs.setString('lastName', data.user.lastName);
     await prefs.setString('email', data.user.email);
-    await prefs.setString(
-        'profilePicture', data.user.profilePicture ?? 'images/logo.png');
+    await prefs.setString('profilePicture', data.user.profilePicture);
     await prefs.setString('tokens', data.token.plainTextToken);
   }
 

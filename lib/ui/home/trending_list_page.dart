@@ -37,7 +37,7 @@ class TrendingListPageState extends State<TrendingListPage> {
   }
 
   _buildTrendingList(BuildContext context) {
-    Consumer<RecipeProvider>(
+    Consumer<TrendingProvider>(
       builder: (context, state, _) {
         if (state.state == ResultState.loading) {
           return const Center(child: CircularProgressIndicator(color: orange));
@@ -48,7 +48,7 @@ class TrendingListPageState extends State<TrendingListPage> {
                 physics: const ClampingScrollPhysics(),
                 itemCount: 2,
                 itemBuilder: (context, index) {
-                  var recipe = state.recipeResult.recipes[index];
+                  var recipe = state.recipeResult.data![index];
                   return HomeCardTrending(recipe: recipe);
                 });
           } else if (state.state == ResultState.noData) {

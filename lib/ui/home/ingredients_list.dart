@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/ingredients_homepage.dart';
 import 'package:foodpad/ui/home/ingredients_list_page.dart';
+import 'package:foodpad/ui/search_page.dart';
 
 class HomeIngredientsList extends StatelessWidget {
   const HomeIngredientsList({Key? key}) : super(key: key);
@@ -52,8 +54,10 @@ class HomeIngredientsList extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
+                              Navigation.intentWithData(
+                                  SearchPage.routeName, ingredients[index]);
                               Fluttertoast.showToast(
-                                  msg: "Item clicked.",
+                                  msg: "${ingredients[index]} clicked.",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.CENTER,
                                   timeInSecForIosWeb: 3,

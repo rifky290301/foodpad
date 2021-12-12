@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/favorite_model.dart';
@@ -9,80 +10,107 @@ import 'package:foodpad/ui/home/recommended_list.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class FavoritePage extends StatelessWidget {
-  const FavoritePage({Key? key}) : super(key: key);
+class FavoritePage extends StatefulWidget {
+  FavoritePage({Key? key}) : super(key: key);
+
+  @override
+  _FavoritePageState createState() => _FavoritePageState();
+}
+
+class _FavoritePageState extends State<FavoritePage> {
+  late int _idUser;
+
+  void _loadData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _idUser = prefs.getInt('id')!;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  // final FavoriteProvider myRents = FavoriteProvider(apiService: ApiService(), idUser: _idUser.toString());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Favorit', style: helloTextStyle),
-                      Text('10 Resep kesukaanmu', style: blackTextStyle),
-                    ],
+    return ChangeNotifierProvider<FavoriteProvider>(
+      create: (_) => FavoriteProvider(
+          apiService: ApiService(), idUser: _idUser.toString()),
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('Favorit', style: helloTextStyle),
+                        Text('10 Resep kesukaanmu', style: blackTextStyle),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                Consumer<FavoriteProvider>(
-                  builder: (context, state, _) {
-                    if (state.state == ResultState.loading) {
-                      return const Center(
-                          child: CircularProgressIndicator(color: orange));
-                    } else {
-                      if (state.state == ResultState.hasData) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemCount: state.recipeResult.favorite.length,
-                          itemBuilder: (context, index) {
-                            return CardFavorite(
-                              recipe: state.recipeResult.favorite[index].recipe,
-                            );
-                          },
-                        );
-                      } else if (state.state == ResultState.noData) {
-                        return Center(child: Text(state.message));
-                      } else if (state.state == ResultState.error) {
-                        return Center(child: Text(state.message));
+                  const SizedBox(height: 16),
+                  Consumer<FavoriteProvider>(
+                    builder: (context, state, _) {
+                      if (state.state == ResultState.loading) {
+                        return const Center(
+                            child: CircularProgressIndicator(color: orange));
                       } else {
-                        return const Text('');
+                        if (state.state == ResultState.hasData) {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount: state.recipeResult.data!.length,
+                            itemBuilder: (context, index) {
+                              return CardFavorite(
+                                recipe: state.recipeResult.data![index],
+                              );
+                            },
+                          );
+                        } else if (state.state == ResultState.noData) {
+                          return Center(child: Text(state.message));
+                        } else if (state.state == ResultState.error) {
+                          return Center(child: Text(state.message));
+                        } else {
+                          return const Text('');
+                        }
                       }
-                    }
-                  },
-                ),
-                const Divider(
-                  color: grey,
-                ),
-                const SizedBox(height: 8),
-                // const Padding(
-                //   padding: EdgeInsets.symmetric(horizontal: 8),
-                //   child: Text('Rekomendasi Buat Kamu', style: headingTextStyle),
-                // ),
-                // const SizedBox(height: 8),
-                // SizedBox(
-                //   height: 278,
-                //   child: ListView.builder(
-                //       shrinkWrap: true,
-                //       physics: const ClampingScrollPhysics(),
-                //       scrollDirection: Axis.horizontal,
-                //       itemCount: 10,
-                //       itemBuilder: (context, index) {
-                //         return const CardRecommended();
-                //       }),
-                // ),
-                const RecommendedList()
-              ],
+                    },
+                  ),
+                  const Divider(
+                    color: grey,
+                  ),
+                  const SizedBox(height: 8),
+                  // const Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 8),
+                  //   child: Text('Rekomendasi Buat Kamu', style: headingTextStyle),
+                  // ),
+                  // const SizedBox(height: 8),
+                  // SizedBox(
+                  //   height: 278,
+                  //   child: ListView.builder(
+                  //       shrinkWrap: true,
+                  //       physics: const ClampingScrollPhysics(),
+                  //       scrollDirection: Axis.horizontal,
+                  //       itemCount: 10,
+                  //       itemBuilder: (context, index) {
+                  //         return const CardRecommended();
+                  //       }),
+                  // ),
+                  const RecommendedList()
+                ],
+              ),
             ),
           ),
         ),
@@ -92,14 +120,14 @@ class FavoritePage extends StatelessWidget {
 }
 
 class CardFavorite extends StatelessWidget {
-  final Recipe recipe;
+  final Datum recipe;
   const CardFavorite({Key? key, required this.recipe}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigation.intentWithData(DetailPage.routeName, recipe.id);
+        Navigation.intentWithData(DetailPage.routeName, recipe.id.toString());
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 6),
@@ -111,9 +139,10 @@ class CardFavorite extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6),
                 child: Image.network(
-                  recipe.thumbnail,
+                  recipe.thumbnail.toString(),
                   width: 85,
                   height: 85,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -124,7 +153,7 @@ class CardFavorite extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: 250,
-                    child: Text(recipe.name,
+                    child: Text(recipe.name.toString(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: itemTitleTextStyle),
@@ -133,20 +162,15 @@ class CardFavorite extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Icon(Icons.star_rounded,
-                          size: 20, color: orangeSecondary),
-                      Icon(Icons.star_rounded,
-                          size: 20, color: orangeSecondary),
-                      Icon(Icons.star_rounded,
-                          size: 20, color: orangeSecondary),
-                      Icon(Icons.star_rounded,
-                          size: 20, color: orangeSecondary),
+                      for (int i = 0; i < 4; i++)
+                        Icon(Icons.star_rounded,
+                            size: 20, color: orangeSecondary),
                       Icon(Icons.star_half_rounded,
                           size: 20, color: orangeSecondary),
                       const SizedBox(width: 4),
-                      const Text(
-                        '4.5/5',
-                        style: TextStyle(
+                      Text(
+                        '${recipe.rating}/5',
+                        style: const TextStyle(
                             fontFamily: font, fontSize: 12, color: grey),
                       ),
                     ],
@@ -173,11 +197,14 @@ class CardFavorite extends StatelessWidget {
                                 const Icon(Icons.insert_chart,
                                     size: 18, color: orange),
                                 SizedBox(width: 2),
-                                Text(recipe.level,
-                                    style: const TextStyle(
-                                        fontFamily: font,
-                                        fontSize: 12,
-                                        color: grey)),
+                                Text(
+                                  recipe.level.toString(),
+                                  style: const TextStyle(
+                                    fontFamily: font,
+                                    fontSize: 12,
+                                    color: grey,
+                                  ),
+                                ),
                               ],
                             ),
                           ],

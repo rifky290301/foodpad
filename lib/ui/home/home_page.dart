@@ -111,16 +111,27 @@ class _HomePageState extends State<HomePage> {
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: state.recipeResult.recipes.length,
+              itemCount: state.recipeResult.data!.length,
               itemBuilder: (context, index) {
                 return HomeCardTrending(
-                  recipe: state.recipeResult.recipes[index],
+                  recipe: state.recipeResult.data![index],
                 );
               },
             ),
           );
         } else if (state.state == ResultState.error) {
-          return const Center(child: Text('Error', style: subtitleTextStyle));
+          return Column(
+            children: [
+              Center(child: Text('Error', style: subtitleTextStyle)),
+              ElevatedButton(
+                child: const Text('Refresh'),
+                onPressed: () => state.refresh(),
+                style: ElevatedButton.styleFrom(
+                  primary: orange,
+                ),
+              ),
+            ],
+          );
         } else {
           return const Text('');
         }
@@ -156,13 +167,13 @@ class _HomePageState extends State<HomePage> {
               ),
 
               // GridView.builder(
-              //   itemCount: state.recipeResult.recipes.length,
+              //   itemCount: state.recipeResult.data!.length,
               //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               //       crossAxisCount:
               //           (orientation == Orientation.portrait) ? 2 : 3),
               //   itemBuilder: (BuildContext context, int index) {
               //     return HomeCardTrending(
-              //       recipe: state.recipeResult.recipes[index],
+              //       recipe: state.recipeResult.data![index],
               //     );
               //   },
               // ),

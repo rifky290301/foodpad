@@ -6,6 +6,7 @@ import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/error/error.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:provider/provider.dart';
+import '../models/ingredients_homepage.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -19,6 +20,8 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController searchTextController = TextEditingController();
   final _search = TextEditingController();
+  // late final int _star;
+  RecipeProvider instanceRecipe = RecipeProvider(apiService: ApiService());
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +55,9 @@ class _SearchPageState extends State<SearchPage> {
                 const SizedBox(height: 8),
                 SizedBox(
                   height: 40,
-                  width: MediaQuery.of(context).size.width,
+                  // width: MediaQuery.of(context).size.width,
                   child: _buildCategory(context),
+                  // child: _sementara(),
                 ),
                 ChangeNotifierProvider<RecipeProvider>(
                   create: (_) => RecipeProvider(apiService: ApiService()),
@@ -68,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
                           children: [
                             _formSearch(context, state),
                             ListView.builder(
-                              itemCount: state.recipeResult.recipes.length,
+                              itemCount: state.recipeResult.data!.length,
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
                               itemBuilder: (context, index) {
@@ -76,7 +80,7 @@ class _SearchPageState extends State<SearchPage> {
                                   onTap: () {
                                     Navigation.intentWithData(
                                         DetailPage.routeName,
-                                        state.recipeResult.recipes[index].id
+                                        state.recipeResult.data![index].id
                                             .toString());
                                   },
                                   child: Card(
@@ -92,10 +96,12 @@ class _SearchPageState extends State<SearchPage> {
                                             borderRadius:
                                                 BorderRadius.circular(6),
                                             child: Image.network(
-                                              state.recipeResult.recipes[index]
-                                                  .thumbnail,
+                                              state.recipeResult.data![index]
+                                                  .thumbnail
+                                                  .toString(),
                                               width: 85,
                                               height: 85,
+                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
@@ -110,7 +116,8 @@ class _SearchPageState extends State<SearchPage> {
                                                 width: 250,
                                                 child: Text(
                                                     state.recipeResult
-                                                        .recipes[index].name,
+                                                        .data![index].name
+                                                        .toString(),
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -120,26 +127,18 @@ class _SearchPageState extends State<SearchPage> {
                                               Row(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.end,
-                                                children: [
-                                                  Icon(Icons.star_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
-                                                  Icon(Icons.star_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
-                                                  Icon(Icons.star_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
-                                                  Icon(Icons.star_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
+                                                children: <Widget>[
+                                                  for (int i = 0; i < 4; i++)
+                                                    Icon(Icons.star_rounded,
+                                                        size: 20,
+                                                        color: orangeSecondary),
                                                   Icon(Icons.star_half_rounded,
                                                       size: 20,
                                                       color: orangeSecondary),
                                                   const SizedBox(width: 4),
-                                                  const Text(
-                                                    '4.5/5',
-                                                    style: TextStyle(
+                                                  Text(
+                                                    '${state.recipeResult.data![index].rating}/5',
+                                                    style: const TextStyle(
                                                         fontFamily: font,
                                                         fontSize: 12,
                                                         color: grey),
@@ -168,7 +167,7 @@ class _SearchPageState extends State<SearchPage> {
                                                             Text(
                                                                 state
                                                                         .recipeResult
-                                                                        .recipes[
+                                                                        .data![
                                                                             index]
                                                                         .duration
                                                                         .toString() +
@@ -191,9 +190,10 @@ class _SearchPageState extends State<SearchPage> {
                                                             Text(
                                                                 state
                                                                     .recipeResult
-                                                                    .recipes[
+                                                                    .data![
                                                                         index]
-                                                                    .level,
+                                                                    .level
+                                                                    .toString(),
                                                                 style: const TextStyle(
                                                                     fontFamily:
                                                                         font,
@@ -205,66 +205,6 @@ class _SearchPageState extends State<SearchPage> {
                                                         ),
                                                       ],
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                showDialog<
-                                                                    String>(
-                                                                  context:
-                                                                      context,
-                                                                  builder: (BuildContext
-                                                                          context) =>
-                                                                      AlertDialog(
-                                                                    title:
-                                                                        const Text(
-                                                                      'Hapus Resep Favorit',
-                                                                      style:
-                                                                          titleTextStyle,
-                                                                    ),
-                                                                    content: const Text(
-                                                                        'Apakah kamu yakin ingin menghapus resep ini dari favorit?',
-                                                                        style:
-                                                                            blackTextStyle),
-                                                                    actions: <
-                                                                        Widget>[
-                                                                      ElevatedButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            context,
-                                                                            'CANCEL'),
-                                                                        child: const Text(
-                                                                            'Batal',
-                                                                            style:
-                                                                                TextStyle(fontFamily: font, color: white)),
-                                                                      ),
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            context,
-                                                                            'DELETE'),
-                                                                        child: const Text(
-                                                                            'Ya, Hapus',
-                                                                            style:
-                                                                                TextStyle(fontFamily: font, color: orange)),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                );
-                                                              },
-                                                              child: const Icon(
-                                                                  Icons
-                                                                      .delete_forever,
-                                                                  color: orange,
-                                                                  size: 26),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    )
                                                   ],
                                                 ),
                                               )
@@ -351,23 +291,40 @@ class _SearchPageState extends State<SearchPage> {
           return ListView.builder(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
-            itemCount: state.categoryResult.category.category.length,
+            scrollDirection: Axis.horizontal,
+            itemCount: state.categoryResult.data!.length,
             itemBuilder: (context, index) {
-              var categories = state.categoryResult.category.category[index];
-              return Card(
-                color: orange,
-                child: Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Text(
-                    categories,
-                    style: const TextStyle(fontFamily: font, color: white),
+              return GestureDetector(
+                onTap: instanceRecipe.setShorting(state
+                    .categoryResult.data![index].category
+                    .toString()
+                    .toLowerCase()),
+                child: Card(
+                  color: orange,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: Text(
+                      state.categoryResult.data![index].category.toString(),
+                      style: const TextStyle(fontFamily: font, color: white),
+                    ),
                   ),
                 ),
               );
             },
           );
         } else if (state.state == ResultState.error) {
-          return const Center(child: Text('Error', style: subtitleTextStyle));
+          return Column(
+            children: [
+              const Center(child: Text('Error', style: subtitleTextStyle)),
+              // ElevatedButton(
+              //   child: const Text('Refresh'),
+              //   onPressed: () => state.refresh(),
+              //   style: ElevatedButton.styleFrom(
+              //     primary: orange,
+              //   ),
+              // ),
+            ],
+          );
         } else {
           return const Text('');
         }

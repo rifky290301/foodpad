@@ -35,26 +35,30 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PreferencesProvider>(builder: (context, provider, child) {
-      return Scaffold(
-        backgroundColor: orange,
-        body: Center(
+    return Consumer<PreferencesProvider>(
+      builder: (context, provider, child) {
+        return Scaffold(
+          backgroundColor: orange,
+          body: Center(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.food_bank_outlined, color: white, size: 80),
-            Text(
-              'FoodPad',
-              style: TextStyle(
-                  fontFamily: font,
-                  fontWeight: FontWeight.w700,
-                  color: white,
-                  fontSize: 32),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.food_bank_outlined, color: white, size: 80),
+                Text(
+                  'FoodPad',
+                  style: TextStyle(
+                    fontFamily: font,
+                    fontWeight: FontWeight.w700,
+                    color: white,
+                    fontSize: 32,
+                  ),
+                ),
+                SizedBox(height: 48),
+              ],
             ),
-            SizedBox(height: 48),
-          ],
-        )),
-      );
-    });
+          ),
+        );
+      },
+    );
   }
 }

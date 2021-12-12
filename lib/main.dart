@@ -57,8 +57,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (_) => RecipeProvider(apiService: ApiService())),
         ChangeNotifierProvider(
-            create: (_) => FavoriteProvider(apiService: ApiService())),
-        ChangeNotifierProvider(
             create: (_) => TrendingProvider(apiService: ApiService())),
         ChangeNotifierProvider(
           create: (_) => PreferencesProvider(

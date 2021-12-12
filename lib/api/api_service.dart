@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:foodpad/models/category_model.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/models/login_model.dart';
 import 'package:foodpad/models/rating_model.dart';
+import 'package:foodpad/models/recipe2_model.dart';
 import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/provider/auth_provider.dart';
 import 'package:http/http.dart' as http;
@@ -10,18 +12,19 @@ import 'package:http/http.dart' show Client;
 class ApiService {
   static const String _baseUrl = 'http://api-foodpad.herokuapp.com/api/';
   static const String recipe = _baseUrl + 'recipe';
+  static const String recipe2 = _baseUrl + 'recipe2';
   static const String login = _baseUrl + 'login';
   static const String register = _baseUrl + 'register';
   static const String logout = _baseUrl + 'logout';
   static const String detail = _baseUrl + 'recipe/';
   static const String rating = _baseUrl + 'rating';
   static const String profilePic = _baseUrl + 'user/photo-profile/';
-  static const String category = _baseUrl + 'category';
-  static const String favorite = _baseUrl + 'favorite/';
+  static const String category = _baseUrl + 'category2';
+  static const String favorite = _baseUrl + 'favorite2/';
   static const String search = _baseUrl + 'search/';
-  static const String trending = _baseUrl + 'trending';
+  static const String trending = _baseUrl + 'trending2';
   static const String sementara = _baseUrl + 'sementara';
-  static const String recipeCategory = _baseUrl + 'recipe-category';
+  static const String recipeCategory = _baseUrl + 'recipe-category/';
 
   Future<RecipeResult> recipeList(query) async {
     String? request;
@@ -39,11 +42,27 @@ class ApiService {
     }
   }
 
-  Future<RecipeResult> trendingList() async {
+  Future<Recipe2Result> recipeList2(query) async {
+    String? request;
+    if (query == null || query == '') {
+      request = recipe2;
+    } else {
+      request = search + query!;
+    }
+    final response = await http.get(Uri.parse(request));
+
+    if (response.statusCode == 200) {
+      return Recipe2Result.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan resep');
+    }
+  }
+
+  Future<Recipe2Result> trendingList() async {
     final response = await http.get(Uri.parse(trending));
 
     if (response.statusCode == 200) {
-      return RecipeResult.fromJson(jsonDecode(response.body));
+      return Recipe2Result.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
     }
@@ -59,6 +78,16 @@ class ApiService {
     }
   }
 
+  Future<Recipe2Result> recipeShoriting(String shorting) async {
+    final response = await http.get(Uri.parse(recipeCategory + shorting));
+
+    if (response.statusCode == 200) {
+      return Recipe2Result.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan resep');
+    }
+  }
+
   Future<RatingResult> ratingList() async {
     final response = await http.get(Uri.parse(recipe));
 
@@ -69,11 +98,11 @@ class ApiService {
     }
   }
 
-  Future<CategoryResult> categoryList() async {
+  Future<Category2> categoryList() async {
     final response = await http.get(Uri.parse(category));
 
     if (response.statusCode == 200) {
-      return CategoryResult.fromJson(jsonDecode(response.body));
+      return Category2.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
     }
