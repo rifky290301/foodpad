@@ -70,6 +70,7 @@ class _SearchPageState extends State<SearchPage> {
                       } else if (state.state == ResultState.hasData) {
                         return Column(
                           children: [
+                            // _buildCategory(context, state),
                             _formSearch(context, state),
                             ListView.builder(
                               itemCount: state.recipeResult.data!.length,
@@ -294,19 +295,22 @@ class _SearchPageState extends State<SearchPage> {
             scrollDirection: Axis.horizontal,
             itemCount: state.categoryResult.data!.length,
             itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: instanceRecipe.setShorting(state
-                    .categoryResult.data![index].category
-                    .toString()
-                    .toLowerCase()),
-                child: Card(
-                  color: orange,
+              return Container(
+                margin: const EdgeInsets.only(left: 8.0),
+                child: ElevatedButton(
                   child: Padding(
-                    padding: const EdgeInsets.all(6),
+                    padding: const EdgeInsets.all(1),
                     child: Text(
                       state.categoryResult.data![index].category.toString(),
                       style: const TextStyle(fontFamily: font, color: white),
                     ),
+                  ),
+                  onPressed: () => instanceRecipe.setShorting(state
+                      .categoryResult.data![index].category
+                      .toString()
+                      .toLowerCase()),
+                  style: ElevatedButton.styleFrom(
+                    primary: orange,
                   ),
                 ),
               );

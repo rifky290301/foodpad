@@ -154,29 +154,30 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               const SizedBox(height: 12),
-              GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 5,
-                childAspectRatio: (16 / 26.8),
-                mainAxisSpacing: 5,
-                physics: const ClampingScrollPhysics(),
-                shrinkWrap: true,
-                children: List.generate(20, (index) {
-                  return const CardRecommended();
-                }),
-              ),
-
-              // GridView.builder(
-              //   itemCount: state.recipeResult.data!.length,
-              //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //       crossAxisCount:
-              //           (orientation == Orientation.portrait) ? 2 : 3),
-              //   itemBuilder: (BuildContext context, int index) {
-              //     return HomeCardTrending(
-              //       recipe: state.recipeResult.data![index],
-              //     );
-              //   },
+              // GridView.count(
+              //   crossAxisCount: 2,
+              //   crossAxisSpacing: 5,
+              //   childAspectRatio: (16 / 26.8),
+              //   mainAxisSpacing: 5,
+              //   physics: const ClampingScrollPhysics(),
+              //   shrinkWrap: true,
+              //   children: List.generate(20, (index) {
+              //     return const CardRecommended();
+              //   }),
               // ),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                itemCount: state.recipeResult.data!.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount:
+                        (orientation == Orientation.portrait) ? 2 : 3),
+                itemBuilder: (BuildContext context, int index) {
+                  return HomeCardTrending(
+                    recipe: state.recipeResult.data![index],
+                  );
+                },
+              ),
             ],
           );
         } else if (state.state == ResultState.error) {

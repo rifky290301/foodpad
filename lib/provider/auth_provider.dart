@@ -16,15 +16,4 @@ class AuthProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
   }
-
-  static getUserIdPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userId = prefs.getString('id');
-    return userId.toString();
-  }
-
-  // static Future<String> getPrefs(key) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   return prefs.getString(key) ?? '';
-  // }
 }

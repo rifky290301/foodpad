@@ -20,14 +20,7 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  late int _idUser;
-
-  void _loadData() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _idUser = prefs.getInt('id')!;
-    });
-  }
+  late int _idUser = 1;
 
   @override
   void initState() {
@@ -35,7 +28,12 @@ class _FavoritePageState extends State<FavoritePage> {
     _loadData();
   }
 
-  // final FavoriteProvider myRents = FavoriteProvider(apiService: ApiService(), idUser: _idUser.toString());
+  _loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _idUser = (prefs.getInt('id'))!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +52,9 @@ class _FavoritePageState extends State<FavoritePage> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Favorit', style: helloTextStyle),
+                      children: [
+                        Text('Favorit ${_idUser.toString()}',
+                            style: helloTextStyle),
                         Text('10 Resep kesukaanmu', style: blackTextStyle),
                       ],
                     ),
@@ -108,7 +107,8 @@ class _FavoritePageState extends State<FavoritePage> {
                   //         return const CardRecommended();
                   //       }),
                   // ),
-                  const RecommendedList()
+                  const RecommendedList(),
+                  Text(_idUser.toString())
                 ],
               ),
             ),
