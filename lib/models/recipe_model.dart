@@ -49,7 +49,7 @@ class Recipe {
 
   final Author author;
   final List<Rating> ratings;
-  final List<Step> steps;
+  final List<Steps> steps;
   final List<Ingredient> ingredients;
   final List<CategoryResult> categories;
 
@@ -65,7 +65,7 @@ class Recipe {
         author: Author.fromJson(json["author"]),
         ratings:
             List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
-        steps: List<Step>.from(json["steps"].map((x) => Step.fromJson(x))),
+        steps: List<Steps>.from(json["steps"].map((x) => Steps.fromJson(x))),
         ingredients: List<Ingredient>.from(
             json["ingredients"].map((x) => Ingredient.fromJson(x))),
         categories: List<CategoryResult>.from(
@@ -243,8 +243,8 @@ class Rating {
       };
 }
 
-class Step {
-  Step({
+class Steps {
+  Steps({
     required this.id,
     required this.step,
     required this.recipeId,
@@ -254,7 +254,7 @@ class Step {
   final String step;
   final int recipeId;
 
-  factory Step.fromJson(Map<String, dynamic> json) => Step(
+  factory Steps.fromJson(Map<String, dynamic> json) => Steps(
         id: json["id"],
         step: json["step"],
         recipeId: json["recipe_id"],

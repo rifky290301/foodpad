@@ -11,16 +11,16 @@ String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 
 class LoginModel {
   LoginModel({
-    this.status,
-    this.message,
-    this.user,
-    this.token,
+    required this.status,
+    required this.message,
+    required this.user,
+    required this.token,
   });
 
-  String? status;
-  String? message;
-  User? user;
-  Token? token;
+  final String status;
+  final String message;
+  final User user;
+  final Token token;
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
         status: json["status"],
@@ -32,19 +32,19 @@ class LoginModel {
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
-        "user": user?.toJson(),
-        "token": token?.toJson(),
+        "user": user.toJson(),
+        "token": token.toJson(),
       };
 }
 
 class Token {
   Token({
-    this.accessToken,
-    this.plainTextToken,
+    required this.accessToken,
+    required this.plainTextToken,
   });
 
-  AccessToken? accessToken;
-  String? plainTextToken;
+  final AccessToken accessToken;
+  final String plainTextToken;
 
   factory Token.fromJson(Map<String, dynamic> json) => Token(
         accessToken: AccessToken.fromJson(json["accessToken"]),
@@ -52,72 +52,59 @@ class Token {
       );
 
   Map<String, dynamic> toJson() => {
-        "accessToken": accessToken?.toJson(),
+        "accessToken": accessToken.toJson(),
         "plainTextToken": plainTextToken,
       };
 }
 
 class AccessToken {
   AccessToken({
-    this.name,
-    this.abilities,
-    this.tokenableId,
-    this.tokenableType,
-    this.updatedAt,
-    this.createdAt,
-    this.id,
+    required this.name,
+    required this.abilities,
+    required this.tokenableId,
+    required this.tokenableType,
+    required this.id,
   });
 
-  String? name;
-  List<String>? abilities;
-  int? tokenableId;
-  String? tokenableType;
-  DateTime? updatedAt;
-  DateTime? createdAt;
-  int? id;
+  final String name;
+  final List<String> abilities;
+  final int tokenableId;
+  final String tokenableType;
+  final int id;
 
   factory AccessToken.fromJson(Map<String, dynamic> json) => AccessToken(
         name: json["name"],
         abilities: List<String>.from(json["abilities"].map((x) => x)),
         tokenableId: json["tokenable_id"],
         tokenableType: json["tokenable_type"],
-        updatedAt: DateTime.parse(json["updated_at"]),
-        createdAt: DateTime.parse(json["created_at"]),
         id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
-        "abilities": List<dynamic>.from(abilities!.map((x) => x)),
+        "abilities": List<dynamic>.from(abilities.map((x) => x)),
         "tokenable_id": tokenableId,
         "tokenable_type": tokenableType,
-        "updated_at": updatedAt?.toIso8601String(),
-        "created_at": createdAt?.toIso8601String(),
         "id": id,
       };
 }
 
 class User {
   User({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.emailVerifiedAt,
-    this.profilePicture,
-    this.createdAt,
-    this.updatedAt,
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.emailVerifiedAt,
+    required this.profilePicture,
   });
 
-  int? id;
-  String? firstName;
-  String? lastName;
-  String? email;
-  dynamic? emailVerifiedAt;
-  String? profilePicture;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-
+  final int id;
+  final String firstName;
+  final String lastName;
+  final String email;
+  final dynamic emailVerifiedAt;
+  final String profilePicture;
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         firstName: json["first_name"],
@@ -125,8 +112,6 @@ class User {
         email: json["email"],
         emailVerifiedAt: json["email_verified_at"],
         profilePicture: json["photo"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -136,7 +121,5 @@ class User {
         "email": email,
         "email_verified_at": emailVerifiedAt,
         "profile_picture": profilePicture,
-        "created_at": createdAt!.toIso8601String(),
-        "updated_at": updatedAt!.toIso8601String(),
       };
 }

@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final recipe2Result = recipe2ResultFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Recipe2Result recipe2ResultFromJson(String str) =>
@@ -12,10 +7,10 @@ String recipe2ResultToJson(Recipe2Result data) => json.encode(data.toJson());
 
 class Recipe2Result {
   Recipe2Result({
-    this.data,
+    required this.data,
   });
 
-  List<Datum>? data;
+  final List<Datum> data;
 
   factory Recipe2Result.fromJson(Map<String, dynamic> json) => Recipe2Result(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
@@ -28,20 +23,20 @@ class Recipe2Result {
 
 class Datum {
   Datum({
-    this.id,
-    this.name,
-    this.thumbnail,
-    this.duration,
-    this.level,
-    this.rating,
+    required this.id,
+    required this.name,
+    required this.thumbnail,
+    required this.duration,
+    required this.level,
+    required this.rating,
   });
 
-  int? id;
-  String? name;
-  String? thumbnail;
-  int? duration;
-  String? level;
-  String? rating;
+  final int id;
+  final String name;
+  final String thumbnail;
+  final int duration;
+  final String level;
+  final String rating;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],

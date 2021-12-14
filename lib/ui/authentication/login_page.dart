@@ -8,7 +8,6 @@ import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/ui/authentication/register_page.dart';
 import 'package:foodpad/ui/main_page.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/login_page';

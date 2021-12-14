@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/provider/favorite_provider.dart';
-import 'package:provider/provider.dart';
 
 class DetailBottomNavigation extends StatelessWidget {
   final String recipeId;

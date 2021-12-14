@@ -5,15 +5,14 @@ import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/provider/favorite_provider.dart';
-import 'package:foodpad/ui/home/card_trending.dart';
-import 'package:foodpad/ui/home/recommended_list.dart';
+import 'package:foodpad/provider/recipe_provider.dart';
+import 'package:foodpad/ui/home/card_recommended.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
-import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoritePage extends StatefulWidget {
-  FavoritePage({Key? key}) : super(key: key);
+  const FavoritePage({Key? key}) : super(key: key);
 
   @override
   _FavoritePageState createState() => _FavoritePageState();
@@ -87,28 +86,46 @@ class _FavoritePageState extends State<FavoritePage> {
                       }
                     },
                   ),
-                  const Divider(
-                    color: grey,
+                  const SizedBox(height: 8),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child:
+                        Text('Rekomendasi Buat Kamu', style: headingTextStyle),
                   ),
                   const SizedBox(height: 8),
-                  // const Padding(
-                  //   padding: EdgeInsets.symmetric(horizontal: 8),
-                  //   child: Text('Rekomendasi Buat Kamu', style: headingTextStyle),
-                  // ),
-                  // const SizedBox(height: 8),
-                  // SizedBox(
-                  //   height: 278,
-                  //   child: ListView.builder(
-                  //       shrinkWrap: true,
-                  //       physics: const ClampingScrollPhysics(),
-                  //       scrollDirection: Axis.horizontal,
-                  //       itemCount: 10,
-                  //       itemBuilder: (context, index) {
-                  //         return const CardRecommended();
-                  //       }),
-                  // ),
-                  const RecommendedList(),
-                  Text(_idUser.toString())
+                  ChangeNotifierProvider<RecipeProvider>(
+                    create: (_) => RecipeProvider(apiService: ApiService()),
+                    child: Consumer<RecipeProvider>(
+                      builder: (context, state, _) {
+                        if (state.state == ResultStates.loading) {
+                          return const Center(
+                              child: CircularProgressIndicator(color: orange));
+                        } else {
+                          if (state.state == ResultStates.hasData) {
+                            return SizedBox(
+                              height: 300,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const ClampingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 10,
+                                  itemBuilder: (context, index) {
+                                    return CardRecommended(
+                                      recipe: state.recipeResult.data![index],
+                                    );
+                                  }),
+                            );
+                          } else if (state.state == ResultStates.noData) {
+                            return Center(child: Text(state.message));
+                          } else if (state.state == ResultStates.error) {
+                            return Center(child: Text(state.message));
+                          } else {
+                            return const Text('');
+                          }
+                        }
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
