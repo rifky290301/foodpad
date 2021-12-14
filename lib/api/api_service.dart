@@ -8,6 +8,7 @@ import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/provider/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart' show Client;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   static const String _baseUrl = 'http://api-foodpad.herokuapp.com/api/';
@@ -20,7 +21,8 @@ class ApiService {
   static const String rating = _baseUrl + 'rating';
   static const String profilePic = _baseUrl + 'user/photo-profile/';
   static const String category = _baseUrl + 'category2';
-  static const String favorite = _baseUrl + 'favorite2/';
+  static const String favorite2 = _baseUrl + 'favorite2/';
+  static const String favorite = _baseUrl + 'favorite/';
   static const String search = _baseUrl + 'search/';
   static const String trending = _baseUrl + 'trending2';
   static const String sementara = _baseUrl + 'sementara';
@@ -108,8 +110,10 @@ class ApiService {
     }
   }
 
-  Future<FavoriteResult> favoriteList(idUser) async {
-    final response = await http.get(Uri.parse(favorite + idUser));
+  Future<FavoriteResult> favoriteList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String idUser = prefs.get('id').toString();
+    final response = await http.get(Uri.parse(favorite2 + idUser));
 
     if (response.statusCode == 200) {
       return FavoriteResult.fromJson(jsonDecode(response.body));
@@ -118,18 +122,10 @@ class ApiService {
     }
   }
 
-  Future<FavoriteResult> favoriteCoba(idUser) async {
-    final response = await http
-        .get(Uri.parse('favorite-http://api-foodpad.herokuapp.com/api/user'));
+  Future<FavoriteResult> favoriteCheck(String idRecipe) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String idUser = prefs.get('id').toString();
 
-    if (response.statusCode == 200) {
-      return FavoriteResult.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Gagal menampilkan kategori');
-    }
-  }
-
-  Future<FavoriteResult> favoriteCheck(String idRecipe, String idUser) async {
     final response =
         await http.get(Uri.parse(favorite + idRecipe + '/' + idUser));
 
@@ -137,6 +133,54 @@ class ApiService {
       return FavoriteResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
+    }
+  }
+
+  Future<String> deleteFovorite(String idFavorite) async {
+    try {
+      final response = await http.delete(Uri.parse(favorite + idFavorite));
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed delete favorite");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
+
+  Future<String> deleteFovorite2(String idFavorite) async {
+    try {
+      final response = await http.delete(Uri.parse(favorite + idFavorite));
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed delete favorite");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
+
+  Future<String> addFavorite(String idRecipe) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String idUser = prefs.get('id').toString();
+    try {
+      final response = await http.post(
+        Uri.parse(favorite),
+        headers: {'Accept': 'application/json'},
+        body: {
+          "recipe_id": idRecipe,
+          "user_id": idUser,
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed add favorite");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
     }
   }
 
@@ -185,11 +229,10 @@ class ApiService {
           "password": password,
         },
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         return response.body;
       } else {
-        throw new Exception("Failed regsiter user");
+        throw Exception("Failed regsiter user");
       }
     } catch (e) {
       throw Exception('error : ' + e.toString());

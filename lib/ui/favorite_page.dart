@@ -20,26 +20,10 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  late int _idUser = 1;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadData();
-  }
-
-  _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _idUser = (prefs.getInt('id'))!;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<FavoriteProvider>(
-      create: (_) => FavoriteProvider(
-          apiService: ApiService(), idUser: _idUser.toString()),
+      create: (_) => FavoriteProvider(apiService: ApiService()),
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -52,9 +36,8 @@ class _FavoritePageState extends State<FavoritePage> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Favorit ${_idUser.toString()}',
-                            style: helloTextStyle),
+                      children: const [
+                        Text('Favorit', style: helloTextStyle),
                         Text('10 Resep kesukaanmu', style: blackTextStyle),
                       ],
                     ),
@@ -108,7 +91,6 @@ class _FavoritePageState extends State<FavoritePage> {
                   //       }),
                   // ),
                   const RecommendedList(),
-                  Text(_idUser.toString())
                 ],
               ),
             ),
@@ -121,13 +103,17 @@ class _FavoritePageState extends State<FavoritePage> {
 
 class CardFavorite extends StatelessWidget {
   final Datum recipe;
-  const CardFavorite({Key? key, required this.recipe}) : super(key: key);
+  CardFavorite({Key? key, required this.recipe}) : super(key: key);
+
+  FavoriteProvider instanceFavorite =
+      FavoriteProvider(apiService: ApiService());
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigation.intentWithData(DetailPage.routeName, recipe.id.toString());
+        Navigation.intentWithData(
+            DetailPage.routeName, (recipe.id! + 3).toString());
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 6),
@@ -237,8 +223,13 @@ class CardFavorite extends StatelessWidget {
                                                     color: white)),
                                           ),
                                           TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                context, 'DELETE'),
+                                            // onPressed: () => Navigator.pop(
+                                            //     context, 'DELETE'),
+                                            onPressed: () {
+                                              instanceFavorite.deleteFavorite(
+                                                  recipe.id.toString());
+                                              Navigator.pop(context, 'DELETE');
+                                            },
                                             child: const Text('Ya, Hapus',
                                                 style: TextStyle(
                                                     fontFamily: font,

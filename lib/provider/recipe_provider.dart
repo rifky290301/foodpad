@@ -38,7 +38,7 @@ class RecipeProvider extends ChangeNotifier {
 
   void setShorting(String? query) {
     _query = query;
-    print(_query);
+    print(_recipeResult);
     _recipeShoriting();
     notifyListeners();
   }
