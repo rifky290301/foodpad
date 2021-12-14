@@ -6,7 +6,6 @@ import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/error/error.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:provider/provider.dart';
-import '../models/ingredients_homepage.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -55,7 +54,6 @@ class _SearchPageState extends State<SearchPage> {
                 const SizedBox(height: 8),
                 SizedBox(
                   height: 40,
-                  // width: MediaQuery.of(context).size.width,
                   child: _buildCategory(context),
                   // child: _sementara(),
                 ),
@@ -63,11 +61,11 @@ class _SearchPageState extends State<SearchPage> {
                   create: (_) => RecipeProvider(apiService: ApiService()),
                   child: Consumer<RecipeProvider>(
                     builder: (context, state, _) {
-                      if (state.state == ResultState.loading) {
+                      if (state.state == ResultStates.loading) {
                         return const Center(
                           child: CircularProgressIndicator(color: orange),
                         );
-                      } else if (state.state == ResultState.hasData) {
+                      } else if (state.state == ResultStates.hasData) {
                         return Column(
                           children: [
                             // _buildCategory(context, state),
@@ -220,7 +218,7 @@ class _SearchPageState extends State<SearchPage> {
                             ),
                           ],
                         );
-                      } else if (state.state == ResultState.error) {
+                      } else if (state.state == ResultStates.error) {
                         return const ErrorLoad();
                       } else {
                         return const ErrorLoad();
@@ -236,7 +234,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Padding _formSearch(BuildContext context, RecipeProvider state) {
+  Widget _formSearch(BuildContext context, RecipeProvider state) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
       child: Row(
@@ -286,9 +284,9 @@ class _SearchPageState extends State<SearchPage> {
   Widget _buildCategory(BuildContext context) {
     return Consumer<CategoryProvider>(
       builder: (context, state, _) {
-        if (state.state == ResultState.loading) {
+        if (state.state == ResultStates.loading) {
           return const Center(child: CircularProgressIndicator(color: orange));
-        } else if (state.state == ResultState.hasData) {
+        } else if (state.state == ResultStates.hasData) {
           return ListView.builder(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
@@ -316,7 +314,7 @@ class _SearchPageState extends State<SearchPage> {
               );
             },
           );
-        } else if (state.state == ResultState.error) {
+        } else if (state.state == ResultStates.error) {
           return Column(
             children: [
               const Center(child: Text('Error', style: subtitleTextStyle)),

@@ -29,7 +29,7 @@ class TrendingListPageState extends State<TrendingListPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: <Widget>[_buildTrendingList(context)],
+            children: [Text('trending page')],
           ),
         ),
       ),
@@ -39,10 +39,10 @@ class TrendingListPageState extends State<TrendingListPage> {
   _buildTrendingList(BuildContext context) {
     Consumer<TrendingProvider>(
       builder: (context, state, _) {
-        if (state.state == ResultState.loading) {
+        if (state.state == ResultStates.loading) {
           return const Center(child: CircularProgressIndicator(color: orange));
         } else {
-          if (state.state == ResultState.hasData) {
+          if (state.state == ResultStates.hasData) {
             return ListView.builder(
                 shrinkWrap: true,
                 physics: const ClampingScrollPhysics(),
@@ -51,9 +51,9 @@ class TrendingListPageState extends State<TrendingListPage> {
                   var recipe = state.recipeResult.data![index];
                   return HomeCardTrending(recipe: recipe);
                 });
-          } else if (state.state == ResultState.noData) {
+          } else if (state.state == ResultStates.noData) {
             return Center(child: Text(state.message));
-          } else if (state.state == ResultState.error) {
+          } else if (state.state == ResultStates.error) {
             return Center(child: Text(state.message));
           } else {
             return const Text('');

@@ -2,9 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/models/favorite_model.dart';
-import 'package:foodpad/models/recipe2_model.dart';
-import 'package:foodpad/models/recipe_model.dart';
-import 'package:foodpad/provider/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum ResultState { loading, noData, hasData, error, noConnection }
@@ -47,7 +44,7 @@ class FavoriteProvider extends ChangeNotifier {
       }
     } catch (e) {
       _state = ResultState.error;
-      notifyListeners();
+      // notifyListeners();
       return _message = 'Periksa koneksi internetmu.';
     }
   }

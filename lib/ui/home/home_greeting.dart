@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/provider/auth_provider.dart';
 import 'package:foodpad/ui/settings/account_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,14 +11,14 @@ class Greeting extends StatefulWidget {
 }
 
 class _GreetingState extends State<Greeting> {
-  String _firstName = '';
-  String _photo = '';
+  String? _firstName = '';
+  String? _photo = '';
 
   void _loadData() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _firstName = prefs.getString('firstName')!;
-      _photo = prefs.getString('profilePicture')!;
+      _firstName = prefs.getString('firstName');
+      _photo = prefs.getString('profilePicture');
     });
   }
 
@@ -43,7 +42,7 @@ class _GreetingState extends State<Greeting> {
               Text("Halo, $_firstName", style: helloTextStyle),
               Text(
                 'Mau masak apa hari ini?',
-                style: TextStyle(fontFamily: font, color: black),
+                style: const TextStyle(fontFamily: font, color: black),
               ),
             ]),
           ),
@@ -53,7 +52,7 @@ class _GreetingState extends State<Greeting> {
             },
             child: Flexible(
               flex: 1,
-              child: _photo == null || _photo.isEmpty
+              child: _photo == null || _photo!.isEmpty
                   ? CircleAvatar(
                       child: ClipOval(
                         child: Image.asset(
@@ -64,7 +63,7 @@ class _GreetingState extends State<Greeting> {
                     )
                   : CircleAvatar(
                       backgroundImage: NetworkImage(
-                        _photo,
+                        _photo!,
                       ),
                       radius: 28,
                     ),

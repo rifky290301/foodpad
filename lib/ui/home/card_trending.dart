@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/recipe2_model.dart';
@@ -28,8 +29,11 @@ class HomeCardTrending extends StatelessWidget {
               ClipRRect(
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(12)),
-                child: Image.network(recipe.thumbnail.toString(),
-                    height: 160, fit: BoxFit.fill),
+                child: Image.network(
+                  recipe.thumbnail.toString(),
+                  height: 160,
+                  fit: BoxFit.cover,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
@@ -42,11 +46,20 @@ class HomeCardTrending extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      for (int i = 0; i < 4; i++)
-                        Icon(Icons.star_rounded,
-                            size: 20, color: orangeSecondary),
-                      Icon(Icons.star_half_rounded,
-                          size: 16, color: orangeSecondary),
+                      RatingBar.builder(
+                        initialRating: double.parse(recipe.rating),
+                        allowHalfRating: true,
+                        ignoreGestures: true,
+                        minRating: 1,
+                        maxRating: 5,
+                        itemCount: 5,
+                        itemSize: 18.0,
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star_rounded,
+                          color: Colors.orange,
+                        ),
+                        onRatingUpdate: (rating) {},
+                      ),
                       const SizedBox(width: 4),
                       Text('${recipe.rating}/5', style: smallSubtitleTextStyle),
                     ],

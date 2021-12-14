@@ -12,18 +12,18 @@ class AccountSettingsPage extends StatefulWidget {
 }
 
 class _AccountSettingsPageState extends State<AccountSettingsPage> {
-  String _firstName = '';
-  String _lastName = '';
-  String _email = '';
-  String _photo = '';
+  String? _firstName = '';
+  String? _lastName = '';
+  String? _email = '';
+  String? _photo = '';
 
   void _loadData() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _firstName = prefs.getString('firstName')!;
-      _lastName = prefs.getString('lastName')!;
-      _email = prefs.getString('email')!;
-      _photo = prefs.getString('profilePicture')!;
+      _firstName = prefs.getString('firstName');
+      _lastName = prefs.getString('lastName');
+      _email = prefs.getString('email');
+      _photo = prefs.getString('profilePicture');
     });
   }
 
@@ -53,13 +53,13 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
       ),
       body: Stack(
         children: <Widget>[
-          _photo == null || _photo.isEmpty
+          _photo == null || _photo!.isEmpty
               ? Image.asset(
                   'images/logo.png',
                   fit: BoxFit.fill,
                 )
               : Image.network(
-                  _photo,
+                  _photo!,
                   fit: BoxFit.fill,
                 ),
           // Image.asset("images/logo.png", fit: BoxFit.fill),

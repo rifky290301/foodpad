@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final favoriteResult = favoriteResultFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 FavoriteResult favoriteResultFromJson(String str) =>
