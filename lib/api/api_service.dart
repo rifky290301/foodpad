@@ -167,7 +167,7 @@ class ApiService {
     String idUser = prefs.get('id').toString();
     try {
       final response = await http.post(
-        Uri.parse(favorite),
+        Uri.parse(_baseUrl + 'favorite'),
         headers: {'Accept': 'application/json'},
         body: {
           "recipe_id": idRecipe,

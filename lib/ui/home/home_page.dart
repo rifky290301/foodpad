@@ -109,10 +109,10 @@ class _HomePageState extends State<HomePage> {
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: state.recipeResult.data!.length,
+              itemCount: state.recipeResult.data.length,
               itemBuilder: (context, index) {
                 return HomeCardTrending(
-                  recipe: state.recipeResult.data![index],
+                  recipe: state.recipeResult.data[index],
                 );
               },
             ),
@@ -159,9 +159,9 @@ class _HomePageState extends State<HomePage> {
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
                 children:
-                    List.generate(state.recipeResult.data!.length, (index) {
+                    List.generate(state.recipeResult.data.length, (index) {
                   return HomeCardRecommended(
-                      recipe: state.recipeResult.data![index]);
+                      recipe: state.recipeResult.data[index]);
                 }),
               ),
             ],

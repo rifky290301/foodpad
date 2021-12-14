@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/provider/favorite_provider.dart';
+import 'package:provider/provider.dart';
 
 class DetailBottomNavigation extends StatelessWidget {
   final String recipeId;
@@ -104,11 +107,13 @@ class _FavoriteButtonState extends State<FavoriteButton> {
               icon: const Icon(Icons.favorite, color: orange, size: 34),
               onPressed: () {
                 state.deleteFavorite(
-                    (state.favoriteResult.data![0].id! + 3).toString());
+                    (state.favoriteResult.data![0].id!).toString());
                 setState(() {
-                  var snackBarFalse = SnackBar(
-                      content: Text(
-                          'Restoran dihapus dari favorite. ${state.favoriteResult.data![0].id! + 3}'));
+                  var snackBarFalse = const SnackBar(
+                    content: Text(
+                      'Resep dihapus dari favorite',
+                    ),
+                  );
                   ScaffoldMessenger.of(context).showSnackBar(snackBarFalse);
                 });
               },
@@ -121,9 +126,10 @@ class _FavoriteButtonState extends State<FavoriteButton> {
               onPressed: () {
                 state.addFavorite(widget.recipeId.toString());
                 setState(() {
-                  var snackBarTrue = SnackBar(
+                  var snackBarTrue = const SnackBar(
                     content: Text(
-                        'Restoran ditambahkan ke favorite.${widget.recipeId}'),
+                      'Resep ditambahkan ke favorite.',
+                    ),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBarTrue);
                 });

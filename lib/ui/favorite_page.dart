@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
@@ -9,7 +10,6 @@ import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/home/card_recommended.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({Key? key}) : super(key: key);
@@ -88,15 +88,16 @@ class _FavoritePageState extends State<FavoritePage> {
                             return SizedBox(
                               height: 300,
                               child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const ClampingScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 10,
-                                  itemBuilder: (context, index) {
-                                    return CardRecommended(
-                                      recipe: state.recipeResult.data[index],
-                                    );
-                                  }),
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 10,
+                                itemBuilder: (context, index) {
+                                  return HomeCardRecommended(
+                                    recipe: state.recipeResult.data[index],
+                                  );
+                                },
+                              ),
                             );
                           } else if (state.state == ResultStates.noData) {
                             return Center(child: Text(state.message));
@@ -131,7 +132,7 @@ class CardFavorite extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigation.intentWithData(
-            DetailPage.routeName, (recipe.id! + 3).toString());
+            DetailPage.routeName, (recipe.id!).toString());
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 6),
@@ -157,26 +158,33 @@ class CardFavorite extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: 250,
-                    child: Text(recipe.name.toString(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: itemTitleTextStyle),
+                    child: Text(
+                      recipe.name.toString(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: itemTitleTextStyle,
+                    ),
                   ),
                   const SizedBox(height: 18),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      for (int i = 0; i < 4; i++)
-                        Icon(Icons.star_rounded,
-                            size: 20, color: orangeSecondary),
-                      Icon(Icons.star_half_rounded,
-                          size: 20, color: orangeSecondary),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${recipe.rating}/5',
-                        style: const TextStyle(
-                            fontFamily: font, fontSize: 12, color: grey),
+                      RatingBar.builder(
+                        initialRating: double.parse(recipe.rating.toString()),
+                        allowHalfRating: true,
+                        ignoreGestures: true,
+                        minRating: 1,
+                        maxRating: 5,
+                        itemCount: 5,
+                        itemSize: 18.0,
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star_rounded,
+                          color: Colors.orange,
+                        ),
+                        onRatingUpdate: (rating) {},
                       ),
+                      const SizedBox(width: 4),
+                      Text('${recipe.rating}/5', style: smallSubtitleTextStyle),
                     ],
                   ),
                   SizedBox(
@@ -192,11 +200,14 @@ class CardFavorite extends StatelessWidget {
                                 const Icon(Icons.av_timer_outlined,
                                     size: 18, color: orange),
                                 SizedBox(width: 2),
-                                Text(recipe.duration.toString() + ' menit',
-                                    style: const TextStyle(
-                                        fontFamily: font,
-                                        fontSize: 12,
-                                        color: grey)),
+                                Text(
+                                  recipe.duration.toString() + ' menit',
+                                  style: const TextStyle(
+                                    fontFamily: font,
+                                    fontSize: 12,
+                                    color: grey,
+                                  ),
+                                ),
                                 const SizedBox(width: 6),
                                 const Icon(Icons.insert_chart,
                                     size: 18, color: orange),
@@ -241,17 +252,18 @@ class CardFavorite extends StatelessWidget {
                                                     color: white)),
                                           ),
                                           TextButton(
-                                            // onPressed: () => Navigator.pop(
-                                            //     context, 'DELETE'),
                                             onPressed: () {
                                               instanceFavorite.deleteFavorite(
                                                   recipe.id.toString());
                                               Navigator.pop(context, 'DELETE');
                                             },
-                                            child: const Text('Ya, Hapus',
-                                                style: TextStyle(
-                                                    fontFamily: font,
-                                                    color: orange)),
+                                            child: const Text(
+                                              'Ya, Hapus',
+                                              style: TextStyle(
+                                                fontFamily: font,
+                                                color: orange,
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),

@@ -24,7 +24,7 @@ class TrendingListPageState extends State<TrendingListPage> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: ActionBar("Trending"),
+        title: const ActionBar("Trending", '0'),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -48,7 +48,7 @@ class TrendingListPageState extends State<TrendingListPage> {
                 physics: const ClampingScrollPhysics(),
                 itemCount: 2,
                 itemBuilder: (context, index) {
-                  var recipe = state.recipeResult.data![index];
+                  var recipe = state.recipeResult.data[index];
                   return HomeCardTrending(recipe: recipe);
                 });
           } else if (state.state == ResultStates.noData) {

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/provider/favorite_provider.dart';
 
 enum ReportRecipe { notApplicable, dangerous, notLike, notHalal }
 ReportRecipe? _report = ReportRecipe.notApplicable;
 
-void recipeBottomSheet(BuildContext context) {
+FavoriteProvider instanceFavorite = FavoriteProvider(apiService: ApiService());
+
+void recipeBottomSheet(BuildContext context, idRecipe) {
   showModalBottomSheet<void>(
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
@@ -39,29 +43,37 @@ void recipeBottomSheet(BuildContext context) {
                       ListTile(
                         title: const Text('Tambahkan ke Favorit',
                             style: itemTextStyle),
-                        onTap: () {},
+                        onTap: () {
+                          instanceFavorite.addFavorite(idRecipe);
+                          Navigator.pop(context);
+                        },
                       ),
                       ListTile(
-                          title: const Text('Laporkan resep ini',
-                              style: itemTextStyle),
-                          onTap: () {
-                            showDialog<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const ReportAlertDialog();
-                                });
-                          }),
+                        title: const Text('Laporkan resep ini',
+                            style: itemTextStyle),
+                        onTap: () {
+                          showDialog<void>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const ReportAlertDialog();
+                            },
+                          );
+                        },
+                      ),
                       ListTile(
-                          title: const Text('Batal',
-                              style: TextStyle(
-                                fontFamily: font,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                                color: Colors.red,
-                              )),
-                          onTap: () {
-                            Navigator.pop(context);
-                          }),
+                        title: const Text(
+                          'Batal',
+                          style: TextStyle(
+                            fontFamily: font,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            color: Colors.red,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     ],
                   ).toList(),
                 ),

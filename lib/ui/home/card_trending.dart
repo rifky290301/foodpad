@@ -86,7 +86,7 @@ class HomeCardTrending extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                            onTap: () => recipeBottomSheet(context),
+                            onTap: () => recipeBottomSheet(context, recipe.id),
                             child: const Icon(Icons.more_horiz,
                                 size: 20, color: grey),
                           )

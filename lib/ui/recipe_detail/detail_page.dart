@@ -35,7 +35,7 @@ class _DetailPageState extends State<DetailPage> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: const ActionBar("Resep"),
+        title: ActionBar("Resep", widget.recipeId.toString()),
       ),
       body: Center(
         child: SafeArea(

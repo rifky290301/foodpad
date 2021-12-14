@@ -21,9 +21,9 @@ class _IngredientsListPageState extends State<IngredientsListPage> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: const ActionBar("Bahan-Bahan"),
+        title: const ActionBar("Bahan-Bahan", '0'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Ingredients Page'),
       ),
     );

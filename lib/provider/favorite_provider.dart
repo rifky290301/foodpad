@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/models/favorite_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 enum ResultState { loading, noData, hasData, error, noConnection }
 
@@ -27,6 +26,13 @@ class FavoriteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addFavorite(idRecipe) {
+    apiService.addFavorite(idRecipe);
+    FavoriteCheckProvider(apiService: apiService, idRecipe: idRecipe);
+    _fetchAllFavorite();
+    notifyListeners();
+  }
+
   Future<dynamic> _fetchAllFavorite() async {
     try {
       _state = ResultState.loading;
@@ -44,7 +50,7 @@ class FavoriteProvider extends ChangeNotifier {
       }
     } catch (e) {
       _state = ResultState.error;
-      // notifyListeners();
+      notifyListeners();
       return _message = 'Periksa koneksi internetmu.';
     }
   }
@@ -69,12 +75,14 @@ class FavoriteCheckProvider extends ChangeNotifier {
 
   void addFavorite(idRecipe) {
     apiService.addFavorite(idRecipe);
+    FavoriteProvider(apiService: apiService);
     _checkFavorite();
     notifyListeners();
   }
 
   void deleteFavorite(idRecipe) {
     apiService.deleteFovorite(idRecipe);
+    FavoriteProvider(apiService: apiService);
     _checkFavorite();
     notifyListeners();
   }

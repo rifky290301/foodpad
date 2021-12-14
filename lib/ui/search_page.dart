@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
@@ -71,16 +72,16 @@ class _SearchPageState extends State<SearchPage> {
                             // _buildCategory(context, state),
                             _formSearch(context, state),
                             ListView.builder(
-                              itemCount: state.recipeResult.data!.length,
+                              itemCount: state.recipeResult.data.length,
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
                               itemBuilder: (context, index) {
+                                var recipe = state.recipeResult.data[index];
                                 return InkWell(
                                   onTap: () {
                                     Navigation.intentWithData(
                                         DetailPage.routeName,
-                                        state.recipeResult.data![index].id
-                                            .toString());
+                                        recipe.id.toString());
                                   },
                                   child: Card(
                                     margin:
@@ -95,9 +96,7 @@ class _SearchPageState extends State<SearchPage> {
                                             borderRadius:
                                                 BorderRadius.circular(6),
                                             child: Image.network(
-                                              state.recipeResult.data![index]
-                                                  .thumbnail
-                                                  .toString(),
+                                              recipe.thumbnail.toString(),
                                               width: 85,
                                               height: 85,
                                               fit: BoxFit.cover,
@@ -114,9 +113,7 @@ class _SearchPageState extends State<SearchPage> {
                                               SizedBox(
                                                 width: 250,
                                                 child: Text(
-                                                    state.recipeResult
-                                                        .data![index].name
-                                                        .toString(),
+                                                    recipe.name.toString(),
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -126,22 +123,27 @@ class _SearchPageState extends State<SearchPage> {
                                               Row(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.end,
-                                                children: <Widget>[
-                                                  for (int i = 0; i < 4; i++)
-                                                    Icon(Icons.star_rounded,
-                                                        size: 20,
-                                                        color: orangeSecondary),
-                                                  Icon(Icons.star_half_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
-                                                  const SizedBox(width: 4),
-                                                  Text(
-                                                    '${state.recipeResult.data![index].rating}/5',
-                                                    style: const TextStyle(
-                                                        fontFamily: font,
-                                                        fontSize: 12,
-                                                        color: grey),
+                                                children: [
+                                                  RatingBar.builder(
+                                                    initialRating: double.parse(
+                                                        recipe.rating),
+                                                    allowHalfRating: true,
+                                                    ignoreGestures: true,
+                                                    minRating: 1,
+                                                    maxRating: 5,
+                                                    itemCount: 5,
+                                                    itemSize: 18.0,
+                                                    itemBuilder: (context, _) =>
+                                                        const Icon(
+                                                      Icons.star_rounded,
+                                                      color: Colors.orange,
+                                                    ),
+                                                    onRatingUpdate: (rating) {},
                                                   ),
+                                                  const SizedBox(width: 4),
+                                                  Text('${recipe.rating}/5',
+                                                      style:
+                                                          smallSubtitleTextStyle),
                                                 ],
                                               ),
                                               SizedBox(
@@ -164,11 +166,7 @@ class _SearchPageState extends State<SearchPage> {
                                                                 color: orange),
                                                             SizedBox(width: 2),
                                                             Text(
-                                                                state
-                                                                        .recipeResult
-                                                                        .data![
-                                                                            index]
-                                                                        .duration
+                                                                recipe.duration
                                                                         .toString() +
                                                                     ' menit',
                                                                 style: const TextStyle(
@@ -187,11 +185,7 @@ class _SearchPageState extends State<SearchPage> {
                                                                 color: orange),
                                                             SizedBox(width: 2),
                                                             Text(
-                                                                state
-                                                                    .recipeResult
-                                                                    .data![
-                                                                        index]
-                                                                    .level
+                                                                recipe.level
                                                                     .toString(),
                                                                 style: const TextStyle(
                                                                     fontFamily:
@@ -316,8 +310,8 @@ class _SearchPageState extends State<SearchPage> {
           );
         } else if (state.state == ResultStates.error) {
           return Column(
-            children: [
-              const Center(child: Text('Error', style: subtitleTextStyle)),
+            children: const [
+              Center(child: Text('Error', style: subtitleTextStyle)),
               // ElevatedButton(
               //   child: const Text('Refresh'),
               //   onPressed: () => state.refresh(),
