@@ -30,13 +30,23 @@ class _FavoritePageState extends State<FavoritePage> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Consumer<FavoriteProvider>(
                     builder: (context, state, _) {
                       if (state.state == ResultState.loading) {
-                        return const Center(
-                            child: CircularProgressIndicator(color: orange));
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.9,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: const [
+                              Center(
+                                child: CircularProgressIndicator(color: orange),
+                              ),
+                            ],
+                          ),
+                        );
                       } else {
                         if (state.state == ResultState.hasData) {
                           return Column(
@@ -129,7 +139,10 @@ class RecommendedList extends StatelessWidget {
           child: Consumer<RecipeProvider>(
             builder: (context, state, _) {
               if (state.state == ResultStates.loading) {
-                return const Center();
+                return Column(children: const [
+                  SizedBox(height: 16),
+                  Center(child: CircularProgressIndicator(color: orange)),
+                ]);
               } else {
                 if (state.state == ResultStates.hasData) {
                   return SizedBox(
@@ -174,7 +187,7 @@ class CardFavorite extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigation.intentWithData(
-            DetailPage.routeName, (recipe.id!).toString());
+            DetailPage.routeName, (recipe.recipeId).toString());
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 6),

@@ -19,6 +19,11 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double ratingBarValue = 0;
     String _review;
@@ -247,28 +252,6 @@ class FavoriteButton extends StatefulWidget {
 class _FavoriteButtonState extends State<FavoriteButton> {
   @override
   Widget build(BuildContext context) {
-    // FavoriteCheckProvider instanceFavorite = FavoriteCheckProvider(
-    //     apiService: ApiService(), idRecipe: widget.recipeId.toString());
-    // return IconButton(
-    //   icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border,
-    //       color: orange, size: 34),
-    //   onPressed: () {
-    //     setState(
-    //       () {
-    //         isFavorite = !isFavorite;
-    //           content: Text('Restoran ditambahkan ke favorite.'),
-    //         );
-
-    //         const snackBarFalse =
-    //             SnackBar(content: Text('Restoran dihapus dari favorite.'));
-
-    //         isFavorite
-    //             ? ScaffoldMessenger.of(context).showSnackBar(snackBarTrue)
-    //             : ScaffoldMessenger.of(context).showSnackBar(snackBarFalse);
-    //       },
-    //     );
-    //   },
-    // );
     return ChangeNotifierProvider<FavoriteCheckProvider>(
       create: (_) => FavoriteCheckProvider(
           apiService: ApiService(), idRecipe: widget.recipeId.toString()),
@@ -282,16 +265,15 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             return IconButton(
               icon: const Icon(Icons.favorite, color: orange, size: 34),
               onPressed: () {
-                state.deleteFavorite(
-                    (state.favoriteResult.data![0].id!).toString());
                 setState(() {
+                  state.deleteFavorite(
+                      (state.favoriteResult.data![0].id!).toString());
                   var snackBarFalse = const SnackBar(
                     content: Text(
                       'Resep dihapus dari favorite',
                     ),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBarFalse);
-                  ResultState.noData;
                 });
               },
             );
@@ -301,15 +283,16 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             return IconButton(
               icon: const Icon(Icons.favorite_border, color: orange, size: 34),
               onPressed: () {
-                state.addFavorite(widget.recipeId.toString());
                 setState(() {
+                  state.addFavorite(widget.recipeId.toString());
+                  state.notifyListeners();
+
                   var snackBarTrue = const SnackBar(
                     content: Text(
                       'Resep ditambahkan ke favorite.',
                     ),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBarTrue);
-                  ResultState.hasData;
                 });
               },
             );

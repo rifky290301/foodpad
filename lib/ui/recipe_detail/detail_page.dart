@@ -4,6 +4,7 @@ import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/error/error.dart';
+import 'package:foodpad/ui/error/no_internet.dart';
 import 'package:foodpad/ui/recipe_detail/data_detail.dart';
 import 'package:foodpad/ui/recipe_detail/detail_bottom_navigation.dart';
 import 'package:foodpad/widgets/action_bar.dart';
@@ -64,7 +65,7 @@ class _DetailPageState extends State<DetailPage> {
                 } else if (state.state == ResultStates.error) {
                   return const ErrorLoad();
                 } else {
-                  return const ErrorLoad();
+                  return const NoInternet();
                 }
               }),
             ),

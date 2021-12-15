@@ -21,6 +21,7 @@ class HomeCardTrending extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigation.intentWithData(DetailPage.routeName, recipe.id.toString());
+          print(recipe.id);
         },
         child: SizedBox(
           width: 160,
