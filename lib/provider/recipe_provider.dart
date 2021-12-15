@@ -88,6 +88,52 @@ class RecipeProvider extends ChangeNotifier {
   }
 }
 
+class IngredientRecipeProvider extends ChangeNotifier {
+  final ApiService apiService;
+  final String category;
+
+  IngredientRecipeProvider({required this.apiService, required this.category}) {
+    _fetchIngredientRecipe();
+  }
+
+  late Recipe2Result _recipeResult;
+  late ResultStates _state;
+  String _message = '';
+  String? _query;
+
+  Recipe2Result get recipeResult => _recipeResult;
+  ResultStates get state => _state;
+  String get message => _message;
+  String? get query => _query;
+
+  void refresh() {
+    _query = query;
+    _fetchIngredientRecipe();
+    notifyListeners();
+  }
+
+  Future<dynamic> _fetchIngredientRecipe() async {
+    try {
+      _state = ResultStates.loading;
+      notifyListeners();
+
+      final recipe = await apiService.ingredientRecipeList(category);
+      if (recipe.data.isEmpty) {
+        _state = ResultStates.noData;
+        notifyListeners();
+        return _message = 'No Data';
+      } else {
+        _state = ResultStates.hasData;
+        notifyListeners();
+        return _recipeResult = recipe;
+      }
+    } catch (e) {
+      _state = ResultStates.error;
+      return _message = 'Periksa koneksi internetmu.';
+    }
+  }
+}
+
 class RecipeDetailProvider extends ChangeNotifier {
   final ApiService apiService;
 
@@ -103,7 +149,6 @@ class RecipeDetailProvider extends ChangeNotifier {
   RecipeDetail get recipeResult => _recipeResult;
   ResultStates get state => _state;
   String get message => _message;
-  String get ids => id;
 
   Future<dynamic> _fetchAllRecipe() async {
     try {
