@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:foodpad/models/category_model.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/models/login_model.dart';
-import 'package:foodpad/models/rating_model.dart';
+// import 'package:foodpad/models/rating_model.dart';
 import 'package:foodpad/models/recipe2_model.dart';
-import 'package:foodpad/models/recipe_model.dart';
+import 'package:foodpad/models/recipe_detail_model.dart';
+// import 'package:foodpad/models/recipe_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,7 @@ class ApiService {
   static const String register = _baseUrl + 'register';
   static const String logout = _baseUrl + 'logout';
   static const String detail = _baseUrl + 'recipe/';
+  static const String detail2 = _baseUrl + 'recipe2/';
   static const String rating = _baseUrl + 'rating';
   static const String profilePic = _baseUrl + 'user/photo-profile/';
   static const String category = _baseUrl + 'category2';
@@ -25,22 +27,23 @@ class ApiService {
   static const String trending = _baseUrl + 'trending2';
   static const String sementara = _baseUrl + 'sementara';
   static const String recipeCategory = _baseUrl + 'recipe-category/';
+  static const String review = _baseUrl + 'rating';
 
-  Future<RecipeResult> recipeList(query) async {
-    String? request;
-    if (query == null || query == '') {
-      request = sementara;
-    } else {
-      request = search + query!;
-    }
-    final response = await http.get(Uri.parse(request));
+  // Future<RecipeResult> recipeList(query) async {
+  //   String? request;
+  //   if (query == null || query == '') {
+  //     request = sementara;
+  //   } else {
+  //     request = search + query!;
+  //   }
+  //   final response = await http.get(Uri.parse(request));
 
-    if (response.statusCode == 200) {
-      return RecipeResult.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Gagal menampilkan resep');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     return RecipeResult.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     throw Exception('Gagal menampilkan resep');
+  //   }
+  // }
 
   Future<Recipe2Result> recipeList2(query) async {
     String? request;
@@ -68,17 +71,27 @@ class ApiService {
     }
   }
 
-  Future<RecipeResult> recipeDetail(String id) async {
-    final response = await http.get(Uri.parse(detail + id));
+  // Future<RecipeResult> recipeDetail(String id) async {
+  //   final response = await http.get(Uri.parse(detail + id));
+
+  //   if (response.statusCode == 200) {
+  //     return RecipeResult.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     throw Exception('Gagal menampilkan resep');
+  //   }
+  // }
+
+  Future<RecipeDetail> recipeDetail2(String id) async {
+    final response = await http.get(Uri.parse(detail2 + id));
 
     if (response.statusCode == 200) {
-      return RecipeResult.fromJson(jsonDecode(response.body));
+      return RecipeDetail.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan resep');
     }
   }
 
-  Future<Recipe2Result> recipeShoriting(String shorting) async {
+  Future<Recipe2Result> recipeShorting(String shorting) async {
     final response = await http.get(Uri.parse(recipeCategory + shorting));
 
     if (response.statusCode == 200) {
@@ -88,15 +101,15 @@ class ApiService {
     }
   }
 
-  Future<RatingResult> ratingList() async {
-    final response = await http.get(Uri.parse(recipe));
+  // Future<RatingResult> ratingList() async {
+  //   final response = await http.get(Uri.parse(recipe));
 
-    if (response.statusCode == 200) {
-      return RatingResult.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Gagal menampilkan rating');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     return RatingResult.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     throw Exception('Gagal menampilkan rating');
+  //   }
+  // }
 
   Future<Category2> categoryList() async {
     final response = await http.get(Uri.parse(category));
@@ -211,11 +224,7 @@ class ApiService {
   }
 
   static Future<String> userRegister(
-    String firstName,
-    String lastName,
-    String email,
-    String password,
-  ) async {
+      String firstName, String lastName, String email, String password) async {
     try {
       final response = await http.post(
         Uri.parse(register),
@@ -234,6 +243,44 @@ class ApiService {
       }
     } catch (e) {
       throw Exception('error : ' + e.toString());
+    }
+  }
+
+  Future<String> addReview(recipeId, rating, review) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String idUser = prefs.get('id').toString();
+    try {
+      final response = await http.post(
+        Uri.parse(review),
+        headers: {'Accept': 'application/json'},
+        body: {
+          "recipe_id": recipeId,
+          "rating": rating,
+          "review": review,
+          "user_id": idUser,
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed regsiter user");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
+
+  Future<Rating> reviewCheck(String idRecipe) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String idUser = prefs.get('id').toString();
+
+    final response =
+        await http.get(Uri.parse(review + idRecipe + '/' + idUser));
+
+    if (response.statusCode == 200) {
+      return Rating.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan kategori');
     }
   }
 }

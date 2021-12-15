@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:foodpad/common/navigation.dart';
-import 'package:foodpad/models/recipe_model.dart';
+import 'package:foodpad/models/recipe2_model.dart';
+// import 'package:foodpad/models/recipe_detail_model.dart';
 import 'package:rxdart/rxdart.dart';
 
 final selectNotificationSubject = BehaviorSubject<String>();
@@ -32,7 +33,7 @@ class NotificationHelper {
 
   Future<void> showNotification(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
-      Recipe recipe) async {
+      Datum recipe) async {
     var _channelId = "recipe";
     var _channelName = "Recipe";
     var _channelDescription = "Recipe Channel";
@@ -48,7 +49,8 @@ class NotificationHelper {
         NotificationDetails(android: androidPlatformChannelSpecifics);
 
     var titleNotification = 'Rekomendasi Resep Buat Kamu';
-    var titleNews = 'Yuk coba masak ${recipe.name}! ${recipe.description}';
+    // var titleNews = 'Yuk coba masak ${recipe.name}! ${recipe.description}';
+    var titleNews = 'Yuk coba masak ${recipe.name}!';
 
     await flutterLocalNotificationsPlugin.show(
         0, titleNotification, titleNews, platformChannelSpecifics,
@@ -58,7 +60,7 @@ class NotificationHelper {
   void configureSelectNotificationSubject(String route) {
     selectNotificationSubject.stream.listen(
       (String payload) async {
-        var data = Recipe.fromJson(json.decode(payload));
+        var data = Datum.fromJson(json.decode(payload));
         var recipeId = data.id;
         Navigation.intentWithData(route, recipeId.toString());
       },

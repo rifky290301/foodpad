@@ -29,9 +29,9 @@ class BackgroundService {
   static Future<void> callback() async {
     final NotificationHelper _notificationHelper = NotificationHelper();
     http.Client client = http.Client();
-    var result = await ApiService().recipeList(client);
-    var randomIndex = Random().nextInt(result.recipes.length);
-    var data = result.recipes[randomIndex];
+    var result = await ApiService().recipeList2(client);
+    var randomIndex = Random().nextInt(result.data.length);
+    var data = result.data[randomIndex];
 
     await _notificationHelper.showNotification(
         flutterLocalNotificationsPlugin, data);

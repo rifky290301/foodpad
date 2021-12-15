@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/models/category_model.dart';
 import 'package:foodpad/models/recipe2_model.dart';
+import 'package:foodpad/models/recipe_detail_model.dart';
 import 'package:foodpad/models/recipe_model.dart';
 
 enum ResultStates { loading, noData, hasData, error, noConnection }
@@ -69,7 +70,7 @@ class RecipeProvider extends ChangeNotifier {
       _state = ResultStates.loading;
       notifyListeners();
 
-      final recipe = await apiService.recipeShoriting(query!);
+      final recipe = await apiService.recipeShorting(query!);
       if (recipe.data.isEmpty) {
         _state = ResultStates.noData;
         notifyListeners();
@@ -94,12 +95,12 @@ class RecipeDetailProvider extends ChangeNotifier {
     _fetchAllRecipe();
   }
 
-  late RecipeResult _recipeResult;
+  late RecipeDetail _recipeResult;
   late ResultStates _state;
   String _message = '';
   final String id;
 
-  RecipeResult get recipeResult => _recipeResult;
+  RecipeDetail get recipeResult => _recipeResult;
   ResultStates get state => _state;
   String get message => _message;
   String get ids => id;
@@ -109,8 +110,8 @@ class RecipeDetailProvider extends ChangeNotifier {
       _state = ResultStates.loading;
       notifyListeners();
 
-      final recipe = await apiService.recipeDetail(id);
-      if (recipe.recipes.isEmpty) {
+      final recipe = await apiService.recipeDetail2(id);
+      if (recipe.data.isEmpty) {
         _state = ResultStates.noData;
         notifyListeners();
         return _message = 'No Data';

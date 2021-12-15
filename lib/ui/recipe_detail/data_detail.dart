@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/models/recipe_model.dart';
+import 'package:foodpad/models/recipe_detail_model.dart';
 import 'package:foodpad/ui/error/no_review.dart';
 
 class DataDetail extends StatelessWidget {
-  final Recipe recipeDetail;
+  final Detail recipeDetail;
   final String recipeId;
   const DataDetail(
       {Key? key, required this.recipeDetail, required this.recipeId})
@@ -191,7 +191,7 @@ class DataDetail extends StatelessWidget {
 }
 
 class ChipCategories extends StatelessWidget {
-  final CategoryResult category;
+  final Categories category;
   const ChipCategories({Key? key, required this.category}) : super(key: key);
 
   @override
@@ -211,7 +211,7 @@ class ChipCategories extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(6),
         child: Text(
-          category.category.category,
+          category.category,
           style: const TextStyle(fontFamily: font, color: orange, fontSize: 12),
         ),
       ),
@@ -265,7 +265,7 @@ class Step extends StatelessWidget {
                   Text('Langkah ${step.toString()}', style: orangeTextStyle),
                   const SizedBox(height: 16),
                   Text(
-                    steps.step,
+                    steps.step.toString(),
                     style: blackTextStyle,
                     textAlign: TextAlign.justify,
                   ),
@@ -334,6 +334,7 @@ class Ratings extends StatelessWidget {
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.ellipsis,
               ),
+              Text(ratings.reviewer.email),
             ],
           ),
         ),

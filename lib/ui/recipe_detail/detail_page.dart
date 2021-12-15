@@ -58,7 +58,7 @@ class _DetailPageState extends State<DetailPage> {
                       itemCount: 1,
                       itemBuilder: (context, index) {
                         return DataDetail(
-                          recipeDetail: state.recipeResult.recipes[index],
+                          recipeDetail: state.recipeResult.data[index],
                           recipeId: widget.recipeId,
                         );
                       });
