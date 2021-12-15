@@ -42,6 +42,16 @@ class ApiService {
     }
   }
 
+  Future<Recipe2Result> ingredientRecipeList(query) async {
+    final response = await http.get(Uri.parse(search + query!));
+
+    if (response.statusCode == 200) {
+      return Recipe2Result.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan resep');
+    }
+  }
+
   Future<Recipe2Result> recipeList2(query) async {
     String? request;
     if (query == null || query == '') {

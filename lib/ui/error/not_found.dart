@@ -18,7 +18,7 @@ class NotFound extends StatelessWidget {
                 SizedBox(height: 8),
                 Text('Tidak Ditemukan', style: titleTextStyle),
                 Text(
-                  'Kami tidak dapat menemukan hasil pencarian dari "babi halal"',
+                  'Kami tidak dapat menemukan resepnya! Coba lagi nanti.',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontFamily: font, color: grey),
                 ),

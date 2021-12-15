@@ -3,7 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/ingredients_homepage.dart';
+import 'package:foodpad/ui/home/ingredient_recipe_page.dart';
 import 'package:foodpad/ui/home/ingredients_list_page.dart';
+import 'package:foodpad/ui/home/trending_list_page.dart';
 import 'package:foodpad/ui/search_page.dart';
 
 class HomeIngredientsList extends StatelessWidget {
@@ -54,8 +56,6 @@ class HomeIngredientsList extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigation.intentWithData(
-                                  SearchPage.routeName, ingredients[index]);
                               Fluttertoast.showToast(
                                   msg: "${ingredients[index]} clicked.",
                                   toastLength: Toast.LENGTH_SHORT,
@@ -102,6 +102,17 @@ class HomeIngredientsList extends StatelessWidget {
                       child: Column(
                         children: [
                           InkWell(
+                            onTap: () {
+                              Fluttertoast.showToast(
+                                  msg: "${ingredients[index + 5]} clicked.",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 3,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                              Navigator.pushNamed(
+                                  context, IngredientRecipePage.routeName);
+                            },
                             child: CircleAvatar(
                                 backgroundColor: lightGrey,
                                 radius: 28,
