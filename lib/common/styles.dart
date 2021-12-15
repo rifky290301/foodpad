@@ -25,6 +25,9 @@ const greyTextStyle = TextStyle(
 
 const blackTextStyle = TextStyle(fontFamily: font, fontSize: 14, color: black);
 
+const blackBoldTextStyle = TextStyle(
+    fontFamily: font, fontSize: 14, color: black, fontWeight: FontWeight.bold);
+
 const titleTextStyle =
     TextStyle(fontFamily: font, fontWeight: FontWeight.w700, fontSize: 22);
 

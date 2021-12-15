@@ -11,7 +11,13 @@ class CarouselsSlider extends StatefulWidget {
 class _CarouselsSliderState extends State<CarouselsSlider> {
   int _currentIndex = 0;
 
-  List<int> cardList = [1, 2, 3, 4];
+  List<int> list = [1, 2, 3];
+
+  List<String> cardList = [
+    'images/carousel1.jpg',
+    'images/carousel2.jpg',
+    'images/carousel3.jpg',
+  ];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -25,7 +31,6 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         const SizedBox(height: 28),
         CarouselSlider(
           options: CarouselOptions(
@@ -42,12 +47,18 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
                 });
               }),
           items: cardList.map((item) {
-            return const CarouselItem();
+            return SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Center(
+                child: Image.asset(item),
+              ),
+            );
           }).toList(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: map<Widget>(cardList, (index, url) {
+          children: map<Widget>(list, (index, url) {
             return Container(
               width: 8,
               height: 8,
@@ -62,29 +73,6 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
           }),
         )
       ],
-    );
-  }
-}
-
-class CarouselItem extends StatelessWidget {
-  const CarouselItem({Key? key}) : super(key: key);
-  
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.3,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: grey,
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 2),
-        ],
-      ),
-      child: const Center(
-        child: Text('Carousels',
-            style: TextStyle(fontFamily: font, color: white, fontSize: 24)),
-      ),
     );
   }
 }

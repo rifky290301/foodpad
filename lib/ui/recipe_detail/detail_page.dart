@@ -35,7 +35,7 @@ class _DetailPageState extends State<DetailPage> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: const ActionBar("Resep"),
+        title: ActionBar("Resep", widget.recipeId.toString()),
       ),
       body: Center(
         child: SafeArea(
@@ -46,11 +46,11 @@ class _DetailPageState extends State<DetailPage> {
                   apiService: ApiService(), id: widget.recipeId),
               child:
                   Consumer<RecipeDetailProvider>(builder: (context, state, _) {
-                if (state.state == ResultState.loading) {
+                if (state.state == ResultStates.loading) {
                   return const Center(
                     child: CircularProgressIndicator(color: orange),
                   );
-                } else if (state.state == ResultState.hasData) {
+                } else if (state.state == ResultStates.hasData) {
                   return ListView.builder(
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
@@ -61,7 +61,7 @@ class _DetailPageState extends State<DetailPage> {
                           recipeId: widget.recipeId,
                         );
                       });
-                } else if (state.state == ResultState.error) {
+                } else if (state.state == ResultStates.error) {
                   return const ErrorLoad();
                 } else {
                   return const ErrorLoad();

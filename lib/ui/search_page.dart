@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
@@ -19,6 +20,8 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController searchTextController = TextEditingController();
   final _search = TextEditingController();
+  // late final int _star;
+  RecipeProvider instanceRecipe = RecipeProvider(apiService: ApiService());
 
   @override
   Widget build(BuildContext context) {
@@ -52,32 +55,33 @@ class _SearchPageState extends State<SearchPage> {
                 const SizedBox(height: 8),
                 SizedBox(
                   height: 40,
-                  width: MediaQuery.of(context).size.width,
                   child: _buildCategory(context),
+                  // child: _sementara(),
                 ),
                 ChangeNotifierProvider<RecipeProvider>(
                   create: (_) => RecipeProvider(apiService: ApiService()),
                   child: Consumer<RecipeProvider>(
                     builder: (context, state, _) {
-                      if (state.state == ResultState.loading) {
+                      if (state.state == ResultStates.loading) {
                         return const Center(
                           child: CircularProgressIndicator(color: orange),
                         );
-                      } else if (state.state == ResultState.hasData) {
+                      } else if (state.state == ResultStates.hasData) {
                         return Column(
                           children: [
+                            // _buildCategory(context, state),
                             _formSearch(context, state),
                             ListView.builder(
-                              itemCount: state.recipeResult.recipes.length,
+                              itemCount: state.recipeResult.data.length,
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
                               itemBuilder: (context, index) {
+                                var recipe = state.recipeResult.data[index];
                                 return InkWell(
                                   onTap: () {
                                     Navigation.intentWithData(
                                         DetailPage.routeName,
-                                        state.recipeResult.recipes[index].id
-                                            .toString());
+                                        recipe.id.toString());
                                   },
                                   child: Card(
                                     margin:
@@ -92,10 +96,10 @@ class _SearchPageState extends State<SearchPage> {
                                             borderRadius:
                                                 BorderRadius.circular(6),
                                             child: Image.network(
-                                              state.recipeResult.recipes[index]
-                                                  .thumbnail,
+                                              recipe.thumbnail.toString(),
                                               width: 85,
                                               height: 85,
+                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
@@ -109,8 +113,7 @@ class _SearchPageState extends State<SearchPage> {
                                               SizedBox(
                                                 width: 250,
                                                 child: Text(
-                                                    state.recipeResult
-                                                        .recipes[index].name,
+                                                    recipe.name.toString(),
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -121,29 +124,26 @@ class _SearchPageState extends State<SearchPage> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.end,
                                                 children: [
-                                                  Icon(Icons.star_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
-                                                  Icon(Icons.star_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
-                                                  Icon(Icons.star_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
-                                                  Icon(Icons.star_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
-                                                  Icon(Icons.star_half_rounded,
-                                                      size: 20,
-                                                      color: orangeSecondary),
-                                                  const SizedBox(width: 4),
-                                                  const Text(
-                                                    '4.5/5',
-                                                    style: TextStyle(
-                                                        fontFamily: font,
-                                                        fontSize: 12,
-                                                        color: grey),
+                                                  RatingBar.builder(
+                                                    initialRating: double.parse(
+                                                        recipe.rating),
+                                                    allowHalfRating: true,
+                                                    ignoreGestures: true,
+                                                    minRating: 1,
+                                                    maxRating: 5,
+                                                    itemCount: 5,
+                                                    itemSize: 18.0,
+                                                    itemBuilder: (context, _) =>
+                                                        const Icon(
+                                                      Icons.star_rounded,
+                                                      color: Colors.orange,
+                                                    ),
+                                                    onRatingUpdate: (rating) {},
                                                   ),
+                                                  const SizedBox(width: 4),
+                                                  Text('${recipe.rating}/5',
+                                                      style:
+                                                          smallSubtitleTextStyle),
                                                 ],
                                               ),
                                               SizedBox(
@@ -164,13 +164,10 @@ class _SearchPageState extends State<SearchPage> {
                                                                     .av_timer_outlined,
                                                                 size: 18,
                                                                 color: orange),
-                                                            SizedBox(width: 2),
+                                                            const SizedBox(
+                                                                width: 2),
                                                             Text(
-                                                                state
-                                                                        .recipeResult
-                                                                        .recipes[
-                                                                            index]
-                                                                        .duration
+                                                                recipe.duration
                                                                         .toString() +
                                                                     ' menit',
                                                                 style: const TextStyle(
@@ -187,13 +184,11 @@ class _SearchPageState extends State<SearchPage> {
                                                                     .insert_chart,
                                                                 size: 18,
                                                                 color: orange),
-                                                            SizedBox(width: 2),
+                                                            const SizedBox(
+                                                                width: 2),
                                                             Text(
-                                                                state
-                                                                    .recipeResult
-                                                                    .recipes[
-                                                                        index]
-                                                                    .level,
+                                                                recipe.level
+                                                                    .toString(),
                                                                 style: const TextStyle(
                                                                     fontFamily:
                                                                         font,
@@ -205,66 +200,6 @@ class _SearchPageState extends State<SearchPage> {
                                                         ),
                                                       ],
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                showDialog<
-                                                                    String>(
-                                                                  context:
-                                                                      context,
-                                                                  builder: (BuildContext
-                                                                          context) =>
-                                                                      AlertDialog(
-                                                                    title:
-                                                                        const Text(
-                                                                      'Hapus Resep Favorit',
-                                                                      style:
-                                                                          titleTextStyle,
-                                                                    ),
-                                                                    content: const Text(
-                                                                        'Apakah kamu yakin ingin menghapus resep ini dari favorit?',
-                                                                        style:
-                                                                            blackTextStyle),
-                                                                    actions: <
-                                                                        Widget>[
-                                                                      ElevatedButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            context,
-                                                                            'CANCEL'),
-                                                                        child: const Text(
-                                                                            'Batal',
-                                                                            style:
-                                                                                TextStyle(fontFamily: font, color: white)),
-                                                                      ),
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            context,
-                                                                            'DELETE'),
-                                                                        child: const Text(
-                                                                            'Ya, Hapus',
-                                                                            style:
-                                                                                TextStyle(fontFamily: font, color: orange)),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                );
-                                                              },
-                                                              child: const Icon(
-                                                                  Icons
-                                                                      .delete_forever,
-                                                                  color: orange,
-                                                                  size: 26),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    )
                                                   ],
                                                 ),
                                               )
@@ -279,7 +214,7 @@ class _SearchPageState extends State<SearchPage> {
                             ),
                           ],
                         );
-                      } else if (state.state == ResultState.error) {
+                      } else if (state.state == ResultStates.error) {
                         return const ErrorLoad();
                       } else {
                         return const ErrorLoad();
@@ -295,7 +230,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Padding _formSearch(BuildContext context, RecipeProvider state) {
+  Widget _formSearch(BuildContext context, RecipeProvider state) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
       child: Row(
@@ -345,29 +280,49 @@ class _SearchPageState extends State<SearchPage> {
   Widget _buildCategory(BuildContext context) {
     return Consumer<CategoryProvider>(
       builder: (context, state, _) {
-        if (state.state == ResultState.loading) {
+        if (state.state == ResultStates.loading) {
           return const Center(child: CircularProgressIndicator(color: orange));
-        } else if (state.state == ResultState.hasData) {
+        } else if (state.state == ResultStates.hasData) {
           return ListView.builder(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
-            itemCount: state.categoryResult.category.category.length,
+            scrollDirection: Axis.horizontal,
+            itemCount: state.categoryResult.data!.length,
             itemBuilder: (context, index) {
-              var categories = state.categoryResult.category.category[index];
-              return Card(
-                color: orange,
-                child: Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Text(
-                    categories,
-                    style: const TextStyle(fontFamily: font, color: white),
+              return Container(
+                margin: const EdgeInsets.only(left: 8.0),
+                child: ElevatedButton(
+                  child: Padding(
+                    padding: const EdgeInsets.all(1),
+                    child: Text(
+                      state.categoryResult.data![index].category.toString(),
+                      style: const TextStyle(fontFamily: font, color: white),
+                    ),
+                  ),
+                  onPressed: () => instanceRecipe.setShorting(state
+                      .categoryResult.data![index].category
+                      .toString()
+                      .toLowerCase()),
+                  style: ElevatedButton.styleFrom(
+                    primary: orange,
                   ),
                 ),
               );
             },
           );
-        } else if (state.state == ResultState.error) {
-          return const Center(child: Text('Error', style: subtitleTextStyle));
+        } else if (state.state == ResultStates.error) {
+          return Column(
+            children: const [
+              Center(child: Text('Error', style: subtitleTextStyle)),
+              // ElevatedButton(
+              //   child: const Text('Refresh'),
+              //   onPressed: () => state.refresh(),
+              //   style: ElevatedButton.styleFrom(
+              //     primary: orange,
+              //   ),
+              // ),
+            ],
+          );
         } else {
           return const Text('');
         }

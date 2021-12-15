@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/models/recipe_model.dart';
+import 'package:foodpad/models/recipe2_model.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:foodpad/widgets/recipe_bottom_sheet.dart';
 
 class HomeCardTrending extends StatelessWidget {
-  final Recipe recipe;
+  final Datum recipe;
   const HomeCardTrending({Key? key, required this.recipe}) : super(key: key);
 
   @override
@@ -29,7 +30,7 @@ class HomeCardTrending extends StatelessWidget {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(12)),
                 child: Image.network(
-                  recipe.thumbnail,
+                  recipe.thumbnail.toString(),
                   height: 160,
                   fit: BoxFit.cover,
                 ),
@@ -37,26 +38,30 @@ class HomeCardTrending extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Column(children: [
-                  Text(recipe.name,
-                      maxLines: 2,
+                  Text(recipe.name.toString(),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: itemTitleTextStyle),
                   const SizedBox(height: 12),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Icon(Icons.star_rounded,
-                          size: 16, color: orangeSecondary),
-                      Icon(Icons.star_rounded,
-                          size: 16, color: orangeSecondary),
-                      Icon(Icons.star_rounded,
-                          size: 16, color: orangeSecondary),
-                      Icon(Icons.star_rounded,
-                          size: 16, color: orangeSecondary),
-                      Icon(Icons.star_half_rounded,
-                          size: 16, color: orangeSecondary),
+                      RatingBar.builder(
+                        initialRating: double.parse(recipe.rating),
+                        allowHalfRating: true,
+                        ignoreGestures: true,
+                        minRating: 1,
+                        maxRating: 5,
+                        itemCount: 5,
+                        itemSize: 18.0,
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star_rounded,
+                          color: Colors.orange,
+                        ),
+                        onRatingUpdate: (rating) {},
+                      ),
                       const SizedBox(width: 4),
-                      Text('4.5/5', style: smallSubtitleTextStyle),
+                      Text('${recipe.rating}/5', style: smallSubtitleTextStyle),
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -74,13 +79,14 @@ class HomeCardTrending extends StatelessWidget {
                           const Icon(Icons.insert_chart,
                               size: 18, color: orange),
                           const SizedBox(width: 1),
-                          Text(recipe.level, style: smallSubtitleTextStyle),
+                          Text(recipe.level.toString(),
+                              style: smallSubtitleTextStyle),
                         ],
                       ),
                       Row(
                         children: [
                           InkWell(
-                            onTap: () => recipeBottomSheet(context),
+                            onTap: () => recipeBottomSheet(context, recipe.id),
                             child: const Icon(Icons.more_horiz,
                                 size: 20, color: grey),
                           )

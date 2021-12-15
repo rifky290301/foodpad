@@ -10,10 +10,10 @@ String userToJson(User data) => json.encode(data.toJson());
 
 class User {
   User({
-    this.users,
+    required this.users,
   });
 
-  List<UserElement>? users;
+  final List<UserElement> users;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         users: List<UserElement>.from(
@@ -21,30 +21,24 @@ class User {
       );
 
   Map<String, dynamic> toJson() => {
-        "users": List<dynamic>.from(users!.map((x) => x.toJson())),
+        "users": List<dynamic>.from(users.map((x) => x.toJson())),
       };
 }
 
 class UserElement {
   UserElement({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.photo,
-    this.email,
-    this.emailVerifiedAt,
-    this.createdAt,
-    this.updatedAt,
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.photo,
+    required this.email,
   });
 
-  int? id;
-  String? firstName;
-  String? lastName;
-  String? photo;
-  String? email;
-  DateTime? emailVerifiedAt;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  final int id;
+  final String firstName;
+  final String lastName;
+  final String photo;
+  final String email;
 
   factory UserElement.fromJson(Map<String, dynamic> json) => UserElement(
         id: json["id"],
@@ -52,9 +46,6 @@ class UserElement {
         lastName: json["last_name"],
         photo: json["photo"],
         email: json["email"],
-        emailVerifiedAt: DateTime.parse(json["email_verified_at"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -63,8 +54,5 @@ class UserElement {
         "last_name": lastName,
         "photo": photo,
         "email": email,
-        "email_verified_at": emailVerifiedAt!.toIso8601String(),
-        "created_at": createdAt!.toIso8601String(),
-        "updated_at": updatedAt!.toIso8601String(),
       };
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
-import 'package:foodpad/models/recipe_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:foodpad/models/favorite_model.dart';
 
 enum ResultState { loading, noData, hasData, error, noConnection }
 
@@ -10,24 +9,37 @@ class FavoriteProvider extends ChangeNotifier {
   final ApiService apiService;
 
   FavoriteProvider({required this.apiService}) {
-    _fetchAllFavorite(1);
+    _fetchAllFavorite();
   }
 
-  late RecipeResult _recipeResult;
+  late FavoriteResult _recipeResult;
   late ResultState _state;
   String _message = '';
 
-  RecipeResult get recipeResult => _recipeResult;
+  FavoriteResult get recipeResult => _recipeResult;
   ResultState get state => _state;
   String get message => _message;
 
-  Future<dynamic> _fetchAllFavorite(idUser) async {
+  void deleteFavorite(idFavorite) {
+    apiService.deleteFovorite(idFavorite);
+    _fetchAllFavorite();
+    notifyListeners();
+  }
+
+  void addFavorite(idRecipe) {
+    apiService.addFavorite(idRecipe);
+    FavoriteCheckProvider(apiService: apiService, idRecipe: idRecipe);
+    _fetchAllFavorite();
+    notifyListeners();
+  }
+
+  Future<dynamic> _fetchAllFavorite() async {
     try {
       _state = ResultState.loading;
       notifyListeners();
 
-      final recipe = await apiService.favoriteList(idUser);
-      if (recipe.recipes.isEmpty) {
+      final recipe = await apiService.favoriteList();
+      if (recipe.data!.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
         return _message = 'No Data';
@@ -38,15 +50,8 @@ class FavoriteProvider extends ChangeNotifier {
       }
     } catch (e) {
       _state = ResultState.error;
-      notifyListeners();
       return _message = 'Periksa koneksi internetmu.';
     }
-  }
-
-  getValuePrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? stringId = prefs.getString('id');
-    return stringId!;
   }
 }
 
@@ -54,39 +59,47 @@ class FavoriteCheckProvider extends ChangeNotifier {
   final ApiService apiService;
 
   FavoriteCheckProvider({required this.apiService, required this.idRecipe}) {
-    _checkFavorite(1);
+    _checkFavorite();
   }
 
-  late RecipeResult _recipeResult;
+  late FavoriteResult _favoriteResult;
   late ResultState _state;
   String _message = '';
   final String idRecipe;
 
-  RecipeResult get recipeResult => _recipeResult;
+  FavoriteResult get favoriteResult => _favoriteResult;
   ResultState get state => _state;
   String get message => _message;
   String get ids => idRecipe;
 
-  getValuePrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? stringId = prefs.getString('id');
-    return stringId!;
+  void addFavorite(idRecipe) {
+    apiService.addFavorite(idRecipe);
+    FavoriteProvider(apiService: apiService);
+    _checkFavorite();
+    notifyListeners();
   }
 
-  Future<dynamic> _checkFavorite(idUser) async {
+  void deleteFavorite(idRecipe) {
+    apiService.deleteFovorite(idRecipe);
+    FavoriteProvider(apiService: apiService);
+    _checkFavorite();
+    notifyListeners();
+  }
+
+  Future<dynamic> _checkFavorite() async {
     try {
       _state = ResultState.loading;
       notifyListeners();
 
-      final recipe = await apiService.favoriteCheck(idRecipe, idUser);
-      if (recipe.recipes.isEmpty) {
+      final recipe = await apiService.favoriteCheck(idRecipe);
+      if (recipe.data!.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
         return _message = 'No Data';
       } else {
         _state = ResultState.hasData;
         notifyListeners();
-        return _recipeResult = recipe;
+        return _favoriteResult = recipe;
       }
     } catch (e) {
       _state = ResultState.error;
@@ -94,8 +107,4 @@ class FavoriteCheckProvider extends ChangeNotifier {
       return _message = 'Periksa koneksi internetmu.';
     }
   }
-
-  addFavorite(idUser, idRecipe) async {}
-
-  deleteFavorite() async {}
 }

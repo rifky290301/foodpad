@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/navigation.dart';
-import 'package:foodpad/provider/favorite_provider.dart';
 import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/provider/scheduling_provider.dart';
@@ -12,13 +11,11 @@ import 'package:foodpad/ui/home/ingredients_list_page.dart';
 import 'package:foodpad/ui/home/trending_list_page.dart';
 import 'package:foodpad/ui/authentication/login_page.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
-import 'package:foodpad/ui/home/ingredients_list_page.dart';
-import 'package:foodpad/ui/home/trending_list_page.dart';
-import 'package:foodpad/ui/receipt_detail/detail_page.dart';
 import 'package:foodpad/ui/home/home_page.dart';
 import 'package:foodpad/ui/main_page.dart';
 import 'package:foodpad/ui/search_page.dart';
 import 'package:flutter/services.dart';
+import 'package:foodpad/ui/settings/account_settings.dart';
 import 'package:foodpad/ui/splash_screen.dart';
 import 'package:foodpad/utils/background_service.dart';
 import 'package:foodpad/utils/notification_helper.dart';
@@ -56,8 +53,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (_) => RecipeProvider(apiService: ApiService())),
         ChangeNotifierProvider(
-            create: (_) => FavoriteProvider(apiService: ApiService())),
-        ChangeNotifierProvider(
             create: (_) => TrendingProvider(apiService: ApiService())),
         ChangeNotifierProvider(
           create: (_) => PreferencesProvider(
@@ -85,6 +80,7 @@ class MyApp extends StatelessWidget {
                   recipeId:
                       ModalRoute.of(context)?.settings.arguments as String),
               SearchPage.routeName: (context) => const SearchPage(),
+              AccountSettingsPage.routeName: (context) => AccountSettingsPage(),
               IngredientsListPage.routeName: (context) =>
                   const IngredientsListPage(),
               TrendingListPage.routeName: (context) => const TrendingListPage(),

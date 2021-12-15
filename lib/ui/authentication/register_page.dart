@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void register(firstName, lastName, email, password) {
     ApiService.userRegister(firstName, lastName, email, password)
         .then((response) {
-      if (response != null) {
+      if (response.isNotEmpty) {
         showDialog<String>(
           barrierDismissible: false,
           context: context,
