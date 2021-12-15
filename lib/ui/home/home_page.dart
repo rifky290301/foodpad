@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Greeting(),
+                    const Greeting(),
                     const SizedBox(height: 28),
                     InkWell(
                       onTap: () {

@@ -36,3 +36,30 @@ class ActionBar extends StatelessWidget {
     );
   }
 }
+
+class ActionBarNoMenu extends StatelessWidget {
+  final String pageName;
+  const ActionBarNoMenu(this.pageName, {Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back_ios, color: black),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(pageName, style: titleTextStyle),
+          ],
+        )
+      ],
+    );
+  }
+}

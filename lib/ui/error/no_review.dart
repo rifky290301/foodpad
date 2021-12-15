@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 
 class NoReview extends StatelessWidget {
+  const NoReview({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(

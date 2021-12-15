@@ -4,7 +4,7 @@ import 'package:foodpad/ui/settings/account_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Greeting extends StatefulWidget {
-  Greeting({Key? key}) : super(key: key);
+  const Greeting({Key? key}) : super(key: key);
 
   @override
   _GreetingState createState() => _GreetingState();
@@ -40,9 +40,9 @@ class _GreetingState extends State<Greeting> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text("Halo, $_firstName", style: helloTextStyle),
-              Text(
+              const Text(
                 'Mau masak apa hari ini?',
-                style: const TextStyle(fontFamily: font, color: black),
+                style: TextStyle(fontFamily: font, color: black),
               ),
             ]),
           ),

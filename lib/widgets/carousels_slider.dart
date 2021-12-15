@@ -47,7 +47,7 @@ class _CarouselsSliderState extends State<CarouselsSlider> {
                 });
               }),
           items: cardList.map((item) {
-            return Container(
+            return SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.3,
               child: Center(

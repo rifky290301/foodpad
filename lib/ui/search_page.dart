@@ -164,7 +164,8 @@ class _SearchPageState extends State<SearchPage> {
                                                                     .av_timer_outlined,
                                                                 size: 18,
                                                                 color: orange),
-                                                            SizedBox(width: 2),
+                                                            const SizedBox(
+                                                                width: 2),
                                                             Text(
                                                                 recipe.duration
                                                                         .toString() +
@@ -183,7 +184,8 @@ class _SearchPageState extends State<SearchPage> {
                                                                     .insert_chart,
                                                                 size: 18,
                                                                 color: orange),
-                                                            SizedBox(width: 2),
+                                                            const SizedBox(
+                                                                width: 2),
                                                             Text(
                                                                 recipe.level
                                                                     .toString(),

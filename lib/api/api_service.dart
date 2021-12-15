@@ -5,9 +5,7 @@ import 'package:foodpad/models/login_model.dart';
 import 'package:foodpad/models/rating_model.dart';
 import 'package:foodpad/models/recipe2_model.dart';
 import 'package:foodpad/models/recipe_model.dart';
-import 'package:foodpad/provider/auth_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart' show Client;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {

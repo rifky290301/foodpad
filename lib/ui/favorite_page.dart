@@ -7,6 +7,7 @@ import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/provider/favorite_provider.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
+import 'package:foodpad/ui/error/no_favorite.dart';
 import 'package:foodpad/ui/home/card_recommended.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:provider/provider.dart';
@@ -31,17 +32,6 @@ class _FavoritePageState extends State<FavoritePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Favorit', style: helloTextStyle),
-                        Text('10 Resep kesukaanmu', style: blackTextStyle),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
                   Consumer<FavoriteProvider>(
                     builder: (context, state, _) {
                       if (state.state == ResultState.loading) {
@@ -49,18 +39,59 @@ class _FavoritePageState extends State<FavoritePage> {
                             child: CircularProgressIndicator(color: orange));
                       } else {
                         if (state.state == ResultState.hasData) {
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: state.recipeResult.data!.length,
-                            itemBuilder: (context, index) {
-                              return CardFavorite(
-                                recipe: state.recipeResult.data![index],
-                              );
-                            },
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Favorit',
+                                        style: helloTextStyle),
+                                    Text(
+                                        '${state.recipeResult.data!.length.toString()} Resep kesukaanmu',
+                                        style: blackTextStyle),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: state.recipeResult.data!.length,
+                                itemBuilder: (context, index) {
+                                  return CardFavorite(
+                                    recipe: state.recipeResult.data![index],
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: 16),
+                              const RecommendedList(),
+                            ],
                           );
                         } else if (state.state == ResultState.noData) {
-                          return Center(child: Text(state.message));
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text('Favorit', style: helloTextStyle),
+                                    Text('0 Resep kesukaanmu',
+                                        style: blackTextStyle),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              const NoFavorite(),
+                              const RecommendedList(),
+                            ],
+                          );
                         } else if (state.state == ResultState.error) {
                           return Center(child: Text(state.message));
                         } else {
@@ -69,53 +100,64 @@ class _FavoritePageState extends State<FavoritePage> {
                       }
                     },
                   ),
-                  const SizedBox(height: 8),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child:
-                        Text('Rekomendasi Buat Kamu', style: headingTextStyle),
-                  ),
-                  const SizedBox(height: 8),
-                  ChangeNotifierProvider<RecipeProvider>(
-                    create: (_) => RecipeProvider(apiService: ApiService()),
-                    child: Consumer<RecipeProvider>(
-                      builder: (context, state, _) {
-                        if (state.state == ResultStates.loading) {
-                          return const Center(
-                              child: CircularProgressIndicator(color: orange));
-                        } else {
-                          if (state.state == ResultStates.hasData) {
-                            return SizedBox(
-                              height: 300,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: const ClampingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 10,
-                                itemBuilder: (context, index) {
-                                  return HomeCardRecommended(
-                                    recipe: state.recipeResult.data[index],
-                                  );
-                                },
-                              ),
-                            );
-                          } else if (state.state == ResultStates.noData) {
-                            return Center(child: Text(state.message));
-                          } else if (state.state == ResultStates.error) {
-                            return Center(child: Text(state.message));
-                          } else {
-                            return const Text('');
-                          }
-                        }
-                      },
-                    ),
-                  ),
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class RecommendedList extends StatelessWidget {
+  const RecommendedList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Text('Rekomendasi Buat Kamu', style: headingTextStyle),
+        ),
+        const SizedBox(height: 8),
+        ChangeNotifierProvider<RecipeProvider>(
+          create: (_) => RecipeProvider(apiService: ApiService()),
+          child: Consumer<RecipeProvider>(
+            builder: (context, state, _) {
+              if (state.state == ResultStates.loading) {
+                return const Center();
+              } else {
+                if (state.state == ResultStates.hasData) {
+                  return SizedBox(
+                    height: 300,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return HomeCardRecommended(
+                          recipe: state.recipeResult.data[index],
+                        );
+                      },
+                    ),
+                  );
+                } else if (state.state == ResultStates.noData) {
+                  return Center(child: Text(state.message));
+                } else if (state.state == ResultStates.error) {
+                  return Center(child: Text(state.message));
+                } else {
+                  return const Text('');
+                }
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 }
@@ -199,7 +241,7 @@ class CardFavorite extends StatelessWidget {
                               children: [
                                 const Icon(Icons.av_timer_outlined,
                                     size: 18, color: orange),
-                                SizedBox(width: 2),
+                                const SizedBox(width: 2),
                                 Text(
                                   recipe.duration.toString() + ' menit',
                                   style: const TextStyle(
@@ -211,7 +253,7 @@ class CardFavorite extends StatelessWidget {
                                 const SizedBox(width: 6),
                                 const Icon(Icons.insert_chart,
                                     size: 18, color: orange),
-                                SizedBox(width: 2),
+                                const SizedBox(width: 2),
                                 Text(
                                   recipe.level.toString(),
                                   style: const TextStyle(

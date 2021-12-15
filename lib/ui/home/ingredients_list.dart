@@ -98,7 +98,7 @@ class HomeIngredientsList extends StatelessWidget {
                 return Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
                         children: [
                           InkWell(

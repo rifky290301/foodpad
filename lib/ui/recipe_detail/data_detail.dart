@@ -178,7 +178,7 @@ class DataDetail extends StatelessWidget {
                           }),
                     ),
                   ] else ...[
-                    NoReview(),
+                    const NoReview(),
                   ]
                 ],
               ),

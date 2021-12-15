@@ -113,7 +113,7 @@ class User {
   String? firstName;
   String? lastName;
   String? email;
-  dynamic? emailVerifiedAt;
+  dynamic emailVerifiedAt;
   String? profilePicture;
   DateTime? createdAt;
   DateTime? updatedAt;
