@@ -354,8 +354,6 @@ class _FavoriteButtonState extends State<FavoriteButton> {
               onPressed: () {
                 setState(() {
                   state.addFavorite(widget.recipeId.toString());
-                  state.notifyListeners();
-
                   var snackBarTrue = const SnackBar(
                     content: Text(
                       'Resep ditambahkan ke favorite.',

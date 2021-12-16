@@ -5,6 +5,7 @@ import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/error/error.dart';
+import 'package:foodpad/ui/error/no_internet.dart';
 import 'package:foodpad/ui/error/not_found.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:provider/provider.dart';
@@ -234,7 +235,7 @@ class _SearchPageState extends State<SearchPage> {
                         } else if (state.state == ResultStates.noData) {
                           return const NotFound();
                         } else {
-                          return const ErrorLoad();
+                          return const NoInternet();
                         }
                       },
                     ),
