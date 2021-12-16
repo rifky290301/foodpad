@@ -57,7 +57,7 @@ class ApiService {
     if (query == null || query == '') {
       request = recipe2;
     } else {
-      request = search + query!;
+      request = search + query;
     }
     final response = await http.get(Uri.parse(request));
 
@@ -126,7 +126,7 @@ class ApiService {
     if (response.statusCode == 200) {
       return FavoriteResult.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Gagal menampilkan kategori');
+      throw Exception('Gagal menampilkan favorit');
     }
   }
 
