@@ -334,7 +334,7 @@ class Ratings extends StatelessWidget {
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.ellipsis,
               ),
-              Text(ratings.reviewer.email),
+              // Text(ratings.reviewer.email),
             ],
           ),
         ),

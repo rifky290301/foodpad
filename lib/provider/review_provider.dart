@@ -3,47 +3,53 @@ import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/models/recipe_detail_model.dart';
 
-enum ResultState { loading, noData, hasData, error, noConnection }
+enum ResultStateReview { loading, noData, hasData, error }
 
 class ReviewProvider extends ChangeNotifier {
   final ApiService apiService;
   final String idRecipe;
 
   ReviewProvider({required this.apiService, required this.idRecipe}) {
-    _reviewCheck(idRecipe);
+    _reviewCheck();
   }
 
-  late Rating _reviewResult;
-  late ResultState _state;
+  late CheckReview _reviewResult;
+  late ResultStateReview _state;
   String _message = '';
 
-  Rating get reviewResult => _reviewResult;
-  ResultState get state => _state;
+  CheckReview get reviewResult => _reviewResult;
+  ResultStateReview get state => _state;
   String get message => _message;
 
-  void addReview(idRecipe, rating, review) {
-    apiService.addReview(idRecipe, rating, review);
-    _reviewCheck(idRecipe);
+  String removeDecimalZeroFormat(double n) {
+    return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 1);
+  }
+
+  void addReview(rating, review) {
+    var temp = removeDecimalZeroFormat(rating);
+    apiService.addReview(idRecipe.toString(), temp.toString(), review);
+    _reviewCheck();
     notifyListeners();
   }
 
-  Future<dynamic> _reviewCheck(idRecipe) async {
+  Future<dynamic> _reviewCheck() async {
     try {
-      _state = ResultState.loading;
+      _state = ResultStateReview.loading;
       notifyListeners();
 
       final recipe = await apiService.reviewCheck(idRecipe);
-      if (recipe.review.isEmpty) {
-        _state = ResultState.noData;
+      if (recipe.data.isEmpty) {
+        _state = ResultStateReview.noData;
         notifyListeners();
         return _message = 'No Data';
       } else {
-        _state = ResultState.hasData;
+        _state = ResultStateReview.hasData;
         notifyListeners();
         return _reviewResult = recipe;
       }
     } catch (e) {
-      _state = ResultState.error;
+      _state = ResultStateReview.error;
+      notifyListeners();
       return _message = 'Periksa koneksi internetmu.';
     }
   }

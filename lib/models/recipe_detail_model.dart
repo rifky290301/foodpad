@@ -157,6 +157,22 @@ class Ingredient {
       };
 }
 
+class CheckReview {
+  CheckReview({
+    required this.data,
+  });
+
+  final List<Rating> data;
+
+  factory CheckReview.fromJson(Map<String, dynamic> json) => CheckReview(
+        data: List<Rating>.from(json["data"].map((x) => Rating.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+      };
+}
+
 class Rating {
   Rating({
     required this.rating,

@@ -5,6 +5,7 @@ import 'package:foodpad/models/login_model.dart';
 // import 'package:foodpad/models/rating_model.dart';
 import 'package:foodpad/models/recipe2_model.dart';
 import 'package:foodpad/models/recipe_detail_model.dart';
+import 'package:foodpad/models/report_model.dart';
 // import 'package:foodpad/models/recipe_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +29,7 @@ class ApiService {
   static const String sementara = _baseUrl + 'sementara';
   static const String recipeCategory = _baseUrl + 'recipe-category/';
   static const String review = _baseUrl + 'rating';
+  static const String report = _baseUrl + 'report';
 
   // Future<RecipeResult> recipeList(query) async {
   //   String? request;
@@ -256,7 +258,8 @@ class ApiService {
     }
   }
 
-  Future<String> addReview(recipeId, rating, review) async {
+  Future<String> addReview(
+      String recipeId, String rating, String reviewRecipe) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String idUser = prefs.get('id').toString();
     try {
@@ -266,29 +269,67 @@ class ApiService {
         body: {
           "recipe_id": recipeId,
           "rating": rating,
-          "review": review,
+          "review": reviewRecipe,
           "user_id": idUser,
         },
       );
+      print(response.body);
       if (response.statusCode == 200) {
         return response.body;
       } else {
-        throw Exception("Failed regsiter user");
+        throw Exception("Failed add review");
       }
     } catch (e) {
       throw Exception('error : ' + e.toString());
     }
   }
 
-  Future<Rating> reviewCheck(String idRecipe) async {
+  Future<CheckReview> reviewCheck(String idRecipe) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String idUser = prefs.get('id').toString();
 
     final response =
-        await http.get(Uri.parse(review + idRecipe + '/' + idUser));
+        await http.get(Uri.parse(review + '/' + idRecipe + '/' + idUser));
 
     if (response.statusCode == 200) {
-      return Rating.fromJson(jsonDecode(response.body));
+      return CheckReview.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan kategori');
+    }
+  }
+
+  Future<String> addReport(String recipeId, String laporan) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String idUser = prefs.get('id').toString();
+    try {
+      final response = await http.post(
+        Uri.parse(report),
+        headers: {'Accept': 'application/json'},
+        body: {
+          "report": laporan,
+          "user_id": idUser,
+          "recipe_id": recipeId,
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed add review");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
+
+  Future<CheckReport> reviewReport(String idRecipe) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String idUser = prefs.get('id').toString();
+
+    final response =
+        await http.get(Uri.parse(report + '/' + idRecipe + '/' + idUser));
+
+    if (response.statusCode == 200) {
+      return CheckReport.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
     }
