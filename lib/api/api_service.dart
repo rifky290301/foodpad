@@ -31,22 +31,6 @@ class ApiService {
   static const String review = _baseUrl + 'rating';
   static const String report = _baseUrl + 'report';
 
-  // Future<RecipeResult> recipeList(query) async {
-  //   String? request;
-  //   if (query == null || query == '') {
-  //     request = sementara;
-  //   } else {
-  //     request = search + query!;
-  //   }
-  //   final response = await http.get(Uri.parse(request));
-
-  //   if (response.statusCode == 200) {
-  //     return RecipeResult.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Gagal menampilkan resep');
-  //   }
-  // }
-
   Future<Recipe2Result> ingredientRecipeList(query) async {
     final response = await http.get(Uri.parse(search + query!));
 
@@ -83,16 +67,6 @@ class ApiService {
     }
   }
 
-  // Future<RecipeResult> recipeDetail(String id) async {
-  //   final response = await http.get(Uri.parse(detail + id));
-
-  //   if (response.statusCode == 200) {
-  //     return RecipeResult.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Gagal menampilkan resep');
-  //   }
-  // }
-
   Future<RecipeDetail> recipeDetail2(String id) async {
     final response = await http.get(Uri.parse(detail2 + id));
 
@@ -112,16 +86,6 @@ class ApiService {
       throw Exception('Gagal menampilkan resep');
     }
   }
-
-  // Future<RatingResult> ratingList() async {
-  //   final response = await http.get(Uri.parse(recipe));
-
-  //   if (response.statusCode == 200) {
-  //     return RatingResult.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Gagal menampilkan rating');
-  //   }
-  // }
 
   Future<Category2> categoryList() async {
     final response = await http.get(Uri.parse(category));

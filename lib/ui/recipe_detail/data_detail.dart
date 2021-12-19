@@ -83,17 +83,17 @@ class DataDetail extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 28),
-              // Row(
-              //   children: [
-              //     CircleAvatar(
-              //       backgroundImage: NetworkImage(recipeDetail.author.photo),
-              //     ),
-              //     const SizedBox(width: 8),
-              //     Text(
-              //         '${recipeDetail.author.firstName} ${recipeDetail.author.lastName}',
-              //         style: itemTitleTextStyle),
-              //   ],
-              // ),
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(recipeDetail.author.photo),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                      '${recipeDetail.author.firstName} ${recipeDetail.author.lastName}',
+                      style: itemTitleTextStyle),
+                ],
+              ),
               const SizedBox(height: 28),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,7 +120,6 @@ class DataDetail extends StatelessWidget {
                     return Ingredients(
                         ingredients: recipeDetail.ingredients[index]);
                   }),
-
               const SizedBox(height: 28),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +137,6 @@ class DataDetail extends StatelessWidget {
                   ),
                 ],
               ),
-
               const SizedBox(height: 16),
               ListView.builder(
                   shrinkWrap: true,
@@ -148,7 +146,6 @@ class DataDetail extends StatelessWidget {
                     return Step(
                         steps: recipeDetail.steps[index], step: index + 1);
                   }),
-
               SizedBox(
                 height: 10.0,
                 child: Center(

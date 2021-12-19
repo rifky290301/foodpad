@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
+import 'package:foodpad/ui/error/error.dart';
+import 'package:foodpad/ui/error/no_internet.dart';
 import 'package:foodpad/ui/home/card_recommended.dart';
 import 'package:foodpad/ui/home/home_greeting.dart';
 import 'package:foodpad/ui/home/ingredients_list.dart';
@@ -118,20 +120,13 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         } else if (state.state == ResultStates.error) {
-          return Column(
+          return ErrorLoad();
+        } else {
+          return Stack(
             children: [
-              const Center(child: Text('Error', style: subtitleTextStyle)),
-              ElevatedButton(
-                child: const Text('Refresh'),
-                onPressed: () => state.refresh(),
-                style: ElevatedButton.styleFrom(
-                  primary: orange,
-                ),
-              ),
+              NoInternet(),
             ],
           );
-        } else {
-          return const Text('');
         }
       },
     );

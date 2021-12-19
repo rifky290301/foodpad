@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/ui/add_recipe_page.dart';
 import 'package:foodpad/ui/favorite_page.dart';
 import 'package:foodpad/ui/home/home_page.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
@@ -29,6 +30,10 @@ class _MainPageState extends State<MainPage> {
       title: Text('Cari', style: TextStyle(fontFamily: font)),
     ),
     BottomNavigationBarItem(
+      icon: Icon(Icons.add_box_rounded, size: 36),
+      title: Text('', style: TextStyle(fontFamily: font)),
+    ),
+    BottomNavigationBarItem(
       icon: Icon(Icons.favorite_rounded, size: 24),
       title: Text('Favorit', style: TextStyle(fontFamily: font)),
     ),
@@ -41,11 +46,12 @@ class _MainPageState extends State<MainPage> {
     ),
   ];
 
-  final List<Widget> _listWidget = [
-    const HomePage(),
-    const SearchPage(),
-    const FavoritePage(),
-    const SettingsPage()
+  final List<Widget> _listWidget = const [
+    HomePage(),
+    SearchPage(),
+    AddRecipePage(),
+    FavoritePage(),
+    SettingsPage()
   ];
 
   @override

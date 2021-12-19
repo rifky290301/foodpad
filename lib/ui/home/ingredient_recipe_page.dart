@@ -3,9 +3,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/models/category_model.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/error/error.dart';
+import 'package:foodpad/ui/error/no_internet.dart';
 import 'package:foodpad/ui/error/not_found.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:foodpad/widgets/action_bar.dart';
@@ -229,12 +229,12 @@ class IngredientRecipePageState extends State<IngredientRecipePage> {
                               ),
                             ],
                           );
-                        } else if (state.state == ResultStates.error) {
+                        } else if (state.state == ResultStates.noData) {
                           return const NotFound();
                         } else if (state.state == ResultStates.error) {
                           return const ErrorLoad();
                         } else {
-                          return const ErrorLoad();
+                          return const NoInternet();
                         }
                       },
                     ),

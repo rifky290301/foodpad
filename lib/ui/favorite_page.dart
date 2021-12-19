@@ -9,7 +9,11 @@ import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/provider/favorite_provider.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
+import 'package:foodpad/ui/add_recipe_page.dart';
+import 'package:foodpad/ui/error/error.dart';
 import 'package:foodpad/ui/error/no_favorite.dart';
+import 'package:foodpad/ui/error/no_internet.dart';
+import 'package:foodpad/ui/error/not_found.dart';
 import 'package:foodpad/ui/home/card_recommended.dart';
 import 'package:foodpad/ui/home/home_page.dart';
 import 'package:foodpad/ui/search_page.dart';
@@ -27,7 +31,7 @@ class MainFavoritePage extends StatefulWidget {
 }
 
 class _MainFavoritePageState extends State<MainFavoritePage> {
-  int bottomNavIndex = 2;
+  int bottomNavIndex = 3;
 
   final List<BottomNavigationBarItem> _bottomNavBarItems = const [
     BottomNavigationBarItem(
@@ -37,6 +41,10 @@ class _MainFavoritePageState extends State<MainFavoritePage> {
     BottomNavigationBarItem(
       icon: Icon(Icons.search, size: 24),
       title: Text('Cari', style: TextStyle(fontFamily: font)),
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.add_box_rounded, size: 36),
+      title: Text('', style: TextStyle(fontFamily: font)),
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.favorite_rounded, size: 24),
@@ -51,12 +59,14 @@ class _MainFavoritePageState extends State<MainFavoritePage> {
     ),
   ];
 
-  final List<Widget> _listWidget = [
-    const HomePage(),
-    const SearchPage(),
-    const FavoritePage(),
-    const SettingsPage()
+  final List<Widget> _listWidget = const [
+    HomePage(),
+    SearchPage(),
+    AddRecipePage(),
+    FavoritePage(),
+    SettingsPage()
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -193,9 +203,9 @@ class _FavoritePageState extends State<FavoritePage> {
                                 ],
                               );
                             } else if (state.state == ResultState.error) {
-                              return Center(child: Text(state.message));
+                              return const ErrorLoad();
                             } else {
-                              return const Text('');
+                              return const NoInternet();
                             }
                           }
                         },
@@ -265,11 +275,11 @@ class RecommendedList extends StatelessWidget {
                     ),
                   );
                 } else if (state.state == ResultStates.noData) {
-                  return Center(child: Text(state.message));
+                  return const NotFound();
                 } else if (state.state == ResultStates.error) {
-                  return Center(child: Text(state.message));
+                  return const ErrorLoad();
                 } else {
-                  return const Text('');
+                  return const NoInternet();
                 }
               }
             },

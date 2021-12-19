@@ -4,7 +4,6 @@ import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/models/category_model.dart';
 import 'package:foodpad/models/recipe2_model.dart';
 import 'package:foodpad/models/recipe_detail_model.dart';
-import 'package:foodpad/models/recipe_model.dart';
 
 enum ResultStates { loading, noData, hasData, error, noConnection }
 
@@ -37,9 +36,9 @@ class RecipeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setShorting(String? query) {
+  void setSorting(String? query) {
     _query = query;
-    _recipeShoriting();
+    _recipeSorting();
     notifyListeners();
   }
 
@@ -49,7 +48,7 @@ class RecipeProvider extends ChangeNotifier {
       notifyListeners();
 
       final recipe = await apiService.recipeList2(query);
-      if (recipe.data.isEmpty) {
+      if (recipe.data == null) {
         _state = ResultStates.noData;
         notifyListeners();
         return _message = 'No Data';
@@ -60,18 +59,18 @@ class RecipeProvider extends ChangeNotifier {
       }
     } catch (e) {
       _state = ResultStates.error;
-      // notifyListeners();
+      notifyListeners();
       return _message = 'Periksa koneksi internetmu.';
     }
   }
 
-  Future<dynamic> _recipeShoriting() async {
+  Future<dynamic> _recipeSorting() async {
     try {
       _state = ResultStates.loading;
       notifyListeners();
 
       final recipe = await apiService.recipeShorting(query!);
-      if (recipe.data.isEmpty) {
+      if (recipe.data == null) {
         _state = ResultStates.noData;
         notifyListeners();
         return _message = 'No Data';
@@ -118,7 +117,7 @@ class IngredientRecipeProvider extends ChangeNotifier {
       notifyListeners();
 
       final recipe = await apiService.ingredientRecipeList(category);
-      if (recipe.data.isEmpty) {
+      if (recipe.data.length == null) {
         _state = ResultStates.noData;
         notifyListeners();
         return _message = 'No Data';
@@ -129,6 +128,7 @@ class IngredientRecipeProvider extends ChangeNotifier {
       }
     } catch (e) {
       _state = ResultStates.error;
+      notifyListeners();
       return _message = 'Periksa koneksi internetmu.';
     }
   }
