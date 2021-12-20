@@ -6,6 +6,8 @@ import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/provider/scheduling_provider.dart';
+import 'package:foodpad/ui/add_recipe/add_recipe_ingredient_page.dart';
+import 'package:foodpad/ui/add_recipe/add_recipe_step.dart';
 import 'package:foodpad/ui/authentication/register_page.dart';
 import 'package:foodpad/ui/favorite_page.dart';
 import 'package:foodpad/ui/home/ingredient_recipe_page.dart';
@@ -87,6 +89,9 @@ class MyApp extends StatelessWidget {
                   const IngredientsListPage(),
               TrendingListPage.routeName: (context) => const TrendingListPage(),
               FavoritePage.routeName: (context) => const FavoritePage(),
+              AddRecipeIngredient.routeName: (context) =>
+                  const AddRecipeIngredient(),
+              AddRecipeStep.routeName: (context) => const AddRecipeStep(),
               MainFavoritePage.routeName: (context) => const MainFavoritePage(),
               IngredientRecipePage.routeName: (context) => IngredientRecipePage(
                   category:

@@ -9,7 +9,7 @@ import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/provider/favorite_provider.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
-import 'package:foodpad/ui/add_recipe_page.dart';
+import 'package:foodpad/ui/add_recipe/add_recipe_page.dart';
 import 'package:foodpad/ui/error/error.dart';
 import 'package:foodpad/ui/error/no_favorite.dart';
 import 'package:foodpad/ui/error/no_internet.dart';
