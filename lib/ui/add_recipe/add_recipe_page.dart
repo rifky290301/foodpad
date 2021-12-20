@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/ui/add_recipe/add_recipe_ingredient_page.dart';
 
 class AddRecipePage extends StatefulWidget {
   const AddRecipePage({Key? key}) : super(key: key);
@@ -37,8 +38,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
     cookTimeController = TextEditingController();
   }
 
-  // var _difficulties = ["Mudah", "Sedang", "Sulit"];
-
+  var _difficulties = ["Mudah", "Sedang", "Sulit"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -236,7 +236,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                       return InputDecorator(
                         decoration: InputDecoration(
                             labelStyle: textStyle,
-                            errorStyle: TextStyle(
+                            errorStyle: const TextStyle(
                                 color: Colors.redAccent, fontSize: 16.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),

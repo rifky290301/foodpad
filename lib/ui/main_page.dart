@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
-import 'package:foodpad/ui/add_recipe_page.dart';
+import 'package:foodpad/ui/add_recipe/add_recipe_page.dart';
 import 'package:foodpad/ui/favorite_page.dart';
 import 'package:foodpad/ui/home/home_page.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
