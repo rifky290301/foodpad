@@ -38,7 +38,9 @@ class _GreetingState extends State<Greeting> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text("Halo, $_firstName", style: helloTextStyle),
+                _firstName == null || _firstName!.isEmpty
+                    ? const Text("Halo, User", style: helloTextStyle)
+                    : Text("Halo, $_firstName", style: helloTextStyle),
                 const Text(
                   'Mau masak apa hari ini?',
                   style: TextStyle(fontFamily: font, color: black),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
 
 class AddRecipePage extends StatefulWidget {
@@ -18,6 +19,13 @@ class _AddRecipePageState extends State<AddRecipePage> {
   String? _dropdownValue = 'Mudah';
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  void formLoginEmptyForm() {
+    recipeNameController.text = '';
+    pictureURLController.text = '';
+    descriptionController.text = '';
+    prepareTimeController.text = '';
+    cookTimeController.text = '';
+  }
 
   @override
   void initState() {
@@ -29,7 +37,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
     cookTimeController = TextEditingController();
   }
 
-  var _difficulties = ["Mudah", "Sedang", "Sulit"];
+  // var _difficulties = ["Mudah", "Sedang", "Sulit"];
 
   @override
   Widget build(BuildContext context) {
@@ -260,53 +268,60 @@ class _AddRecipePageState extends State<AddRecipePage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton(
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 32),
-                            child: Text('Lanjutkan',
-                                style:
-                                    TextStyle(fontFamily: font, fontSize: 16)),
-                          ),
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(white),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(orange),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 32),
+                          child: Text('Lanjutkan',
+                              style: TextStyle(fontFamily: font, fontSize: 16)),
+                        ),
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(white),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(orange),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              print('OK');
-                              return;
-                            } else {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text(
-                                    'Gagal Menambah Resep',
-                                    style: titleTextStyle,
-                                  ),
-                                  content: const Text(
-                                      'Resep tidak dapat ditambah. Silahkan coba lagi atau periksa bahwa data resep yang dibutuhkan sudah sesuai.',
-                                      style: blackTextStyle),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(context),
-                                      child: const Text('Tutup',
-                                          style: orangeSmallTextStyle),
-                                    ),
-                                  ],
+                        ),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            ApiService.addRecipe(
+                                recipeNameController.text.toString(),
+                                pictureURLController.text.toString(),
+                                descriptionController.text.toString(),
+                                prepareTimeController.text.toString(),
+                                cookTimeController.text.toString(),
+                                _dropdownValue.toString());
+                            formLoginEmptyForm();
+                            // print('OK');
+                            return;
+                          } else {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text(
+                                  'Gagal Menambah Resep',
+                                  style: titleTextStyle,
                                 ),
-                              );
-                              return;
-                            }
-                            ;
-                          }),
+                                content: const Text(
+                                    'Resep tidak dapat ditambah. Silahkan coba lagi atau periksa bahwa data resep yang dibutuhkan sudah sesuai.',
+                                    style: blackTextStyle),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text('Tutup',
+                                        style: orangeSmallTextStyle),
+                                  ),
+                                ],
+                              ),
+                            );
+                            return;
+                          }
+                        },
+                      ),
                     ],
                   )
                 ],

@@ -117,7 +117,7 @@ class IngredientRecipeProvider extends ChangeNotifier {
       notifyListeners();
 
       final recipe = await apiService.ingredientRecipeList(category);
-      if (recipe.data.length == null) {
+      if (recipe.data.isEmpty) {
         _state = ResultStates.noData;
         notifyListeners();
         return _message = 'No Data';

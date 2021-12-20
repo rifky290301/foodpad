@@ -30,6 +30,7 @@ class ApiService {
   static const String recipeCategory = _baseUrl + 'recipe-category/';
   static const String review = _baseUrl + 'rating';
   static const String report = _baseUrl + 'report';
+  static const String lastIdRecipe = _baseUrl + 'last-recipe-create';
 
   Future<Recipe2Result> ingredientRecipeList(query) async {
     final response = await http.get(Uri.parse(search + query!));
@@ -79,6 +80,50 @@ class ApiService {
 
   Future<Recipe2Result> recipeShorting(String shorting) async {
     final response = await http.get(Uri.parse(recipeCategory + shorting));
+
+    if (response.statusCode == 200) {
+      return Recipe2Result.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal menampilkan resep');
+    }
+  }
+
+  static Future<String> addRecipe(
+    String name,
+    String thumbnail,
+    String description,
+    prepare,
+    duration,
+    String level,
+  ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String idUser = prefs.get('id').toString();
+    try {
+      final response = await http.post(
+        Uri.parse(recipe),
+        headers: {'Accept': 'application/json'},
+        body: {
+          "name": name,
+          "thumbnail": thumbnail,
+          "description": description,
+          "prepare": prepare,
+          "duration": duration,
+          "level": level,
+          "user_id": idUser,
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed add recipe");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
+
+  Future<Recipe2Result> lastRecipe() async {
+    final response = await http.get(Uri.parse(lastIdRecipe));
 
     if (response.statusCode == 200) {
       return Recipe2Result.fromJson(jsonDecode(response.body));
