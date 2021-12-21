@@ -67,8 +67,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (_) => SchedulingProvider()),
       ],
-      child: Consumer<PreferencesProvider>(builder: (context, provider, child) {
-        return MaterialApp(
+      child: Consumer<PreferencesProvider>(
+        builder: (context, provider, child) {
+          return MaterialApp(
             title: 'FoodPad',
             theme: ThemeData(
               primarySwatch: Colors.deepOrange,
@@ -89,15 +90,20 @@ class MyApp extends StatelessWidget {
                   const IngredientsListPage(),
               TrendingListPage.routeName: (context) => const TrendingListPage(),
               FavoritePage.routeName: (context) => const FavoritePage(),
-              AddRecipeIngredient.routeName: (context) =>
-                  const AddRecipeIngredient(),
-              AddRecipeStep.routeName: (context) => const AddRecipeStep(),
+              AddRecipeIngredient.routeName: (context) => AddRecipeIngredient(
+                  recipeId:
+                      ModalRoute.of(context)?.settings.arguments as String),
+              AddRecipeStep.routeName: (context) => AddRecipeStep(
+                  recipeId:
+                      ModalRoute.of(context)?.settings.arguments as String),
               MainFavoritePage.routeName: (context) => const MainFavoritePage(),
               IngredientRecipePage.routeName: (context) => IngredientRecipePage(
                   category:
                       ModalRoute.of(context)?.settings.arguments as String),
-            });
-      }),
+            },
+          );
+        },
+      ),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
+import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/add_recipe/add_recipe_ingredient_page.dart';
+import 'package:foodpad/ui/add_recipe/add_recipe_step.dart';
 
 class AddRecipePage extends StatefulWidget {
   const AddRecipePage({Key? key}) : super(key: key);
@@ -289,14 +291,20 @@ class _AddRecipePageState extends State<AddRecipePage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             ApiService.addRecipe(
-                                recipeNameController.text.toString(),
-                                pictureURLController.text.toString(),
-                                descriptionController.text.toString(),
-                                prepareTimeController.text.toString(),
-                                cookTimeController.text.toString(),
-                                _dropdownValue.toString());
-                            formLoginEmptyForm();
-                            // print('OK');
+                                    recipeNameController.text.toString(),
+                                    pictureURLController.text.toString(),
+                                    descriptionController.text.toString(),
+                                    prepareTimeController.text.toString(),
+                                    cookTimeController.text.toString(),
+                                    _dropdownValue.toString())
+                                .then((value) {
+                              ApiService.lastRecipe().then((value) {
+                                Navigation.intentWithData(
+                                    AddRecipeIngredient.routeName,
+                                    (value.data.first.id.toString()));
+                                formLoginEmptyForm();
+                              });
+                            });
                             return;
                           } else {
                             showDialog<String>(

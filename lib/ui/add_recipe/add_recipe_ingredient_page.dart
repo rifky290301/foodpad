@@ -1,22 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:foodpad/api/api_service.dart';
+import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/add_recipe/add_recipe_step.dart';
 
 class AddRecipeIngredient extends StatefulWidget {
-  const AddRecipeIngredient({Key? key}) : super(key: key);
+  const AddRecipeIngredient({Key? key, required this.recipeId})
+      : super(key: key);
   static const routeName = '/add_recipe_ingredient_page';
+
+  final String recipeId;
 
   @override
   _AddRecipeIngredientState createState() => _AddRecipeIngredientState();
 }
 
-class IngredientForm extends StatelessWidget {
-  const IngredientForm({Key? key}) : super(key: key);
+class IngredientForm extends StatefulWidget {
+  IngredientForm({Key? key, required this.recipeId}) : super(key: key);
+
+  final String recipeId;
+
+  @override
+  State<IngredientForm> createState() => _IngredientFormState();
+}
+
+class _IngredientFormState extends State<IngredientForm> {
+  bool isSend = true;
+
+  TextEditingController ingredientController = TextEditingController();
+  TextEditingController ingredientSizeController = TextEditingController();
+
+  void store(bahan, value) {
+    ApiService.addIngredient(bahan, value.toString(), widget.recipeId);
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController ingredientController = TextEditingController();
-    TextEditingController ingredientSizeController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
@@ -101,6 +120,24 @@ class IngredientForm extends StatelessWidget {
               ],
             ),
           ),
+          isSend
+              ? Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    child: Text("+"),
+                    onPressed: () {
+                      // _AddRecipeIngredientState tes = _AddRecipeIngredientState
+                      //     as _AddRecipeIngredientState;
+                      // tes.addIngredientForm;
+                      store(ingredientController.text,
+                          ingredientSizeController.text);
+                      setState(() {
+                        isSend = false;
+                      });
+                    },
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
@@ -119,7 +156,9 @@ class _AddRecipeIngredientState extends State<AddRecipeIngredient> {
   }
 
   addIngredientForm() {
-    listIngredient.add(IngredientForm());
+    listIngredient.add(IngredientForm(
+      recipeId: widget.recipeId,
+    ));
     setState(() {});
   }
 
@@ -131,8 +170,8 @@ class _AddRecipeIngredientState extends State<AddRecipeIngredient> {
         backgroundColor: orange,
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            print('OK');
-            Navigator.pushNamed(context, AddRecipeStep.routeName);
+            Navigation.intentWithData(
+                AddRecipeStep.routeName, (widget.recipeId));
             return;
           } else {
             showDialog<String>(

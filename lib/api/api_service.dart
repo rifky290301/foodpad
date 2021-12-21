@@ -122,7 +122,7 @@ class ApiService {
     }
   }
 
-  Future<Recipe2Result> lastRecipe() async {
+  static Future<Recipe2Result> lastRecipe() async {
     final response = await http.get(Uri.parse(lastIdRecipe));
 
     if (response.statusCode == 200) {
@@ -341,6 +341,88 @@ class ApiService {
       return CheckReport.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
+    }
+  }
+
+  static Future<String> addIngredient(
+      String name, String value, idRecipe) async {
+    try {
+      final response = await http.post(
+        Uri.parse(_baseUrl + 'ingredients'),
+        headers: {'Accept': 'application/json'},
+        body: {
+          "name": name,
+          "value": value,
+          "recipe_id": idRecipe,
+        },
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed add favorite");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
+
+  static Future<String> addStep(String step, idRecipe) async {
+    try {
+      final response = await http.post(
+        Uri.parse(_baseUrl + 'step'),
+        headers: {'Accept': 'application/json'},
+        body: {
+          "step": step,
+          "recipe_id": idRecipe,
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed add favorite");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
+
+  static Future<String> addCategory(String step) async {
+    try {
+      final response = await http.post(
+        Uri.parse(_baseUrl + 'category'),
+        headers: {'Accept': 'application/json'},
+        body: {
+          "category": category,
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed add favorite");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
+    }
+  }
+
+  static Future<String> addCategoryRecipe(recipeId, categoryId) async {
+    try {
+      final response = await http.post(
+        Uri.parse(_baseUrl + 'category-recipe'),
+        headers: {'Accept': 'application/json'},
+        body: {
+          "recipe_id": recipeId,
+          "category_id": categoryId,
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        throw Exception("Failed add favorite");
+      }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
     }
   }
 }

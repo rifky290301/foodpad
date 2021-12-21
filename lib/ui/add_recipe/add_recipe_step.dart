@@ -1,54 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/main_page.dart';
 
 class AddRecipeStep extends StatefulWidget {
-  const AddRecipeStep({Key? key}) : super(key: key);
+  const AddRecipeStep({Key? key, required this.recipeId}) : super(key: key);
   static const routeName = '/add_recipe_step_page';
+
+  final String recipeId;
 
   @override
   _AddRecipeStepState createState() => _AddRecipeStepState();
 }
 
-class StepForm extends StatelessWidget {
-  const StepForm({Key? key}) : super(key: key);
+class StepForm extends StatefulWidget {
+  const StepForm({Key? key, required this.recipeId}) : super(key: key);
+
+  final String recipeId;
+
+  @override
+  State<StepForm> createState() => _StepFormState();
+}
+
+class _StepFormState extends State<StepForm> {
+  bool isSend = true;
+
+  TextEditingController recipeStepController = TextEditingController();
+  void store(step) {
+    ApiService.addStep(step, widget.recipeId);
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController recipeStepController = TextEditingController();
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
-      child: Container(
-        height: 112,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: const Color(0xFFE6E6E6),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
-          child: TextFormField(
-            minLines: 3,
-            maxLines: 4,
-            controller: recipeStepController,
-            cursorColor: orange,
-            validator: (String? value) {
-              if (value!.isEmpty) {
-                return 'Langkah memasak harus diisi';
-              }
-              return null;
-            },
-            style: blackTextStyle,
-            decoration: const InputDecoration(
-              hintStyle: subtitleTextStyle,
-              hintText: "Langkah Memasak",
-              border: InputBorder.none,
+      child: Column(
+        children: [
+          Container(
+            height: 112,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: const Color(0xFFE6E6E6),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+              child: TextFormField(
+                minLines: 3,
+                maxLines: 4,
+                controller: recipeStepController,
+                cursorColor: orange,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Langkah memasak harus diisi';
+                  }
+                  return null;
+                },
+                style: blackTextStyle,
+                decoration: const InputDecoration(
+                  hintStyle: subtitleTextStyle,
+                  hintText: "Langkah Memasak",
+                  border: InputBorder.none,
+                ),
+              ),
             ),
           ),
-        ),
+          isSend
+              ? ElevatedButton(
+                  child: Text("+"),
+                  onPressed: () {
+                    store(recipeStepController.text);
+                    setState(() {
+                      isSend = false;
+                    });
+                  },
+                )
+              : Container(),
+        ],
       ),
     );
   }
@@ -67,7 +97,9 @@ class _AddRecipeStepState extends State<AddRecipeStep> {
   }
 
   addStepForm() {
-    listStep.add(StepForm());
+    listStep.add(StepForm(
+      recipeId: widget.recipeId,
+    ));
     setState(() {});
   }
 
