@@ -85,7 +85,8 @@ class MyApp extends StatelessWidget {
                   recipeId:
                       ModalRoute.of(context)?.settings.arguments as String),
               SearchPage.routeName: (context) => const SearchPage(),
-              AccountSettingsPage.routeName: (context) => AccountSettingsPage(),
+              AccountSettingsPage.routeName: (context) =>
+                  const AccountSettingsPage(),
               IngredientsListPage.routeName: (context) =>
                   const IngredientsListPage(),
               TrendingListPage.routeName: (context) => const TrendingListPage(),

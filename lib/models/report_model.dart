@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final checkReport = checkReportFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CheckReport checkReportFromJson(String str) =>

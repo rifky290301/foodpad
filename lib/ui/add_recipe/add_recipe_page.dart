@@ -3,7 +3,6 @@ import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/ui/add_recipe/add_recipe_ingredient_page.dart';
-import 'package:foodpad/ui/add_recipe/add_recipe_step.dart';
 
 class AddRecipePage extends StatefulWidget {
   const AddRecipePage({Key? key}) : super(key: key);
@@ -40,7 +39,6 @@ class _AddRecipePageState extends State<AddRecipePage> {
     cookTimeController = TextEditingController();
   }
 
-  var _difficulties = ["Mudah", "Sedang", "Sulit"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -250,7 +248,6 @@ class _AddRecipePageState extends State<AddRecipePage> {
                             onChanged: (String? newValue) {
                               setState(() {
                                 _dropdownValue = newValue;
-                                print(newValue);
                               });
                             },
                             items: <String>['Mudah', 'Sedang', 'Sulit']

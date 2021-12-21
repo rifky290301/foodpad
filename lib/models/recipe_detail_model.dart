@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final recipeDetail = recipeDetailFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 RecipeDetail recipeDetailFromJson(String str) =>

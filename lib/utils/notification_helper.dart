@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:foodpad/common/navigation.dart';
-import 'package:foodpad/models/recipe2_model.dart';
+import 'package:foodpad/models/recipe_model.dart';
 // import 'package:foodpad/models/recipe_detail_model.dart';
 import 'package:rxdart/rxdart.dart';
 

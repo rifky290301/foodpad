@@ -390,7 +390,6 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   onPressed: () {
-                    print(state.categoryResult.data![index].category);
                     instanceRecipe.setSorting(state
                         .categoryResult.data![index].category
                         .toString()

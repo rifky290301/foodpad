@@ -54,7 +54,7 @@ class _GreetingState extends State<Greeting> {
                     ? CircleAvatar(
                         child: ClipOval(
                           child: Image.asset(
-                            'images/logo.png',
+                            'images/avatar.png',
                           ),
                         ),
                         radius: 28,

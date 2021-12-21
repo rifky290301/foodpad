@@ -38,36 +38,47 @@ class _DetailPageState extends State<DetailPage> {
         centerTitle: true,
         title: ActionBar("Resep", widget.recipeId.toString()),
       ),
-      body: Center(
-        child: SafeArea(
-          child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            child: ChangeNotifierProvider<RecipeDetailProvider>(
-              create: (_) => RecipeDetailProvider(
-                  apiService: ApiService(), id: widget.recipeId),
-              child:
-                  Consumer<RecipeDetailProvider>(builder: (context, state, _) {
-                if (state.state == ResultStates.loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(color: orange),
-                  );
-                } else if (state.state == ResultStates.hasData) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      itemCount: 1,
-                      itemBuilder: (context, index) {
-                        return DataDetail(
-                          recipeDetail: state.recipeResult.data[index],
-                          recipeId: widget.recipeId,
-                        );
-                      });
-                } else if (state.state == ResultStates.error) {
-                  return const ErrorLoad();
-                } else {
-                  return const NoInternet();
-                }
-              }),
+      body: RefreshIndicator(
+        onRefresh: () {
+          Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (a, b, c) =>
+                      DetailPage(recipeId: widget.recipeId),
+                  transitionDuration: const Duration(seconds: 0)));
+          return Future.value();
+        },
+        child: Center(
+          child: SafeArea(
+            child: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
+              child: ChangeNotifierProvider<RecipeDetailProvider>(
+                create: (_) => RecipeDetailProvider(
+                    apiService: ApiService(), id: widget.recipeId),
+                child: Consumer<RecipeDetailProvider>(
+                    builder: (context, state, _) {
+                  if (state.state == ResultStates.loading) {
+                    return const Center(
+                      child: CircularProgressIndicator(color: orange),
+                    );
+                  } else if (state.state == ResultStates.hasData) {
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: 1,
+                        itemBuilder: (context, index) {
+                          return DataDetail(
+                            recipeDetail: state.recipeResult.data[index],
+                            recipeId: widget.recipeId,
+                          );
+                        });
+                  } else if (state.state == ResultStates.error) {
+                    return const ErrorLoad();
+                  } else {
+                    return const NoInternet();
+                  }
+                }),
+              ),
             ),
           ),
         ),

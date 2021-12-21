@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/models/category_model.dart';
-import 'package:foodpad/models/recipe2_model.dart';
+import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/models/recipe_detail_model.dart';
 
 enum ResultStates { loading, noData, hasData, error, noConnection }
@@ -14,12 +14,12 @@ class RecipeProvider extends ChangeNotifier {
     _fetchAllRecipe();
   }
 
-  late Recipe2Result _recipeResult;
+  late RecipeResult _recipeResult;
   late ResultStates _state;
   String _message = '';
   String? _query;
 
-  Recipe2Result get recipeResult => _recipeResult;
+  RecipeResult get recipeResult => _recipeResult;
   ResultStates get state => _state;
   String get message => _message;
   String? get query => _query;
@@ -48,7 +48,7 @@ class RecipeProvider extends ChangeNotifier {
       notifyListeners();
 
       final recipe = await apiService.recipeList2(query);
-      if (recipe.data == null) {
+      if (recipe.data.isEmpty) {
         _state = ResultStates.noData;
         notifyListeners();
         return _message = 'No Data';
@@ -70,7 +70,7 @@ class RecipeProvider extends ChangeNotifier {
       notifyListeners();
 
       final recipe = await apiService.recipeShorting(query!);
-      if (recipe.data == null) {
+      if (recipe.data.isEmpty) {
         _state = ResultStates.noData;
         notifyListeners();
         return _message = 'No Data';
@@ -95,12 +95,12 @@ class IngredientRecipeProvider extends ChangeNotifier {
     _fetchIngredientRecipe();
   }
 
-  late Recipe2Result _recipeResult;
+  late RecipeResult _recipeResult;
   late ResultStates _state;
   String _message = '';
   String? _query;
 
-  Recipe2Result get recipeResult => _recipeResult;
+  RecipeResult get recipeResult => _recipeResult;
   ResultStates get state => _state;
   String get message => _message;
   String? get query => _query;
@@ -223,11 +223,11 @@ class TrendingProvider extends ChangeNotifier {
     _fetchAllTrending();
   }
 
-  late Recipe2Result _recipeResult;
+  late RecipeResult _recipeResult;
   late ResultStates _state;
   String _message = '';
 
-  Recipe2Result get recipeResult => _recipeResult;
+  RecipeResult get recipeResult => _recipeResult;
   ResultStates get state => _state;
   String get message => _message;
 

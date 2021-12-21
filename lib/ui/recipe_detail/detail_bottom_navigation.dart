@@ -4,6 +4,7 @@ import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/favorite_provider.dart';
 import 'package:foodpad/provider/review_provider.dart';
+import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:provider/provider.dart';
 
 class DetailBottomNavigation extends StatefulWidget {
@@ -28,20 +29,6 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
   Widget build(BuildContext context) {
     double ratingBarValue = 0;
     String _review;
-    // ReviewProvider reviewInstance =
-    //     ReviewProvider(apiService: ApiService(), idRecipe: widget.recipeId);
-
-    // void addReview(recipeId, rating, reviewRecipe) {
-    //   ApiService.addReview(recipeId, rating, reviewRecipe).then((response) {
-    //     if (response.isNotEmpty) {
-    //       print('berhasil');
-    //       ratingBarValue = 0;
-    //       reviewController.text = '';
-    //     } else {
-    //       print("gagal input");
-    //     }
-    //   });
-    // }
 
     return ChangeNotifierProvider<ReviewProvider>(
       create: (_) => ReviewProvider(
@@ -61,7 +48,7 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
                     return ElevatedButton(
                       style: ButtonStyle(
                         foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                            MaterialStateProperty.all<Color>(white),
                         backgroundColor:
                             MaterialStateProperty.all<Color>(orange),
                         shape:
@@ -78,7 +65,7 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
                             borderRadius:
                                 BorderRadius.vertical(top: Radius.circular(12)),
                           ),
-                          backgroundColor: Colors.white,
+                          backgroundColor: white,
                           context: context,
                           builder: (BuildContext context) {
                             return Padding(
@@ -184,7 +171,7 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
                                                 style: ButtonStyle(
                                                   foregroundColor:
                                                       MaterialStateProperty.all<
-                                                          Color>(Colors.white),
+                                                          Color>(white),
                                                   backgroundColor:
                                                       MaterialStateProperty.all<
                                                           Color>(orange),
@@ -230,16 +217,26 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
                                                           ],
                                                         ),
                                                       );
-                                                      print(
-                                                          'Gagal mengirim review!');
                                                     } else {
                                                       state.addReview(
                                                           ratingBarValue,
                                                           reviewController
                                                               .text);
                                                       Navigator.pop(context);
-                                                      print(
-                                                          'User memberi rating $ratingBarValue dengan ulasan "${reviewController.text}"');
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          PageRouteBuilder(
+                                                              pageBuilder: (a,
+                                                                      b, c) =>
+                                                                  DetailPage(
+                                                                    recipeId: widget
+                                                                        .recipeId,
+                                                                  ),
+                                                              transitionDuration:
+                                                                  const Duration(
+                                                                      seconds:
+                                                                          0)));
+                                                      Future.value();
                                                     }
                                                   } else {}
                                                 },
@@ -271,7 +268,7 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
                     return ElevatedButton(
                       style: ButtonStyle(
                         foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                            MaterialStateProperty.all<Color>(white),
                         backgroundColor: MaterialStateProperty.all<Color>(grey),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(

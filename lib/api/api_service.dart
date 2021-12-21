@@ -3,7 +3,7 @@ import 'package:foodpad/models/category_model.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/models/login_model.dart';
 // import 'package:foodpad/models/rating_model.dart';
-import 'package:foodpad/models/recipe2_model.dart';
+import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/models/recipe_detail_model.dart';
 import 'package:foodpad/models/report_model.dart';
 // import 'package:foodpad/models/recipe_model.dart';
@@ -32,17 +32,17 @@ class ApiService {
   static const String report = _baseUrl + 'report';
   static const String lastIdRecipe = _baseUrl + 'last-recipe-create';
 
-  Future<Recipe2Result> ingredientRecipeList(query) async {
+  Future<RecipeResult> ingredientRecipeList(query) async {
     final response = await http.get(Uri.parse(search + query!));
 
     if (response.statusCode == 200) {
-      return Recipe2Result.fromJson(jsonDecode(response.body));
+      return RecipeResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan resep');
     }
   }
 
-  Future<Recipe2Result> recipeList2(query) async {
+  Future<RecipeResult> recipeList2(query) async {
     String? request;
     if (query == null || query == '') {
       request = recipe2;
@@ -52,17 +52,17 @@ class ApiService {
     final response = await http.get(Uri.parse(request));
 
     if (response.statusCode == 200) {
-      return Recipe2Result.fromJson(jsonDecode(response.body));
+      return RecipeResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan resep');
     }
   }
 
-  Future<Recipe2Result> trendingList() async {
+  Future<RecipeResult> trendingList() async {
     final response = await http.get(Uri.parse(trending));
 
     if (response.statusCode == 200) {
-      return Recipe2Result.fromJson(jsonDecode(response.body));
+      return RecipeResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
     }
@@ -78,11 +78,11 @@ class ApiService {
     }
   }
 
-  Future<Recipe2Result> recipeShorting(String shorting) async {
+  Future<RecipeResult> recipeShorting(String shorting) async {
     final response = await http.get(Uri.parse(recipeCategory + shorting));
 
     if (response.statusCode == 200) {
-      return Recipe2Result.fromJson(jsonDecode(response.body));
+      return RecipeResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan resep');
     }
@@ -122,11 +122,11 @@ class ApiService {
     }
   }
 
-  static Future<Recipe2Result> lastRecipe() async {
+  static Future<RecipeResult> lastRecipe() async {
     final response = await http.get(Uri.parse(lastIdRecipe));
 
     if (response.statusCode == 200) {
-      return Recipe2Result.fromJson(jsonDecode(response.body));
+      return RecipeResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan resep');
     }
@@ -282,7 +282,6 @@ class ApiService {
           "user_id": idUser,
         },
       );
-      print(response.body);
       if (response.statusCode == 200) {
         return response.body;
       } else {
@@ -340,7 +339,7 @@ class ApiService {
     if (response.statusCode == 200) {
       return CheckReport.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Gagal menampilkan kategori');
+      throw Exception('Gagal mengirim laporan');
     }
   }
 
@@ -356,11 +355,10 @@ class ApiService {
           "recipe_id": idRecipe,
         },
       );
-      print(response.body);
       if (response.statusCode == 200) {
         return response.body;
       } else {
-        throw Exception("Failed add favorite");
+        throw Exception("Failed add ingredient");
       }
     } catch (e) {
       throw Exception('error : ' + e.toString());
@@ -380,7 +378,7 @@ class ApiService {
       if (response.statusCode == 200) {
         return response.body;
       } else {
-        throw Exception("Failed add favorite");
+        throw Exception("Failed add step");
       }
     } catch (e) {
       throw Exception('error : ' + e.toString());

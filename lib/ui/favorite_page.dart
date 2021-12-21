@@ -1,4 +1,4 @@
-import 'dart:convert';
+// ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -18,10 +18,8 @@ import 'package:foodpad/ui/home/card_recommended.dart';
 import 'package:foodpad/ui/home/home_page.dart';
 import 'package:foodpad/ui/search_page.dart';
 import 'package:foodpad/ui/settings/settings_page.dart';
-import 'package:http/http.dart' as http;
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MainFavoritePage extends StatefulWidget {
   const MainFavoritePage({Key? key}) : super(key: key);
@@ -96,20 +94,6 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  Future<FavoriteResult> favoriteList() async {
-    String _baseUrl = 'http://api-foodpad.herokuapp.com/api/';
-    String favorite2 = _baseUrl + 'favorite2';
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String idUser = prefs.get('id').toString();
-    final response = await http.get(Uri.parse(favorite2 + idUser));
-
-    if (response.statusCode == 200) {
-      return FavoriteResult.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Gagal menampilkan favorit');
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -130,92 +114,100 @@ class _FavoritePageState extends State<FavoritePage> {
                     transitionDuration: const Duration(seconds: 0)));
             return Future.value();
           },
-          child: ListView(children: [
-            Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Consumer<FavoriteProvider>(
-                        builder: (context, state, _) {
-                          if (state.state == ResultState.loading) {
-                            return SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.9,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: const [
-                                  Center(
-                                    child: CircularProgressIndicator(
-                                        color: orange),
+          child: SafeArea(
+            child: ListView(children: [
+              Center(
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Consumer<FavoriteProvider>(
+                            builder: (context, state, _) {
+                              if (state.state == ResultState.loading) {
+                                return SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.9,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: const [
+                                      Center(
+                                        child: CircularProgressIndicator(
+                                            color: orange),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            if (state.state == ResultState.hasData) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text('Favorit',
-                                            style: helloTextStyle),
-                                        Text(
-                                            '${state.recipeResult.data!.length.toString()} Resep kesukaanmu',
-                                            style: blackTextStyle),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  _buildFavorite(state),
-                                  const SizedBox(height: 16),
-                                  const RecommendedList(),
-                                ],
-                              );
-                            } else if (state.state == ResultState.noData) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: const [
-                                        Text('Favorit', style: helloTextStyle),
-                                        Text('0 Resep kesukaanmu',
-                                            style: blackTextStyle),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  const NoFavorite(),
-                                  const RecommendedList(),
-                                ],
-                              );
-                            } else if (state.state == ResultState.error) {
-                              return const ErrorLoad();
-                            } else {
-                              return const NoInternet();
-                            }
-                          }
-                        },
+                                );
+                              } else {
+                                if (state.state == ResultState.hasData) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text('Favorit',
+                                                style: helloTextStyle),
+                                            Text(
+                                                '${state.recipeResult.data!.length.toString()} Resep kesukaanmu',
+                                                style: blackTextStyle),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      _buildFavorite(state),
+                                      const SizedBox(height: 16),
+                                      const RecommendedList(),
+                                    ],
+                                  );
+                                } else if (state.state == ResultState.noData) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: const [
+                                            Text('Favorit',
+                                                style: helloTextStyle),
+                                            Text('0 Resep kesukaanmu',
+                                                style: blackTextStyle),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      const NoFavorite(),
+                                      const RecommendedList(),
+                                    ],
+                                  );
+                                } else if (state.state == ResultState.error) {
+                                  return const ErrorLoad();
+                                } else {
+                                  return const NoInternet();
+                                }
+                              }
+                            },
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ]),
+            ]),
+          ),
         ),
       ),
     );

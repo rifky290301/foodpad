@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
@@ -11,77 +13,6 @@ class AddRecipeStep extends StatefulWidget {
 
   @override
   _AddRecipeStepState createState() => _AddRecipeStepState();
-}
-
-class StepForm extends StatefulWidget {
-  const StepForm({Key? key, required this.recipeId}) : super(key: key);
-
-  final String recipeId;
-
-  @override
-  State<StepForm> createState() => _StepFormState();
-}
-
-class _StepFormState extends State<StepForm> {
-  bool isSend = true;
-
-  TextEditingController recipeStepController = TextEditingController();
-  void store(step) {
-    ApiService.addStep(step, widget.recipeId);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Column(
-        children: [
-          Container(
-            height: 112,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: const Color(0xFFE6E6E6),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
-              child: TextFormField(
-                minLines: 3,
-                maxLines: 4,
-                controller: recipeStepController,
-                cursorColor: orange,
-                validator: (String? value) {
-                  if (value!.isEmpty) {
-                    return 'Langkah memasak harus diisi';
-                  }
-                  return null;
-                },
-                style: blackTextStyle,
-                decoration: const InputDecoration(
-                  hintStyle: subtitleTextStyle,
-                  hintText: "Langkah Memasak",
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-          ),
-          isSend
-              ? ElevatedButton(
-                  child: Text("+"),
-                  onPressed: () {
-                    store(recipeStepController.text);
-                    setState(() {
-                      isSend = false;
-                    });
-                  },
-                )
-              : Container(),
-        ],
-      ),
-    );
-  }
 }
 
 class _AddRecipeStepState extends State<AddRecipeStep> {
@@ -101,6 +32,18 @@ class _AddRecipeStepState extends State<AddRecipeStep> {
       recipeId: widget.recipeId,
     ));
     setState(() {});
+  }
+
+  void store(step) {
+    ApiService.addStep(step, widget.recipeId);
+  }
+
+  submitStep() async {
+    for (var widget in listStep) {
+      await Future.delayed(const Duration(seconds: 2), () {
+        store(widget.recipeStepController.text);
+      });
+    }
   }
 
   @override
@@ -143,7 +86,7 @@ class _AddRecipeStepState extends State<AddRecipeStep> {
                   const SizedBox(height: 28),
                   ListView.builder(
                       shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       itemCount: listStep.length,
                       itemBuilder: (context, index) {
                         return listStep[index];
@@ -174,7 +117,7 @@ class _AddRecipeStepState extends State<AddRecipeStep> {
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              print('OK');
+                              submitStep();
 
                               showDialog<String>(
                                 barrierDismissible: false,
@@ -190,6 +133,8 @@ class _AddRecipeStepState extends State<AddRecipeStep> {
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
                                         Navigator.pop(context);
                                         Navigator.popAndPushNamed(
                                             context, MainPage.routeName);
@@ -231,6 +176,67 @@ class _AddRecipeStepState extends State<AddRecipeStep> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class StepForm extends StatelessWidget {
+  StepForm({Key? key, required this.recipeId}) : super(key: key);
+
+  final String recipeId;
+
+  TextEditingController recipeStepController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        children: [
+          Container(
+            height: 112,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: const Color(0xFFE6E6E6),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+              child: TextFormField(
+                minLines: 3,
+                maxLines: 4,
+                controller: recipeStepController,
+                cursorColor: orange,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Langkah memasak harus diisi';
+                  }
+                  return null;
+                },
+                style: blackTextStyle,
+                decoration: const InputDecoration(
+                  hintStyle: subtitleTextStyle,
+                  hintText: "Langkah Memasak",
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
+          // isSend
+          //     ? ElevatedButton(
+          //         child: Text("+"),
+          //         onPressed: () {
+          //           store(recipeStepController.text);
+          //           setState(() {
+          //             isSend = false;
+          //           });
+          //         },
+          //       )
+          //     : Container(),
+        ],
       ),
     );
   }

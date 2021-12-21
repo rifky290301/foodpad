@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/navigation.dart';
@@ -13,135 +15,6 @@ class AddRecipeIngredient extends StatefulWidget {
 
   @override
   _AddRecipeIngredientState createState() => _AddRecipeIngredientState();
-}
-
-class IngredientForm extends StatefulWidget {
-  IngredientForm({Key? key, required this.recipeId}) : super(key: key);
-
-  final String recipeId;
-
-  @override
-  State<IngredientForm> createState() => _IngredientFormState();
-}
-
-class _IngredientFormState extends State<IngredientForm> {
-  bool isSend = true;
-
-  TextEditingController ingredientController = TextEditingController();
-  TextEditingController ingredientSizeController = TextEditingController();
-
-  void store(bahan, value) {
-    ApiService.addIngredient(bahan, value.toString(), widget.recipeId);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 4,
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: const Color(0xFFE6E6E6),
-                      ),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
-                      child: TextFormField(
-                        controller: ingredientController,
-                        cursorColor: orange,
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'Bahan harus diisi';
-                          }
-                          return null;
-                        },
-                        style: blackTextStyle,
-                        decoration: const InputDecoration(
-                          hintStyle: subtitleTextStyle,
-                          hintText: "Bahan",
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            flex: 2,
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: const Color(0xFFE6E6E6),
-                      ),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
-                      child: TextFormField(
-                        controller: ingredientSizeController,
-                        cursorColor: orange,
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'Kosong';
-                          }
-                          return null;
-                        },
-                        style: blackTextStyle,
-                        decoration: const InputDecoration(
-                          hintStyle: subtitleTextStyle,
-                          hintText: "Takaran",
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          isSend
-              ? Expanded(
-                  flex: 1,
-                  child: ElevatedButton(
-                    child: Text("+"),
-                    onPressed: () {
-                      // _AddRecipeIngredientState tes = _AddRecipeIngredientState
-                      //     as _AddRecipeIngredientState;
-                      // tes.addIngredientForm;
-                      store(ingredientController.text,
-                          ingredientSizeController.text);
-                      setState(() {
-                        isSend = false;
-                      });
-                    },
-                  ),
-                )
-              : Container(),
-        ],
-      ),
-    );
-  }
 }
 
 class _AddRecipeIngredientState extends State<AddRecipeIngredient> {
@@ -162,6 +35,19 @@ class _AddRecipeIngredientState extends State<AddRecipeIngredient> {
     setState(() {});
   }
 
+  void store(bahan, value) {
+    ApiService.addIngredient(bahan, value.toString(), widget.recipeId);
+  }
+
+  submitIngredient() async {
+    for (var widget in listIngredient) {
+      await Future.delayed(const Duration(seconds: 2), () {
+        store(widget.ingredientController.text,
+            widget.ingredientSizeController.text);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,6 +56,7 @@ class _AddRecipeIngredientState extends State<AddRecipeIngredient> {
         backgroundColor: orange,
         onPressed: () {
           if (_formKey.currentState!.validate()) {
+            submitIngredient();
             Navigation.intentWithData(
                 AddRecipeStep.routeName, (widget.recipeId));
             return;
@@ -265,6 +152,124 @@ class _AddRecipeIngredientState extends State<AddRecipeIngredient> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class IngredientForm extends StatelessWidget {
+  TextEditingController ingredientController = TextEditingController();
+  TextEditingController ingredientSizeController = TextEditingController();
+
+  IngredientForm({Key? key, required this.recipeId}) : super(key: key);
+
+  final String recipeId;
+
+  bool isSend = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 4,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: const Color(0xFFE6E6E6),
+                      ),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                      child: TextFormField(
+                        controller: ingredientController,
+                        cursorColor: orange,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Bahan harus diisi';
+                          }
+                          return null;
+                        },
+                        style: blackTextStyle,
+                        decoration: const InputDecoration(
+                          hintStyle: subtitleTextStyle,
+                          hintText: "Bahan",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: const Color(0xFFE6E6E6),
+                      ),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                      child: TextFormField(
+                        controller: ingredientSizeController,
+                        cursorColor: orange,
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Kosong';
+                          }
+                          return null;
+                        },
+                        style: blackTextStyle,
+                        decoration: const InputDecoration(
+                          hintStyle: subtitleTextStyle,
+                          hintText: "Takaran",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          // isSend
+          //     ? Expanded(
+          //         flex: 1,
+          //         child: ElevatedButton(
+          //           child: const Text("+"),
+          //           onPressed: () {
+          //             store(ingredientController.text,
+          //                 ingredientSizeController.text);
+          //             setState(() {
+          //               isSend = false;
+          //             });
+          //           },
+          //         ),
+          //       )
+          //     : Container(),
+        ],
       ),
     );
   }

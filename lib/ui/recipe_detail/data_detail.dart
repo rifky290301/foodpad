@@ -85,9 +85,14 @@ class DataDetail extends StatelessWidget {
               const SizedBox(height: 28),
               Row(
                 children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(recipeDetail.author.photo),
-                  ),
+                  recipeDetail.author.photo == null
+                      ? const CircleAvatar(
+                          backgroundImage: AssetImage('images/avatar.png'),
+                        )
+                      : CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(recipeDetail.author.photo),
+                        ),
                   const SizedBox(width: 8),
                   Text(
                       '${recipeDetail.author.firstName} ${recipeDetail.author.lastName}',
@@ -331,7 +336,6 @@ class Ratings extends StatelessWidget {
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.ellipsis,
               ),
-              // Text(ratings.reviewer.email),
             ],
           ),
         ),
