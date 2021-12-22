@@ -30,47 +30,46 @@ class _GreetingState extends State<Greeting> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            flex: 3,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text("Halo, $_firstName", style: helloTextStyle),
-              const Text(
-                'Mau masak apa hari ini?',
-                style: TextStyle(fontFamily: font, color: black),
-              ),
-            ]),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, AccountSettingsPage.routeName);
-            },
-            child: Flexible(
-              flex: 1,
-              child: _photo == null || _photo!.isEmpty
-                  ? CircleAvatar(
-                      child: ClipOval(
-                        child: Image.asset(
-                          'images/logo.png',
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                _firstName == null || _firstName!.isEmpty
+                    ? const Text("Halo, User", style: helloTextStyle)
+                    : Text("Halo, $_firstName", style: helloTextStyle),
+                const Text(
+                  'Mau masak apa hari ini?',
+                  style: TextStyle(fontFamily: font, color: black),
+                ),
+              ]),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, AccountSettingsPage.routeName);
+                },
+                child: _photo == null || _photo!.isEmpty
+                    ? CircleAvatar(
+                        child: ClipOval(
+                          child: Image.asset(
+                            'images/avatar.png',
+                          ),
                         ),
+                        radius: 28,
+                      )
+                    : CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          _photo!,
+                        ),
+                        radius: 28,
                       ),
-                      radius: 28,
-                    )
-                  : CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        _photo!,
-                      ),
-                      radius: 28,
-                    ),
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

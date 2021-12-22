@@ -5,49 +5,61 @@ import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/error/error.dart';
+import 'package:foodpad/ui/error/no_internet.dart';
+import 'package:foodpad/ui/error/not_found.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:foodpad/widgets/action_bar.dart';
 import 'package:provider/provider.dart';
 
-class TrendingListPage extends StatefulWidget {
-  const TrendingListPage({Key? key}) : super(key: key);
+class IngredientRecipePage extends StatefulWidget {
+  final String category;
+  const IngredientRecipePage({Key? key, required this.category})
+      : super(key: key);
 
-  static const routeName = '/trending_list_page';
+  static const routeName = '/ingredient_recipe_page';
   @override
-  TrendingListPageState createState() => TrendingListPageState();
+  IngredientRecipePageState createState() => IngredientRecipePageState();
 }
 
-class TrendingListPageState extends State<TrendingListPage> {
+class IngredientRecipePageState extends State<IngredientRecipePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 60,
-        foregroundColor: black,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: const ActionBarNoMenu("Trending"),
-      ),
-      body: Center(
-        child: SafeArea(
+        appBar: AppBar(
+          toolbarHeight: 60,
+          foregroundColor: black,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          title: const ActionBarNoMenu("Resep Bahan"),
+        ),
+        body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  ChangeNotifierProvider<TrendingProvider>(
-                    create: (_) => TrendingProvider(apiService: ApiService()),
-                    child: Consumer<TrendingProvider>(
+                  ChangeNotifierProvider<IngredientRecipeProvider>(
+                    create: (_) => IngredientRecipeProvider(
+                        apiService: ApiService(), category: widget.category),
+                    child: Consumer<IngredientRecipeProvider>(
                       builder: (context, state, _) {
                         if (state.state == ResultStates.loading) {
-                          return const Center(
-                            child: CircularProgressIndicator(color: orange),
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: const [
+                                Center(
+                                  child:
+                                      CircularProgressIndicator(color: orange),
+                                ),
+                              ],
+                            ),
                           );
                         } else if (state.state == ResultStates.hasData) {
                           return Column(
                             children: [
-                              // _buildCategory(context, state),
                               ListView.builder(
                                 itemCount: state.recipeResult.data.length,
                                 shrinkWrap: true,
@@ -217,21 +229,20 @@ class TrendingListPageState extends State<TrendingListPage> {
                               ),
                             ],
                           );
+                        } else if (state.state == ResultStates.noData) {
+                          return const NotFound();
                         } else if (state.state == ResultStates.error) {
                           return const ErrorLoad();
                         } else {
-                          return const ErrorLoad();
+                          return const NoInternet();
                         }
                       },
                     ),
                   ),
                 ],
               ),
-
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

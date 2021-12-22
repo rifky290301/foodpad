@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
+import 'package:foodpad/ui/home/trending_list_page.dart';
 
 class NoFavorite extends StatelessWidget {
   const NoFavorite({Key? key}) : super(key: key);
@@ -23,7 +24,10 @@ class NoFavorite extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               style: buttonStyle,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, TrendingListPage.routeName);
+              },
+
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Text('Eksplor Resep',

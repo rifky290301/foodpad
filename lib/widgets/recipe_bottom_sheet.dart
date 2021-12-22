@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/favorite_provider.dart';
+import 'package:foodpad/provider/report_provider.dart';
+import 'package:provider/provider.dart';
 
 enum ReportRecipe { notApplicable, dangerous, notLike, notHalal }
 ReportRecipe? _report = ReportRecipe.notApplicable;
@@ -48,17 +50,43 @@ void recipeBottomSheet(BuildContext context, idRecipe) {
                           Navigator.pop(context);
                         },
                       ),
-                      ListTile(
-                        title: const Text('Laporkan resep ini',
-                            style: itemTextStyle),
-                        onTap: () {
-                          showDialog<void>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const ReportAlertDialog();
-                            },
-                          );
-                        },
+                      ChangeNotifierProvider<ReportProvider>(
+                        create: (_) => ReportProvider(
+                            apiService: ApiService(),
+                            idRecipe: idRecipe.toString()),
+                        child: Consumer<ReportProvider>(
+                            builder: (context, state, _) {
+                          if (state.state == ResultStateReport.loading ||
+                              state.state == ResultStateReport.error ||
+                              state.state == ResultStateReport.noData) {
+                            return ListTile(
+                              title: const Text('Laporkan resep ini',
+                                  style: itemTextStyle),
+                              onTap: () {
+                                showDialog<void>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ReportAlertDialog(
+                                      idRecipe: idRecipe.toString(),
+                                      state: state,
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          } else {
+                            return const ListTile(
+                              title: Text(
+                                'Laporkan resep ini',
+                                style: TextStyle(
+                                  fontFamily: font,
+                                  fontSize: 14,
+                                  color: grey,
+                                ),
+                              ),
+                            );
+                          }
+                        }),
                       ),
                       ListTile(
                         title: const Text(
@@ -87,7 +115,10 @@ void recipeBottomSheet(BuildContext context, idRecipe) {
 }
 
 class ReportAlertDialog extends StatelessWidget {
-  const ReportAlertDialog({Key? key}) : super(key: key);
+  String idRecipe;
+  ReportProvider state;
+  ReportAlertDialog({Key? key, required this.idRecipe, required this.state})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -147,6 +178,7 @@ class ReportAlertDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
+            state.addreport(_report);
             showDialog<String>(
               barrierDismissible: false,
               context: context,

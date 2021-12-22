@@ -5,6 +5,8 @@ import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/error/error.dart';
+import 'package:foodpad/ui/error/no_internet.dart';
+import 'package:foodpad/ui/error/not_found.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +22,6 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController searchTextController = TextEditingController();
   final _search = TextEditingController();
-  // late final int _star;
   RecipeProvider instanceRecipe = RecipeProvider(apiService: ApiService());
 
   @override
@@ -34,43 +35,58 @@ class _SearchPageState extends State<SearchPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text('Pencarian', style: helloTextStyle),
-                            Text('Mau cari resep apa?', style: blackTextStyle),
-                          ],
-                        ),
-                      ],
-                    )),
-                const SizedBox(height: 28),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: Text('Kategori', style: itemTitleTextStyle),
-                ),
-                const SizedBox(height: 8),
-                SizedBox(
-                  height: 40,
-                  child: _buildCategory(context),
-                  // child: _sementara(),
-                ),
                 ChangeNotifierProvider<RecipeProvider>(
                   create: (_) => RecipeProvider(apiService: ApiService()),
                   child: Consumer<RecipeProvider>(
                     builder: (context, state, _) {
                       if (state.state == ResultStates.loading) {
-                        return const Center(
-                          child: CircularProgressIndicator(color: orange),
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.9,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: const [
+                              Center(
+                                child: CircularProgressIndicator(color: orange),
+                              ),
+                            ],
+                          ),
+
                         );
                       } else if (state.state == ResultStates.hasData) {
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // _buildCategory(context, state),
+                            Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: const [
+                                        Text('Pencarian',
+                                            style: helloTextStyle),
+                                        Text('Mau cari resep apa?',
+                                            style: blackTextStyle),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            const SizedBox(height: 28),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Text('Kategori',
+                                  style: itemTitleTextStyle,
+                                  textAlign: TextAlign.left),
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: 40,
+                              child: _buildCategory(context),
+                            ),
                             _formSearch(context, state),
+                            const SizedBox(height: 16),
                             ListView.builder(
                               itemCount: state.recipeResult.data.length,
                               shrinkWrap: true,
@@ -215,9 +231,83 @@ class _SearchPageState extends State<SearchPage> {
                           ],
                         );
                       } else if (state.state == ResultStates.error) {
-                        return const ErrorLoad();
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: const [
+                                        Text('Pencarian',
+                                            style: helloTextStyle),
+                                        Text('Mau cari resep apa?',
+                                            style: blackTextStyle),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            const SizedBox(height: 28),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Text('Kategori',
+                                  style: itemTitleTextStyle,
+                                  textAlign: TextAlign.left),
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: 40,
+                              child: _buildCategory(context),
+                            ),
+                            _formSearch(context, state),
+                            const SizedBox(height: 16),
+                            const NotFound(),
+                          ],
+                        );
+                      } else if (state.state == ResultStates.noData) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: const [
+                                        Text('Pencarian',
+                                            style: helloTextStyle),
+                                        Text('Mau cari resep apa?',
+                                            style: blackTextStyle),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            const SizedBox(height: 28),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Text('Kategori',
+                                  style: itemTitleTextStyle,
+                                  textAlign: TextAlign.left),
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: 40,
+                              child: _buildCategory(context),
+                            ),
+                            _formSearch(context, state),
+                            const SizedBox(height: 16),
+                            const NotFound(),
+                          ],
+                        );
                       } else {
-                        return const ErrorLoad();
+                        return const NoInternet();
                       }
                     },
                   ),
@@ -251,6 +341,7 @@ class _SearchPageState extends State<SearchPage> {
                 child: TextFormField(
                   controller: _search,
                   cursorColor: orange,
+                  textInputAction: TextInputAction.search,
                   keyboardType: TextInputType.text,
                   onFieldSubmitted: (value) => state.setQuery(value),
                   style: blackTextStyle,
@@ -264,7 +355,7 @@ class _SearchPageState extends State<SearchPage> {
                         color: orange,
                       ),
                       onPressed: () {
-                        // controller.searchRestaurant();
+                        state.setQuery(_search.text);
                       },
                     ),
                   ),
@@ -281,7 +372,7 @@ class _SearchPageState extends State<SearchPage> {
     return Consumer<CategoryProvider>(
       builder: (context, state, _) {
         if (state.state == ResultStates.loading) {
-          return const Center(child: CircularProgressIndicator(color: orange));
+          return const Center();
         } else if (state.state == ResultStates.hasData) {
           return ListView.builder(
             shrinkWrap: true,
@@ -299,10 +390,13 @@ class _SearchPageState extends State<SearchPage> {
                       style: const TextStyle(fontFamily: font, color: white),
                     ),
                   ),
-                  onPressed: () => instanceRecipe.setShorting(state
-                      .categoryResult.data![index].category
-                      .toString()
-                      .toLowerCase()),
+                  onPressed: () {
+                    instanceRecipe.setSorting(state
+                        .categoryResult.data![index].category
+                        .toString()
+                        .toLowerCase());
+                  },
+
                   style: ElevatedButton.styleFrom(
                     primary: orange,
                   ),
@@ -311,18 +405,8 @@ class _SearchPageState extends State<SearchPage> {
             },
           );
         } else if (state.state == ResultStates.error) {
-          return Column(
-            children: const [
-              Center(child: Text('Error', style: subtitleTextStyle)),
-              // ElevatedButton(
-              //   child: const Text('Refresh'),
-              //   onPressed: () => state.refresh(),
-              //   style: ElevatedButton.styleFrom(
-              //     primary: orange,
-              //   ),
-              // ),
-            ],
-          );
+          return const ErrorLoad();
+
         } else {
           return const Text('');
         }

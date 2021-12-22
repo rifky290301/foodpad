@@ -21,7 +21,8 @@ class FavoriteProvider extends ChangeNotifier {
   String get message => _message;
 
   void deleteFavorite(idFavorite) {
-    apiService.deleteFovorite(idFavorite);
+    apiService.deleteFavorite(idFavorite);
+
     _fetchAllFavorite();
     notifyListeners();
   }
@@ -75,14 +76,20 @@ class FavoriteCheckProvider extends ChangeNotifier {
   void addFavorite(idRecipe) {
     apiService.addFavorite(idRecipe);
     FavoriteProvider(apiService: apiService);
-    _checkFavorite();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _checkFavorite();
+    });
+
     notifyListeners();
   }
 
   void deleteFavorite(idRecipe) {
-    apiService.deleteFovorite(idRecipe);
+    apiService.deleteFavorite(idRecipe);
     FavoriteProvider(apiService: apiService);
-    _checkFavorite();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _checkFavorite();
+    });
+
     notifyListeners();
   }
 

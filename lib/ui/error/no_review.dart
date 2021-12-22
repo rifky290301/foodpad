@@ -13,7 +13,8 @@ class NoReview extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 48),
             child: Column(
               children: const [
-                Icon(Icons.warning_amber_rounded, color: grey, size: 75),
+                Icon(Icons.no_accounts_outlined, color: grey, size: 75),
+
                 SizedBox(height: 8),
                 Text('Belum Ada Ulasan', style: itemTitleTextStyle),
                 Text(

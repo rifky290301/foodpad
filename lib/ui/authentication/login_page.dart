@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodpad/api/api_service.dart';
@@ -26,10 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   late Future<LoginModel> futureLogin;
-  void formLoginEmptyForm() {
-    emailController.text = '';
-    passController.text = '';
-  }
 
   @override
   void initState() {
@@ -38,6 +35,12 @@ class _LoginPageState extends State<LoginPage> {
     passController = TextEditingController();
     passwordVisibility = false;
   }
+
+  // @override
+  // void dispose() {
+  //   _formKey.currentState!.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -345,9 +348,13 @@ class _LoginPageState extends State<LoginPage> {
                                               futureLogin.then((value) {
                                                 AuthProvider.storeUser(value);
                                                 provider.allowLogin(true);
-                                                Navigator.popAndPushNamed(
-                                                    context,
-                                                    MainPage.routeName);
+                                                Timer(
+                                                    const Duration(seconds: 1),
+                                                    () {
+                                                  Navigator.popAndPushNamed(
+                                                      context,
+                                                      MainPage.routeName);
+                                                });
                                                 return;
                                               }).catchError((error) {
                                                 showDialog<String>(

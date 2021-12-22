@@ -9,10 +9,10 @@ class Category2 {
     this.data,
   });
 
-  List<Datum>? data;
-
+  List<DataCategory>? data;
   factory Category2.fromJson(Map<String, dynamic> json) => Category2(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<DataCategory>.from(
+            json["data"].map((x) => DataCategory.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -20,8 +20,9 @@ class Category2 {
       };
 }
 
-class Datum {
-  Datum({
+class DataCategory {
+  DataCategory({
+
     this.id,
     this.category,
   });
@@ -29,7 +30,7 @@ class Datum {
   int? id;
   String? category;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DataCategory.fromJson(Map<String, dynamic> json) => DataCategory(
         id: json["id"],
         category: json["category"],
       );

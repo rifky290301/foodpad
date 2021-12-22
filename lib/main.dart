@@ -6,7 +6,11 @@ import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/provider/preferences_provider.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/provider/scheduling_provider.dart';
+import 'package:foodpad/ui/add_recipe/add_recipe_ingredient_page.dart';
+import 'package:foodpad/ui/add_recipe/add_recipe_step.dart';
 import 'package:foodpad/ui/authentication/register_page.dart';
+import 'package:foodpad/ui/favorite_page.dart';
+import 'package:foodpad/ui/home/ingredient_recipe_page.dart';
 import 'package:foodpad/ui/home/ingredients_list_page.dart';
 import 'package:foodpad/ui/home/trending_list_page.dart';
 import 'package:foodpad/ui/authentication/login_page.dart';
@@ -63,8 +67,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (_) => SchedulingProvider()),
       ],
-      child: Consumer<PreferencesProvider>(builder: (context, provider, child) {
-        return MaterialApp(
+      child: Consumer<PreferencesProvider>(
+        builder: (context, provider, child) {
+          return MaterialApp(
             title: 'FoodPad',
             theme: ThemeData(
               primarySwatch: Colors.deepOrange,
@@ -80,12 +85,27 @@ class MyApp extends StatelessWidget {
                   recipeId:
                       ModalRoute.of(context)?.settings.arguments as String),
               SearchPage.routeName: (context) => const SearchPage(),
-              AccountSettingsPage.routeName: (context) => AccountSettingsPage(),
+              AccountSettingsPage.routeName: (context) =>
+                  const AccountSettingsPage(),
+
               IngredientsListPage.routeName: (context) =>
                   const IngredientsListPage(),
               TrendingListPage.routeName: (context) => const TrendingListPage(),
-            });
-      }),
+              FavoritePage.routeName: (context) => const FavoritePage(),
+              AddRecipeIngredient.routeName: (context) => AddRecipeIngredient(
+                  recipeId:
+                      ModalRoute.of(context)?.settings.arguments as String),
+              AddRecipeStep.routeName: (context) => AddRecipeStep(
+                  recipeId:
+                      ModalRoute.of(context)?.settings.arguments as String),
+              MainFavoritePage.routeName: (context) => const MainFavoritePage(),
+              IngredientRecipePage.routeName: (context) => IngredientRecipePage(
+                  category:
+                      ModalRoute.of(context)?.settings.arguments as String),
+            },
+          );
+        },
+      ),
     );
   }
 }
