@@ -225,17 +225,6 @@ class StepForm extends StatelessWidget {
               ),
             ),
           ),
-          // isSend
-          //     ? ElevatedButton(
-          //         child: Text("+"),
-          //         onPressed: () {
-          //           store(recipeStepController.text);
-          //           setState(() {
-          //             isSend = false;
-          //           });
-          //         },
-          //       )
-          //     : Container(),
         ],
       ),
     );

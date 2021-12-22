@@ -254,21 +254,6 @@ class IngredientForm extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          // isSend
-          //     ? Expanded(
-          //         flex: 1,
-          //         child: ElevatedButton(
-          //           child: const Text("+"),
-          //           onPressed: () {
-          //             store(ingredientController.text,
-          //                 ingredientSizeController.text);
-          //             setState(() {
-          //               isSend = false;
-          //             });
-          //           },
-          //         ),
-          //       )
-          //     : Container(),
         ],
       ),
     );

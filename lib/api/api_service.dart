@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'package:foodpad/models/category_model.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/models/login_model.dart';
-// import 'package:foodpad/models/rating_model.dart';
 import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/models/recipe_detail_model.dart';
 import 'package:foodpad/models/report_model.dart';
-// import 'package:foodpad/models/recipe_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -168,7 +166,7 @@ class ApiService {
     }
   }
 
-  Future<String> deleteFovorite(String idFavorite) async {
+  Future<String> deleteFavorite(String idFavorite) async {
     try {
       final response = await http.delete(Uri.parse(favorite + idFavorite));
       if (response.statusCode == 200) {
@@ -181,7 +179,7 @@ class ApiService {
     }
   }
 
-  Future<String> deleteFovorite2(String idFavorite) async {
+  Future<String> deleteFavorite2(String idFavorite) async {
     try {
       final response = await http.delete(Uri.parse(favorite + idFavorite));
       if (response.statusCode == 200) {

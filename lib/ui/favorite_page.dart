@@ -429,6 +429,7 @@ class _CardFavoriteState extends State<CardFavorite> {
                                                 Future.delayed(
                                                     const Duration(
                                                         milliseconds: 500), () {
+                                                  Navigator.pop(context);
                                                   Navigator.pushReplacement(
                                                     context,
                                                     PageRouteBuilder(
