@@ -50,6 +50,7 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ],
                           ),
+
                         );
                       } else if (state.state == ResultStates.hasData) {
                         return Column(
@@ -395,6 +396,7 @@ class _SearchPageState extends State<SearchPage> {
                         .toString()
                         .toLowerCase());
                   },
+
                   style: ElevatedButton.styleFrom(
                     primary: orange,
                   ),
@@ -404,6 +406,7 @@ class _SearchPageState extends State<SearchPage> {
           );
         } else if (state.state == ResultStates.error) {
           return const ErrorLoad();
+
         } else {
           return const Text('');
         }

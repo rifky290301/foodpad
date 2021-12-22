@@ -268,6 +268,7 @@ class Step extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     steps.step.toString(),
+
                     style: blackTextStyle,
                     textAlign: TextAlign.justify,
                   ),

@@ -58,6 +58,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
           _photo == null || _photo!.isEmpty
               ? Image.asset(
                   'images/avatar.png',
+
                   fit: BoxFit.fill,
                 )
               : Image.network(
@@ -243,6 +244,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
                     style: blackTextStyle.copyWith(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
+
                     ),
                   ),
                   SizedBox(height: 15.0),

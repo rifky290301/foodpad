@@ -27,6 +27,7 @@ class NoFavorite extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, TrendingListPage.routeName);
               },
+
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Text('Eksplor Resep',

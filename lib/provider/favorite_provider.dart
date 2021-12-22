@@ -22,6 +22,7 @@ class FavoriteProvider extends ChangeNotifier {
 
   void deleteFavorite(idFavorite) {
     apiService.deleteFavorite(idFavorite);
+
     _fetchAllFavorite();
     notifyListeners();
   }
@@ -78,6 +79,7 @@ class FavoriteCheckProvider extends ChangeNotifier {
     Future.delayed(const Duration(milliseconds: 500), () {
       _checkFavorite();
     });
+
     notifyListeners();
   }
 
@@ -87,6 +89,7 @@ class FavoriteCheckProvider extends ChangeNotifier {
     Future.delayed(const Duration(milliseconds: 500), () {
       _checkFavorite();
     });
+
     notifyListeners();
   }
 

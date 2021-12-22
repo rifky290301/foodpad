@@ -227,6 +227,7 @@ class TrendingListPageState extends State<TrendingListPage> {
                   ),
                 ],
               ),
+
             ),
           ),
         ),

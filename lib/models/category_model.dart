@@ -10,7 +10,6 @@ class Category2 {
   });
 
   List<DataCategory>? data;
-
   factory Category2.fromJson(Map<String, dynamic> json) => Category2(
         data: List<DataCategory>.from(
             json["data"].map((x) => DataCategory.fromJson(x))),
@@ -23,6 +22,7 @@ class Category2 {
 
 class DataCategory {
   DataCategory({
+
     this.id,
     this.category,
   });

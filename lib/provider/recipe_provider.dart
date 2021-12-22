@@ -15,11 +15,13 @@ class RecipeProvider extends ChangeNotifier {
   }
 
   late RecipeResult _recipeResult;
+
   late ResultStates _state;
   String _message = '';
   String? _query;
 
   RecipeResult get recipeResult => _recipeResult;
+
   ResultStates get state => _state;
   String get message => _message;
   String? get query => _query;
@@ -39,6 +41,7 @@ class RecipeProvider extends ChangeNotifier {
   void setSorting(String? query) {
     _query = query;
     _recipeSorting();
+
     notifyListeners();
   }
 
@@ -117,6 +120,7 @@ class IngredientRecipeProvider extends ChangeNotifier {
       notifyListeners();
 
       final recipe = await apiService.ingredientRecipeList(category);
+
       if (recipe.data.isEmpty) {
         _state = ResultStates.noData;
         notifyListeners();
@@ -142,11 +146,13 @@ class RecipeDetailProvider extends ChangeNotifier {
   }
 
   late RecipeDetail _recipeResult;
+
   late ResultStates _state;
   String _message = '';
   final String id;
 
   RecipeDetail get recipeResult => _recipeResult;
+
   ResultStates get state => _state;
   String get message => _message;
 
@@ -157,6 +163,7 @@ class RecipeDetailProvider extends ChangeNotifier {
 
       final recipe = await apiService.recipeDetail2(id);
       if (recipe.data.isEmpty) {
+
         _state = ResultStates.noData;
         notifyListeners();
         return _message = 'No Data';

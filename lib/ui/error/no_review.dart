@@ -14,6 +14,7 @@ class NoReview extends StatelessWidget {
             child: Column(
               children: const [
                 Icon(Icons.no_accounts_outlined, color: grey, size: 75),
+
                 SizedBox(height: 8),
                 Text('Belum Ada Ulasan', style: itemTitleTextStyle),
                 Text(

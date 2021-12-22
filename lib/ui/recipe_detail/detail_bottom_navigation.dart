@@ -26,6 +26,7 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
   }
 
   @override
+
   Widget build(BuildContext context) {
     double ratingBarValue = 0;
     String _review;

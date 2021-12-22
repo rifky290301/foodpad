@@ -87,6 +87,7 @@ class MyApp extends StatelessWidget {
               SearchPage.routeName: (context) => const SearchPage(),
               AccountSettingsPage.routeName: (context) =>
                   const AccountSettingsPage(),
+
               IngredientsListPage.routeName: (context) =>
                   const IngredientsListPage(),
               TrendingListPage.routeName: (context) => const TrendingListPage(),
