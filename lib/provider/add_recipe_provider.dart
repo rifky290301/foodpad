@@ -11,7 +11,7 @@ class AddRecipeProvider extends ChangeNotifier {
 
   late CheckReview _reviewResult;
   late ResultStateReview _state;
-  String _message = '';
+  final String _message = '';
 
   CheckReview get reviewResult => _reviewResult;
   ResultStateReview get state => _state;

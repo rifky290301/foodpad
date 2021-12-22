@@ -75,14 +75,18 @@ class FavoriteCheckProvider extends ChangeNotifier {
   void addFavorite(idRecipe) {
     apiService.addFavorite(idRecipe);
     FavoriteProvider(apiService: apiService);
-    _checkFavorite();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _checkFavorite();
+    });
     notifyListeners();
   }
 
   void deleteFavorite(idRecipe) {
     apiService.deleteFovorite(idRecipe);
     FavoriteProvider(apiService: apiService);
-    _checkFavorite();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _checkFavorite();
+    });
     notifyListeners();
   }
 

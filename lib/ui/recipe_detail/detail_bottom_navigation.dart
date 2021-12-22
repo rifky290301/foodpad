@@ -329,16 +329,16 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             );
           } else if (state.state == ResultState.hasData) {
             return IconButton(
-              icon: const Icon(Icons.favorite, color: orange, size: 34),
+              icon: const Icon(Icons.favorite, color: orange, size: 36),
               onPressed: () {
-                setState(() {
-                  state.deleteFavorite(
-                      (state.favoriteResult.data![0].id!).toString());
-                  var snackBarFalse = const SnackBar(
-                    content: Text(
-                      'Resep dihapus dari favorite',
-                    ),
-                  );
+                state.deleteFavorite(
+                    (state.favoriteResult.data![0].id!).toString());
+                var snackBarFalse = const SnackBar(
+                  content: Text(
+                    'Resep dihapus dari favorite',
+                  ),
+                );
+                Future.delayed(const Duration(milliseconds: 500), () {
                   ScaffoldMessenger.of(context).showSnackBar(snackBarFalse);
                 });
               },
@@ -347,15 +347,15 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             return const Text('no data');
           } else {
             return IconButton(
-              icon: const Icon(Icons.favorite_border, color: orange, size: 34),
+              icon: const Icon(Icons.favorite_border, color: orange, size: 36),
               onPressed: () {
-                setState(() {
-                  state.addFavorite(widget.recipeId.toString());
-                  var snackBarTrue = const SnackBar(
-                    content: Text(
-                      'Resep ditambahkan ke favorite.',
-                    ),
-                  );
+                state.addFavorite(widget.recipeId.toString());
+                var snackBarTrue = const SnackBar(
+                  content: Text(
+                    'Resep ditambahkan ke favorite.',
+                  ),
+                );
+                Future.delayed(const Duration(milliseconds: 500), () {
                   ScaffoldMessenger.of(context).showSnackBar(snackBarTrue);
                 });
               },

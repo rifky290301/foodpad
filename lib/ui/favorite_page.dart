@@ -426,16 +426,20 @@ class _CardFavoriteState extends State<CardFavorite> {
                                                 instanceFavorite.deleteFavorite(
                                                     widget.recipe.id
                                                         .toString());
-                                                Navigator.pushReplacement(
-                                                  context,
-                                                  PageRouteBuilder(
-                                                    pageBuilder: (a, b, c) =>
-                                                        const MainFavoritePage(),
-                                                    transitionDuration:
-                                                        const Duration(
-                                                            seconds: 0),
-                                                  ),
-                                                );
+                                                Future.delayed(
+                                                    const Duration(
+                                                        milliseconds: 500), () {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    PageRouteBuilder(
+                                                      pageBuilder: (a, b, c) =>
+                                                          const MainFavoritePage(),
+                                                      transitionDuration:
+                                                          const Duration(
+                                                              seconds: 0),
+                                                    ),
+                                                  );
+                                                });
                                               });
                                               Future.value();
                                             },
