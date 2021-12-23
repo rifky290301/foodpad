@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:foodpad/models/category_model.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/models/login_model.dart';
+// import 'package:foodpad/models/recipe2_model.dart';
 import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/models/recipe_detail_model.dart';
 import 'package:foodpad/models/report_model.dart';
@@ -44,9 +45,8 @@ class ApiService {
     String? request;
     if (query == null || query == '') {
       request = recipe2;
-
     } else {
-      request = search + query;
+      request = search + query!;
     }
     final response = await http.get(Uri.parse(request));
 
@@ -57,27 +57,11 @@ class ApiService {
     }
   }
 
-  Future<Recipe2Result> recipeList2(query) async {
-    String? request;
-    if (query == null || query == '') {
-      request = recipe2;
-    } else {
-      request = search + query!;
-    }
-    final response = await http.get(Uri.parse(request));
-
-    if (response.statusCode == 200) {
-      return Recipe2Result.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Gagal menampilkan resep');
-    }
-  }
-
-  Future<Recipe2Result> trendingList() async {
+  Future<RecipeResult> trendingList() async {
     final response = await http.get(Uri.parse(trending));
 
     if (response.statusCode == 200) {
-      return Recipe2Result.fromJson(jsonDecode(response.body));
+      return RecipeResult.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal menampilkan kategori');
     }
@@ -102,6 +86,7 @@ class ApiService {
       throw Exception('Gagal menampilkan resep');
     }
   }
+
   static Future<String> addRecipe(
     String name,
     String thumbnail,
@@ -433,5 +418,8 @@ class ApiService {
       } else {
         throw Exception("Failed add favorite");
       }
+    } catch (e) {
+      throw Exception('error : ' + e.toString());
     }
   }
+}

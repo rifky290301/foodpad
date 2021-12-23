@@ -66,11 +66,6 @@ class _MainFavoritePageState extends State<MainFavoritePage> {
   ];
 
   @override
-  _FavoritePageState createState() => _FavoritePageState();
-}
-
-class _FavoritePageState extends State<FavoritePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
@@ -212,7 +207,6 @@ class _FavoritePageState extends State<FavoritePage> {
                 ),
               ),
             ]),
-
           ),
         ),
       ),
@@ -231,6 +225,7 @@ class _FavoritePageState extends State<FavoritePage> {
       },
     );
   }
+}
 
 class RecommendedList extends StatelessWidget {
   const RecommendedList({Key? key}) : super(key: key);
@@ -255,7 +250,6 @@ class RecommendedList extends StatelessWidget {
                   SizedBox(height: 16),
                   Center(child: CircularProgressIndicator(color: orange)),
                 ]);
-
               } else {
                 if (state.state == ResultStates.hasData) {
                   return SizedBox(
@@ -278,7 +272,6 @@ class RecommendedList extends StatelessWidget {
                   return const ErrorLoad();
                 } else {
                   return const NoInternet();
-
                 }
               }
             },
@@ -298,7 +291,6 @@ class CardFavorite extends StatefulWidget {
 }
 
 class _CardFavoriteState extends State<CardFavorite> {
-
   FavoriteProvider instanceFavorite =
       FavoriteProvider(apiService: ApiService());
 
@@ -335,7 +327,6 @@ class _CardFavoriteState extends State<CardFavorite> {
                     width: 250,
                     child: Text(
                       widget.recipe.name.toString(),
-
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: itemTitleTextStyle,
@@ -348,7 +339,6 @@ class _CardFavoriteState extends State<CardFavorite> {
                       RatingBar.builder(
                         initialRating:
                             double.parse(widget.recipe.rating.toString()),
-
                         allowHalfRating: true,
                         ignoreGestures: true,
                         minRating: 1,
@@ -364,7 +354,6 @@ class _CardFavoriteState extends State<CardFavorite> {
                       const SizedBox(width: 4),
                       Text('${widget.recipe.rating}/5',
                           style: smallSubtitleTextStyle),
-
                     ],
                   ),
                   SizedBox(
@@ -382,7 +371,6 @@ class _CardFavoriteState extends State<CardFavorite> {
                                 const SizedBox(width: 2),
                                 Text(
                                   widget.recipe.duration.toString() + ' menit',
-
                                   style: const TextStyle(
                                     fontFamily: font,
                                     fontSize: 12,
@@ -395,7 +383,6 @@ class _CardFavoriteState extends State<CardFavorite> {
                                 const SizedBox(width: 2),
                                 Text(
                                   widget.recipe.level.toString(),
-
                                   style: const TextStyle(
                                     fontFamily: font,
                                     fontSize: 12,
@@ -456,7 +443,6 @@ class _CardFavoriteState extends State<CardFavorite> {
                                                 });
                                               });
                                               Future.value();
-
                                             },
                                             child: const Text(
                                               'Ya, Hapus',

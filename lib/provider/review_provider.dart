@@ -28,7 +28,9 @@ class ReviewProvider extends ChangeNotifier {
   void addReview(rating, review) {
     var temp = removeDecimalZeroFormat(rating);
     apiService.addReview(idRecipe.toString(), temp.toString(), review);
-    _reviewCheck();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _reviewCheck();
+    });
     notifyListeners();
   }
 
