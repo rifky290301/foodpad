@@ -27,6 +27,31 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
     super.initState();
   }
 
+  Widget disabledButton() {
+    return ElevatedButton(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all<Color>(white),
+        backgroundColor: MaterialStateProperty.all<Color>(grey),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+      ),
+      onPressed: () {},
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: MediaQuery.of(context).size.width * 0.18,
+        ),
+        child: const Text(
+          'Tulis Ulasan',
+          style: TextStyle(fontFamily: font, fontSize: 16),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double ratingBarValue = 0;
@@ -44,8 +69,7 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Consumer<ReviewProvider>(builder: (context, state, _) {
-                  if (state.state == ResultStateReview.loading ||
-                      state.state == ResultStateReview.error ||
+                  if (state.state == ResultStateReview.error ||
                       state.state == ResultStateReview.noData) {
                     return ElevatedButton(
                       style: ButtonStyle(
@@ -274,31 +298,10 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
                         ),
                       ),
                     );
+                  } else if (state.state == ResultStateReview.loading) {
+                    return disabledButton();
                   } else {
-                    return ElevatedButton(
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(white),
-                        backgroundColor: MaterialStateProperty.all<Color>(grey),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: MediaQuery.of(context).size.width * 0.18,
-                        ),
-                        child: const Text(
-                          'Tulis Ulasan',
-                          style: TextStyle(fontFamily: font, fontSize: 16),
-                        ),
-                      ),
-                    );
+                    return disabledButton();
                   }
                 }),
               ],

@@ -50,21 +50,14 @@ class _GreetingState extends State<Greeting> {
                 onTap: () {
                   Navigator.pushNamed(context, AccountSettingsPage.routeName);
                 },
-                child: _photo == null || _photo!.isEmpty
-                    ? CircleAvatar(
-                        child: ClipOval(
-                          child: Image.asset(
-                            'images/avatar.png',
-                          ),
-                        ),
-                        radius: 28,
-                      )
-                    : CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          _photo!,
-                        ),
-                        radius: 28,
-                      ),
+                child: CircleAvatar(
+                  child: ClipOval(
+                    child: Image.asset(
+                      'images/avatar.png',
+                    ),
+                  ),
+                  radius: 28,
+                ),
               ),
             ],
           ),
