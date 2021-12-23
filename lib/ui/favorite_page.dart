@@ -430,8 +430,8 @@ class _CardFavoriteState extends State<CardFavorite> {
                                                     widget.recipe.id
                                                         .toString());
                                                 Future.delayed(
-                                                    const Duration(
-                                                        milliseconds: 500), () {
+                                                    const Duration(seconds: 1),
+                                                    () {
                                                   Navigator.pop(context);
                                                   Navigator.pushReplacement(
                                                     context,

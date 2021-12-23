@@ -443,7 +443,8 @@ class _LoginPageState extends State<LoginPage> {
                                               children: [
                                                 InkWell(
                                                   onTap: () {
-                                                    Navigator.pushNamed(context,
+                                                    Navigator.popAndPushNamed(
+                                                        context,
                                                         RegisterPage.routeName);
                                                   },
                                                   child: const Text(

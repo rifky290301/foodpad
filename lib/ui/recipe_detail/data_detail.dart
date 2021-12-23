@@ -85,14 +85,9 @@ class DataDetail extends StatelessWidget {
               const SizedBox(height: 28),
               Row(
                 children: [
-                  recipeDetail.author.photo == null
-                      ? const CircleAvatar(
-                          backgroundImage: AssetImage('images/avatar.png'),
-                        )
-                      : CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(recipeDetail.author.photo),
-                        ),
+                  const CircleAvatar(
+                    backgroundImage: AssetImage('images/avatar.png'),
+                  ),
                   const SizedBox(width: 8),
                   Text(
                       '${recipeDetail.author.firstName} ${recipeDetail.author.lastName}',
@@ -268,7 +263,6 @@ class Step extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     steps.step.toString(),
-
                     style: blackTextStyle,
                     textAlign: TextAlign.justify,
                   ),

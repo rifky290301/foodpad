@@ -119,32 +119,35 @@ class _AddRecipeStepState extends State<AddRecipeStep> {
                             if (_formKey.currentState!.validate()) {
                               submitStep();
 
-                              showDialog<String>(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text(
-                                    'Berhasil Menggungah Resep',
-                                    style: titleTextStyle,
-                                  ),
-                                  content: const Text(
-                                      'Yay! Resepmu sudah berhasil diunggah ke aplikasi ini untuk dibagikan ke teman-teman FoodPad lainnya!',
-                                      style: blackTextStyle),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                        Navigator.popAndPushNamed(
-                                            context, MainPage.routeName);
-                                      },
-                                      child: const Text('Tutup',
-                                          style: orangeSmallTextStyle),
+                              Future.delayed(const Duration(seconds: 1), () {
+                                showDialog<String>(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text(
+                                      'Berhasil Menggungah Resep',
+                                      style: titleTextStyle,
                                     ),
-                                  ],
-                                ),
-                              );
+                                    content: const Text(
+                                        'Yay! Resepmu sudah berhasil diunggah ke aplikasi ini untuk dibagikan ke teman-teman FoodPad lainnya!',
+                                        style: blackTextStyle),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          Navigator.pop(context);
+                                          Navigator.pop(context);
+                                          Navigator.popAndPushNamed(
+                                              context, MainPage.routeName);
+                                        },
+                                        child: const Text('Tutup',
+                                            style: orangeSmallTextStyle),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
                               return;
                             } else {
                               showDialog<String>(

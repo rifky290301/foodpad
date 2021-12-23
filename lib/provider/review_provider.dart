@@ -40,7 +40,7 @@ class ReviewProvider extends ChangeNotifier {
       notifyListeners();
 
       final recipe = await apiService.reviewCheck(idRecipe);
-      if (recipe.data.isEmpty) {
+      if (recipe.data == null) {
         _state = ResultStateReview.noData;
         notifyListeners();
         return _message = 'No Data';

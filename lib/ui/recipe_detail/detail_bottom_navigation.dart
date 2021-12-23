@@ -224,22 +224,28 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
                                                           ratingBarValue,
                                                           reviewController
                                                               .text);
-                                                      Navigator.pop(context);
-                                                      Navigator.pushReplacement(
-                                                          context,
-                                                          PageRouteBuilder(
-                                                              pageBuilder: (a,
-                                                                      b, c) =>
-                                                                  DetailPage(
-                                                                    recipeId: widget
-                                                                        .recipeId,
-                                                                    name: widget
-                                                                        .name,
-                                                                  ),
-                                                              transitionDuration:
-                                                                  const Duration(
-                                                                      seconds:
-                                                                          0)));
+                                                      Future.delayed(
+                                                          const Duration(
+                                                              seconds: 1), () {
+                                                        Navigator.pop(context);
+                                                        Navigator
+                                                            .pushReplacement(
+                                                                context,
+                                                                PageRouteBuilder(
+                                                                    pageBuilder: (a,
+                                                                            b,
+                                                                            c) =>
+                                                                        DetailPage(
+                                                                          recipeId:
+                                                                              widget.recipeId,
+                                                                          name:
+                                                                              widget.name,
+                                                                        ),
+                                                                    transitionDuration:
+                                                                        const Duration(
+                                                                            seconds:
+                                                                                0)));
+                                                      });
                                                       Future.value();
                                                     }
                                                   } else {}
@@ -342,7 +348,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                     'Resep dihapus dari favorite',
                   ),
                 );
-                Future.delayed(const Duration(milliseconds: 500), () {
+                Future.delayed(const Duration(seconds: 1), () {
                   ScaffoldMessenger.of(context).showSnackBar(snackBarFalse);
                 });
               },
@@ -359,7 +365,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                     'Resep ditambahkan ke favorite.',
                   ),
                 );
-                Future.delayed(const Duration(milliseconds: 500), () {
+                Future.delayed(const Duration(seconds: 1), () {
                   ScaffoldMessenger.of(context).showSnackBar(snackBarTrue);
                 });
               },
