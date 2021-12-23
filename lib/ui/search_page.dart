@@ -50,7 +50,6 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ],
                           ),
-
                         );
                       } else if (state.state == ResultStates.hasData) {
                         return Column(
@@ -74,17 +73,6 @@ class _SearchPageState extends State<SearchPage> {
                                   ],
                                 )),
                             const SizedBox(height: 28),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: Text('Kategori',
-                                  style: itemTitleTextStyle,
-                                  textAlign: TextAlign.left),
-                            ),
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              height: 40,
-                              child: _buildCategory(context),
-                            ),
                             _formSearch(context, state),
                             const SizedBox(height: 16),
                             ListView.builder(
@@ -95,9 +83,12 @@ class _SearchPageState extends State<SearchPage> {
                                 var recipe = state.recipeResult.data[index];
                                 return InkWell(
                                   onTap: () {
-                                    Navigation.intentWithData(
-                                        DetailPage.routeName,
-                                        recipe.id.toString());
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return DetailPage(
+                                          recipeId: recipe.id.toString(),
+                                          name: recipe.name);
+                                    }));
                                   },
                                   child: Card(
                                     margin:
@@ -396,7 +387,6 @@ class _SearchPageState extends State<SearchPage> {
                         .toString()
                         .toLowerCase());
                   },
-
                   style: ElevatedButton.styleFrom(
                     primary: orange,
                   ),
@@ -406,7 +396,6 @@ class _SearchPageState extends State<SearchPage> {
           );
         } else if (state.state == ResultStates.error) {
           return const ErrorLoad();
-
         } else {
           return const Text('');
         }

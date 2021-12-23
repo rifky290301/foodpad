@@ -37,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ListTile(
                   leading:
                       const Icon(Icons.account_circle, color: black, size: 28),
-                  title: const Text('Pengaturan akun', style: blackTextStyle),
+                  title: const Text('Profil Akun', style: blackTextStyle),
                   onTap: () {
                     Navigator.push(
                       context,

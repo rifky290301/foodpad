@@ -20,7 +20,10 @@ class HomeCardRecommended extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigation.intentWithData(DetailPage.routeName, recipe.id.toString());
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return DetailPage(
+                recipeId: recipe.id.toString(), name: recipe.name);
+          }));
         },
         child: SizedBox(
           width: 160,
@@ -105,8 +108,8 @@ class HomeCardRecommended extends StatelessWidget {
                           Row(
                             children: [
                               InkWell(
-                                onTap: () =>
-                                    recipeBottomSheet(context, recipe.id),
+                                onTap: () => recipeBottomSheet(
+                                    context, recipe.id, recipe.name),
                                 child: const Icon(
                                   Icons.more_horiz,
                                   size: 20,

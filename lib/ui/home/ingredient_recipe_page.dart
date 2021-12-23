@@ -67,10 +67,15 @@ class IngredientRecipePageState extends State<IngredientRecipePage> {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
-                                      Navigation.intentWithData(
-                                          DetailPage.routeName,
-                                          state.recipeResult.data[index].id
-                                              .toString());
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return DetailPage(
+                                            recipeId: state
+                                                .recipeResult.data[index].id
+                                                .toString(),
+                                            name: state
+                                                .recipeResult.data[index].name);
+                                      }));
                                     },
                                     child: Card(
                                       margin: const EdgeInsets.symmetric(

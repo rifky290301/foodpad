@@ -298,8 +298,11 @@ class _CardFavoriteState extends State<CardFavorite> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigation.intentWithData(
-            DetailPage.routeName, (widget.recipe.recipeId).toString());
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return DetailPage(
+              recipeId: widget.recipe.recipeId.toString(),
+              name: widget.recipe.name!);
+        }));
       },
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 6),

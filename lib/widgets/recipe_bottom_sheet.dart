@@ -4,13 +4,14 @@ import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/favorite_provider.dart';
 import 'package:foodpad/provider/report_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 enum ReportRecipe { notApplicable, dangerous, notLike, notHalal }
 ReportRecipe? _report = ReportRecipe.notApplicable;
 
 FavoriteProvider instanceFavorite = FavoriteProvider(apiService: ApiService());
 
-void recipeBottomSheet(BuildContext context, idRecipe) {
+void recipeBottomSheet(BuildContext context, idRecipe, name) {
   showModalBottomSheet<void>(
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
@@ -43,10 +44,11 @@ void recipeBottomSheet(BuildContext context, idRecipe) {
                     context: context,
                     tiles: [
                       ListTile(
-                        title: const Text('Tambahkan ke Favorit',
+                        title: const Text('Bagikan Resep Ini',
                             style: itemTextStyle),
                         onTap: () {
-                          instanceFavorite.addFavorite(idRecipe);
+                          Share.share(
+                              'Ayo cobain resep $name di aplikasi FoodPad. Download aplikasinya disini: https://github.com/rifky290301/foodpad');
                           Navigator.pop(context);
                         },
                       ),

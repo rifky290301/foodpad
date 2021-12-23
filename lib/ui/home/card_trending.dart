@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/recipe_model.dart';
 import 'package:foodpad/ui/recipe_detail/detail_page.dart';
@@ -20,7 +19,10 @@ class HomeCardTrending extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigation.intentWithData(DetailPage.routeName, recipe.id.toString());
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return DetailPage(
+                recipeId: recipe.id.toString(), name: recipe.name);
+          }));
         },
         child: SizedBox(
           width: 160,
@@ -86,7 +88,8 @@ class HomeCardTrending extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                            onTap: () => recipeBottomSheet(context, recipe.id),
+                            onTap: () => recipeBottomSheet(
+                                context, recipe.id, recipe.name),
                             child: const Icon(Icons.more_horiz,
                                 size: 20, color: grey),
                           )

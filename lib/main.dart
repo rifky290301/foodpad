@@ -82,12 +82,13 @@ class MyApp extends StatelessWidget {
               RegisterPage.routeName: (context) => const RegisterPage(),
               HomePage.routeName: (context) => const HomePage(),
               DetailPage.routeName: (context) => DetailPage(
-                  recipeId:
-                      ModalRoute.of(context)?.settings.arguments as String),
+                    recipeId:
+                        ModalRoute.of(context)?.settings.arguments as String,
+                    name: ModalRoute.of(context)?.settings.arguments as String,
+                  ),
               SearchPage.routeName: (context) => const SearchPage(),
               AccountSettingsPage.routeName: (context) =>
                   const AccountSettingsPage(),
-
               IngredientsListPage.routeName: (context) =>
                   const IngredientsListPage(),
               TrendingListPage.routeName: (context) => const TrendingListPage(),

@@ -11,10 +11,12 @@ import 'package:foodpad/widgets/action_bar.dart';
 import 'package:provider/provider.dart';
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({Key? key, required this.recipeId}) : super(key: key);
+  const DetailPage({Key? key, required this.recipeId, required this.name})
+      : super(key: key);
   static const routeName = '/detail_page';
 
   final String recipeId;
+  final String name;
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -36,7 +38,10 @@ class _DetailPageState extends State<DetailPage> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: ActionBar("Resep", widget.recipeId.toString()),
+        title: ActionBar(
+            pageName: "Resep",
+            recipeId: widget.recipeId.toString(),
+            name: widget.name),
       ),
       body: RefreshIndicator(
         onRefresh: () {
@@ -44,7 +49,7 @@ class _DetailPageState extends State<DetailPage> {
               context,
               PageRouteBuilder(
                   pageBuilder: (a, b, c) =>
-                      DetailPage(recipeId: widget.recipeId),
+                      DetailPage(recipeId: widget.recipeId, name: widget.name),
                   transitionDuration: const Duration(seconds: 0)));
           return Future.value();
         },
@@ -79,14 +84,12 @@ class _DetailPageState extends State<DetailPage> {
                   }
                 }),
               ),
-
             ),
           ),
         ),
       ),
-      bottomNavigationBar: DetailBottomNavigation(
-        recipeId: widget.recipeId,
-      ),
+      bottomNavigationBar:
+          DetailBottomNavigation(recipeId: widget.recipeId, name: widget.name),
     );
   }
 }

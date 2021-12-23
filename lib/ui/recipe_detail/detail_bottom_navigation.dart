@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 
 class DetailBottomNavigation extends StatefulWidget {
   final String recipeId;
-  const DetailBottomNavigation({Key? key, required this.recipeId})
+  final String name;
+  const DetailBottomNavigation(
+      {Key? key, required this.recipeId, required this.name})
       : super(key: key);
 
   @override
@@ -26,7 +28,6 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     double ratingBarValue = 0;
     String _review;
@@ -232,6 +233,8 @@ class _DetailBottomNavigationState extends State<DetailBottomNavigation> {
                                                                   DetailPage(
                                                                     recipeId: widget
                                                                         .recipeId,
+                                                                    name: widget
+                                                                        .name,
                                                                   ),
                                                               transitionDuration:
                                                                   const Duration(

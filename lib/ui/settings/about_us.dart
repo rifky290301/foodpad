@@ -76,8 +76,6 @@ class AboutUsPage extends StatelessWidget {
                   style: subtitleTextStyle,
                   textAlign: TextAlign.justify,
                 ),
-                const SizedBox(height: 28),
-                const Text('Tentang Kami', style: titleTextStyle),
               ],
             ),
           )),
