@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:foodpad/api/api_service.dart';
 import 'package:foodpad/main.dart';
 import 'package:foodpad/utils/notification_helper.dart';
-import 'package:http/http.dart' as http;
 
 final ReceivePort port = ReceivePort();
 
@@ -28,8 +27,7 @@ class BackgroundService {
 
   static Future<void> callback() async {
     final NotificationHelper _notificationHelper = NotificationHelper();
-    http.Client client = http.Client();
-    var result = await ApiService().recipeList2(client);
+    var result = await ApiService().trendingList();
     var randomIndex = Random().nextInt(result.data.length);
     var data = result.data[randomIndex];
 
