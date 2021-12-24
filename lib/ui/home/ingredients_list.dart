@@ -4,7 +4,6 @@ import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/ingredients_homepage.dart';
 import 'package:foodpad/ui/home/ingredient_recipe_page.dart';
 import 'package:foodpad/ui/home/ingredients_list_page.dart';
-import 'package:foodpad/ui/search_page.dart';
 
 class HomeIngredientsList extends StatelessWidget {
   const HomeIngredientsList({Key? key}) : super(key: key);

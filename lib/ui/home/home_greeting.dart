@@ -12,13 +12,11 @@ class Greeting extends StatefulWidget {
 
 class _GreetingState extends State<Greeting> {
   String? _firstName = '';
-  String? _photo = '';
 
   void _loadData() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _firstName = prefs.getString('firstName');
-      _photo = prefs.getString('profilePicture');
     });
   }
 

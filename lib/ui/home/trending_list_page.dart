@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodpad/api/api_service.dart';
-import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/provider/recipe_provider.dart';
 import 'package:foodpad/ui/error/error.dart';

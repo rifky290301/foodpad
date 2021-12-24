@@ -1,10 +1,8 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodpad/api/api_service.dart';
-import 'package:foodpad/common/navigation.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:foodpad/models/favorite_model.dart';
 import 'package:foodpad/provider/favorite_provider.dart';

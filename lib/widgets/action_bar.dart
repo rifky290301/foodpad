@@ -7,7 +7,7 @@ class ActionBar extends StatelessWidget {
   final String recipeId;
   final String name;
 
-  ActionBar(
+  const ActionBar(
       {Key? key,
       required this.pageName,
       required this.recipeId,

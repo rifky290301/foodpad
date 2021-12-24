@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:foodpad/common/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,7 +47,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
               onPressed: () => Navigator.pop(context),
               icon: const Icon(Icons.arrow_back_ios),
             ),
-            Text("Profil Akun", style: titleTextStyle)
+            const Text("Profil Akun", style: titleTextStyle)
           ],
         ),
       ),
@@ -77,7 +75,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
       maxChildSize: 0.9,
       builder: (BuildContext context, ScrollController scrollController) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: 10.0),
+          margin: const EdgeInsets.symmetric(horizontal: 10.0),
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -86,7 +84,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
             ),
           ),
           child: Container(
-            margin: EdgeInsets.all(15.0),
+            margin: const EdgeInsets.all(15.0),
             child: ListView(
               children: <Widget>[
                 Text(
@@ -96,7 +94,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5.0),
+                const SizedBox(height: 5.0),
                 Text(
                   "Email : $_email",
                   style: blackTextStyle,
